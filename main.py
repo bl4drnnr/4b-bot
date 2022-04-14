@@ -6,7 +6,8 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, '<b>Your welcome, let\'s start!</b>', parse_mode='html')
+    welcomeMessage = f'<b>Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!</b>'
+    bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
 
 @bot.message_handler(commands=['helpme'])
