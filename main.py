@@ -7,13 +7,10 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!'
+    welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
+                     f'What are we going to do?\n\n' \
+                     f'/getpair - get crypto pair rate'
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
-
-
-@bot.message_handler(commands=['helpme'])
-def helpme(message):
-    bot.send_message(message.chat.id, 'What happened? How can I help you?')
 
 
 @bot.message_handler(commands=['getpair'])
