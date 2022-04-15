@@ -1,4 +1,5 @@
 import bybit
+import time
 import sys
 from decouple import config
 
@@ -15,6 +16,13 @@ except Exception as e:
     sys.exit()
 
 
+def updateInfo():
+    while True:
+        updatedInfo = client.Market.Market_symbolInfo().result()
+        response = updatedInfo[0]['result']
+        time.sleep(300)
+
+
 def getPairApi(pair):
     foundPair = None
     for item in res:
@@ -24,4 +32,6 @@ def getPairApi(pair):
 
 
 def setAlarmApi():
-    return None
+    while True:
+        # check for alarm
+        time.sleep(3)
