@@ -3,7 +3,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult
-from bybitapi import getPairApi
+from bybitapi import getPairApi, setAlarmApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -22,7 +22,8 @@ def startcmd(message):
 
 @bot.message_handler(commands=['setalarm'])
 def setalarmcmd(message):
-    bot.send_message(message.chat.id, "")
+    setAlarmApi()
+    bot.send_message(message.chat.id, "Alarm has been set successfully!")
 
 
 @bot.message_handler(commands=['commitposition'])
