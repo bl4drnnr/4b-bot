@@ -8,7 +8,7 @@ from bybitapi import getPairApi
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start', 'help', 'menu'])
 def start(message):
     welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                      f'What are we gonna do?\n\n' \
@@ -22,26 +22,27 @@ def start(message):
 
 @bot.message_handler(commands=['setalarm'])
 def setalarm(message):
-    bot.send_message(message.chat.id, "/help")
+    bot.send_message(message.chat.id, "")
 
 
 @bot.message_handler(commands=['commitposition'])
 def commitposition(message):
-    bot.send_message(message.chat.id, "/help")
+    bot.send_message(message.chat.id, "")
 
 
 @bot.message_handler(commands=['getpair'])
 def getpair(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
-                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)'
+                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)\n\n' \
+                     '<a>/menu</a>'
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
 
     for mpp in getMostPopularPairs():
         mpp = types.KeyboardButton(mpp)
         markup.add(mpp)
-    bot.send_message(message.chat.id, getPairMessage, reply_markup=markup)
+    bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
 
 @bot.message_handler(content_types=['text'])
@@ -58,7 +59,8 @@ def getpairfunc(message):
                  f'Purchase price: <b>{pair["bid_price"]}</b>\n' \
                  f'Selling price: <b>{pair["ask_price"]}</b>\n\n' \
                  f'The highest price in the last 24 hours: <b>{pair["high_price_24h"]}</b>\n' \
-                 f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n'
+                 f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n\n' \
+                 f'<a>/menu</a>'
 
     bot.send_message(message.chat.id, pairResult, parse_mode='html')
 
