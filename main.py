@@ -38,7 +38,14 @@ def getpairfunc(message):
     if not pair:
         return bot.send_message(message.chat.id, "Nah, not that, try something else.")
 
-    pairResult = pair
+    pairResult = f'Here you go with <b>{pair["symbol"]}</b> pair:\n\n' \
+                 f'Mark price: <b>{pair["mark_price"]}</b>\n' \
+                 f'Index price: <b>{pair["index_price"]}</b>\n\n' \
+                 f'Purchase price: <b>{pair["bid_price"]}</b>\n' \
+                 f'Selling price: {pair["ask_price"]}</b>\n\n' \
+                 f'The highest price in the last 24 hours: <b>{pair["high_price_24h"]}</b>\n' \
+                 f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n'
+
     bot.send_message(message.chat.id, pairResult, parse_mode='html')
 
 
