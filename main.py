@@ -8,12 +8,26 @@ from bybitapi import getPairApi
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start', 'help'])
 def start(message):
     welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
-                     f'What are we going to do?\n\n' \
-                     f'/getpair - get crypto pair rate (<i>to USDT only, for now</i>)'
+                     f'What are we gonna do?\n\n' \
+                     f'<b><i>Crypto</i></b>\n\n' \
+                     f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
+                     f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n\n' \
+                     f'<b><i>Positions</i></b>\n\n' \
+                     f'<a>/commitposition</a> - commit your position to collect data\n'
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
+
+
+@bot.message_handler(commands=['setalarm'])
+def setalarm(message):
+    bot.send_message(message.chat.id, "/help")
+
+
+@bot.message_handler(commands=['commitposition'])
+def commitposition(message):
+    bot.send_message(message.chat.id, "/help")
 
 
 @bot.message_handler(commands=['getpair'])
