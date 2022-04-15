@@ -37,10 +37,13 @@ def getpair(message):
                      'Haven\'t found? Just type pair! (example of format - BTCUSDT)\n\n' \
                      '<a>/menu</a>'
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-
+    markup = types.InlineKeyboardMarkup()
+    # markup.add(
+    #     types.InlineKeyboardButton("test", callback_data="data"),
+    #     types.InlineKeyboardButton("test", callback_data="data")
+    # )
     for mpp in getMostPopularPairs():
-        mpp = types.KeyboardButton(mpp)
+        mpp = types.InlineKeyboardButton(mpp, callback_data="/help")
         markup.add(mpp)
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
@@ -60,7 +63,8 @@ def getpairfunc(message):
                  f'Selling price: <b>{pair["ask_price"]}</b>\n\n' \
                  f'The highest price in the last 24 hours: <b>{pair["high_price_24h"]}</b>\n' \
                  f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n\n' \
-                 f'<a>/menu</a>'
+                 f'<a>/menu</a>\n' \
+                 f'<a>/getpair</a>'
 
     bot.send_message(message.chat.id, pairResult, parse_mode='html')
 

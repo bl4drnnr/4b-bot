@@ -1,2 +1,2 @@
 def getMostPopularPairs():
-    return ["BTCUSDT", "ETHUSDT", "LTCUSDT", "BNBUSDT", "DOGEUSDT"]
+    return ["BTCUSDT", "ETHUSDT", "LTCUSDT", "BNBUSDT"]
