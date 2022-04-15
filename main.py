@@ -1,7 +1,9 @@
 import telebot
 from telebot import types
 from decouple import config
+
 from common import getMostPopularPairs
+from bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -26,6 +28,14 @@ def getpair(message):
         mpp = types.KeyboardButton(mpp)
         markup.add(mpp)
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup)
+
+
+@bot.message_handler(content_types=['text'])
+def getpairfunc(message):
+    userMessage = message.text.strip().upper()
+    # pairResult = ""
+    pair = getPairApi(userMessage)
+    bot.send_message(message.chat.id, pair)
 
 
 bot.polling(none_stop=True)
