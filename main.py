@@ -2,6 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
+from common import getMostPopularPairs
+from bybitapi import getPairApi
+
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 
@@ -20,11 +23,19 @@ def getpair(message):
                      'Haven\'t found? Just type pair! (example of format - BTCUSDC)'
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btcusdt = types.KeyboardButton("BTCUSDT")
-    ethusdt = types.KeyboardButton("ETHUSDT")
-    ltcusdt = types.KeyboardButton("LTCUSDT")
-    markup.add(btcusdt, ethusdt, ltcusdt)
+
+    for mpp in getMostPopularPairs():
+        mpp = types.KeyboardButton(mpp)
+        markup.add(mpp)
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup)
+
+
+@bot.message_handler(content_types=['text'])
+def getpairfunc(message):
+    userMessage = message.text.strip().upper()
+    # pairResult = ""
+    pair = getPairApi(userMessage)
+    bot.send_message(message.chat.id, pair)
 
 
 bot.polling(none_stop=True)
