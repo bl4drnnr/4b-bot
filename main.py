@@ -38,13 +38,15 @@ def getpair(message):
                      '<a>/menu</a>'
 
     markup = types.InlineKeyboardMarkup()
-    # markup.add(
-    #     types.InlineKeyboardButton("test", callback_data="data"),
-    #     types.InlineKeyboardButton("test", callback_data="data")
-    # )
-    for mpp in getMostPopularPairs():
-        mpp = types.InlineKeyboardButton(mpp, callback_data="/help")
-        markup.add(mpp)
+    mostPopularPairs = getMostPopularPairs()
+    i = 0
+    while i != len(mostPopularPairs):
+        markup.add(
+            types.InlineKeyboardButton(mostPopularPairs[i], callback_data="/help"),
+            types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data="/help")
+        )
+        i += 2
+
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
 

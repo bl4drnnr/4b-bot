@@ -24,4 +24,4 @@ def getPairApi(pair):
 
 
 def setAlarmApi():
-    return 'test'
+    return None
