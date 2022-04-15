@@ -22,3 +22,6 @@ def getPairApi(pair):
             foundPair = item
     return foundPair
 
+
+def setAlarmApi():
+    return None

@@ -2,14 +2,14 @@ import telebot
 from telebot import types
 from decouple import config
 
-from common import getMostPopularPairs
+from common import getMostPopularPairs, printPairResult
 from bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 
 @bot.message_handler(commands=['start', 'help', 'menu'])
-def start(message):
+def startcmd(message):
     welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                      f'What are we gonna do?\n\n' \
                      f'<b><i>Crypto</i></b>\n\n' \
@@ -21,46 +21,56 @@ def start(message):
 
 
 @bot.message_handler(commands=['setalarm'])
-def setalarm(message):
+def setalarmcmd(message):
     bot.send_message(message.chat.id, "")
 
 
 @bot.message_handler(commands=['commitposition'])
-def commitposition(message):
+def commitpositioncmd(message):
     bot.send_message(message.chat.id, "")
 
 
 @bot.message_handler(commands=['getpair'])
-def getpair(message):
+def getpaircmd(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
                      'Haven\'t found? Just type pair! (example of format - BTCUSDT)\n\n' \
                      '<a>/menu</a>'
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    markup = types.InlineKeyboardMarkup()
+    mostPopularPairs = getMostPopularPairs()
+    i = 0
+    while i != len(mostPopularPairs):
+        markup.add(
+            types.InlineKeyboardButton(mostPopularPairs[i], callback_data=mostPopularPairs[i]),
+            types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data=mostPopularPairs[i + 1])
+        )
+        i += 2
 
-    for mpp in getMostPopularPairs():
-        mpp = types.KeyboardButton(mpp)
-        markup.add(mpp)
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
 
+@bot.callback_query_handler(func=lambda call: True)
+def getpairbtn(call):
+    userMessage = call.data
+    pair = getPairApi(userMessage)
+    if not pair:
+        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.")
+
+    pairResult = printPairResult(pair)
+
+    bot.send_message(call.message.chat.id, pairResult, parse_mode='html')
+
+
 @bot.message_handler(content_types=['text'])
-def getpairfunc(message):
+def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
     pair = getPairApi(userMessage)
 
     if not pair:
         return bot.send_message(message.chat.id, "Nah, not that, try something else.")
 
-    pairResult = f'Here you go with <b>{pair["symbol"]}</b> pair:\n\n' \
-                 f'Mark price: <b>{pair["mark_price"]}</b>\n' \
-                 f'Index price: <b>{pair["index_price"]}</b>\n\n' \
-                 f'Purchase price: <b>{pair["bid_price"]}</b>\n' \
-                 f'Selling price: <b>{pair["ask_price"]}</b>\n\n' \
-                 f'The highest price in the last 24 hours: <b>{pair["high_price_24h"]}</b>\n' \
-                 f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n\n' \
-                 f'<a>/menu</a>'
+    pairResult = printPairResult(pair)
 
     bot.send_message(message.chat.id, pairResult, parse_mode='html')
 
