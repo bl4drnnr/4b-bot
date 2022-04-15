@@ -28,6 +28,10 @@ def getPairApi(pair):
 
 
 def setAlarmApi():
+    return None
+
+
+def getAlarmApi():
     while True:
         # check for alarm
         time.sleep(3)
