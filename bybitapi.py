@@ -16,7 +16,9 @@ except Exception as e:
 
 
 def getPairApi(pair):
+    foundPair = None
     for item in res:
         if item['symbol'] == pair:
-            pair = item
-    return pair
+            foundPair = item
+    return foundPair
+
