@@ -33,9 +33,13 @@ def getpair(message):
 @bot.message_handler(content_types=['text'])
 def getpairfunc(message):
     userMessage = message.text.strip().upper()
-    # pairResult = ""
     pair = getPairApi(userMessage)
-    bot.send_message(message.chat.id, pair)
+
+    if not pair:
+        return bot.send_message(message.chat.id, "Nah, not that, try something else.")
+
+    pairResult = pair
+    bot.send_message(message.chat.id, pairResult, parse_mode='html')
 
 
 bot.polling(none_stop=True)
