@@ -17,6 +17,7 @@ def startcmd(message):
                      f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n\n' \
                      f'<b><i>Positions</i></b>\n\n' \
                      f'<a>/commitposition</a> - commit your position to collect data\n'
+    # TODO Write everything to database but generate api tokens, to restore positions or smth.
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
 
