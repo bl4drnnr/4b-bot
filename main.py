@@ -7,6 +7,14 @@ from bybitapi import getPairApi, setAlarmApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
+alarm_dict = {}
+
+
+class Alarm:
+    def __init__(self, crypto):
+        self.crypto = crypto
+        self.price = None
+
 
 @bot.message_handler(commands=['start', 'help', 'menu'])
 def startcmd(message):
@@ -14,9 +22,11 @@ def startcmd(message):
                      f'What are we gonna do?\n\n' \
                      f'<b><i>Crypto</i></b>\n\n' \
                      f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
-                     f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n\n' \
+                     f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
+                     f'<a>/getalarm</a> - get all your alarms\n\n' \
                      f'<b><i>Positions</i></b>\n\n' \
-                     f'<a>/commitposition</a> - commit your position to collect data\n'
+                     f'<a>/commitposition</a> - commit your position to collect data\n' \
+                     f'<a>/getpositions</a> - get all your committed positions\n'
     # TODO Write everything to database but generate api tokens, to restore positions or smth.
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
@@ -35,6 +45,9 @@ def setalarmcryptopair(message):
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
 
+    alarm = Alarm(pair['symbol'])
+    alarm_dict[message.chat.id] = alarm
+
     alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
                    f"What about trigger price?"
     msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
@@ -42,18 +55,30 @@ def setalarmcryptopair(message):
 
 
 def setalarmprice(message):
-    print(type(message.text))
-    price = float(message.text)
-    print(price)
-    # if type(message.text) != 'float':
-    #     return bot.send_message(message.chat.id, "Does it look like number? Really?")
-    # else:
-    #     print(message.text)
+    try:
+        price = float(message.text)
+        alarm = alarm_dict[message.chat.id]
+        alarm.price = price
+    except ValueError:
+        return bot.send_message(message.chat.id, "Does it really look like number? Don't think so!")
 
 
 @bot.message_handler(commands=['commitposition'])
 def commitpositioncmd(message):
-    bot.send_message(message.chat.id, "")
+    commitPositionMessage = ""
+    bot.send_message(message.chat.id, commitPositionMessage)
+
+
+@bot.message_handler(commands=['getpositions'])
+def getpositionscmd(message):
+    getPositionMessage = ""
+    bot.send_message(message.chat.id, getPositionMessage)
+
+
+@bot.message_handler(commands=['getalarm'])
+def getalarmcmd(message):
+    getAlarmMessage = ""
+    bot.send_message(message.chat.id, getAlarmMessage)
 
 
 @bot.message_handler(commands=['getpair'])
@@ -84,9 +109,9 @@ def getpairbtn(call):
         return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
                                                       "<a>/menu</a>", parse_mode='html')
 
-    pairResult = printPairResult(pair)
+    pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairResult, parse_mode='html')
+    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html')
 
 
 @bot.message_handler(content_types=['text'])
@@ -97,9 +122,9 @@ def getpairfuncmessage(message):
         return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
                                                  "<a>/menu</a>", parse_mode='html')
 
-    pairResult = printPairResult(pair)
+    pairMessage = printPairResult(pair)
 
-    bot.send_message(message.chat.id, pairResult, parse_mode='html')
+    bot.send_message(message.chat.id, pairMessage, parse_mode='html')
 
 
 bot.polling(none_stop=True)
