@@ -30,10 +30,25 @@ def setalarmcmd(message):
 
 
 def setalarmcryptopair(message):
-    pair = getPairApi(message.text)
+    pair = getPairApi(message.text.strip().upper())
 
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
+
+    alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
+                   f"What about trigger price?"
+    msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
+    bot.register_next_step_handler(msg, setalarmprice)
+
+
+def setalarmprice(message):
+    print(type(message.text))
+    price = float(message.text)
+    print(price)
+    # if type(message.text) != 'float':
+    #     return bot.send_message(message.chat.id, "Does it look like number? Really?")
+    # else:
+    #     print(message.text)
 
 
 @bot.message_handler(commands=['commitposition'])
@@ -66,7 +81,8 @@ def getpairbtn(call):
     userMessage = call.data
     pair = getPairApi(userMessage)
     if not pair:
-        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.")
+        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
+                                                      "<a>/menu</a>", parse_mode='html')
 
     pairResult = printPairResult(pair)
 
@@ -78,7 +94,8 @@ def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
     pair = getPairApi(userMessage)
     if not pair:
-        return bot.send_message(message.chat.id, "Nah, not that, try something else.")
+        return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
+                                                 "<a>/menu</a>", parse_mode='html')
 
     pairResult = printPairResult(pair)
 
