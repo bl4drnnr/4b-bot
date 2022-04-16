@@ -8,14 +8,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_PASSWORD: password
-      MYSQL_DATABASE: pnb
+      MYSQL_DATABASE: pcm
     networks:
-      - pnbnetwork
+      - pcmnetwork
   api:
     image: python
     container_name: pcmapi
 
 networks:
-  pnbnetwork:
+  pcmnetwork:
     driver: bridge
     name: pcm
