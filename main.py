@@ -4,16 +4,11 @@ from decouple import config
 
 from common import getMostPopularPairs, printPairResult
 from bybitapi import getPairApi, setAlarmApi
+from alarm import Alarm
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 alarm_dict = {}
-
-
-class Alarm:
-    def __init__(self, crypto):
-        self.crypto = crypto
-        self.price = None
 
 
 @bot.message_handler(commands=['start', 'help', 'menu'])
