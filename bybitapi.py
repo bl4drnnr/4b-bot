@@ -1,6 +1,7 @@
 import bybit
 import time
 import sys
+from services import postAlarm
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -28,6 +29,7 @@ def getPairApi(pair):
 
 
 def setAlarmApi(pair, price):
+    postAlarm()
     return None
 
 

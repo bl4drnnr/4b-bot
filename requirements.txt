@@ -1,0 +1,4 @@
+Bybit==0.2.12
+mysql_connector_repackaged==0.3.1
+pyTelegramBotAPI==4.4.0
+python-decouple==3.6

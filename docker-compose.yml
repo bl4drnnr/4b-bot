@@ -13,6 +13,14 @@ services:
   api:
     image: python
     container_name: pcmapi
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - pcmnetwork
+    depends_on:
+      - db
 
 networks:
   pcmnetwork:
