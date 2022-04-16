@@ -5,10 +5,8 @@ services:
     container_name: pcmdb
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: pcm
+    env_file:
+      - db.env
     networks:
       - pcmnetwork
   api:
