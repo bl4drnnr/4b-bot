@@ -8,6 +8,6 @@ env_config = Config(RepositoryEnv(DB_DOTENV_FILE))
 db = mysql.connector.connect(
     host="localhost",
     user="localhost",
-    passwd=env_config.get("PASSWORD"),
-    database=env_config.get("DATABASE")
+    passwd=env_config.get("MYSQL_PASSWORD"),
+    database=env_config.get("MYSQL_DATABASE")
 )
