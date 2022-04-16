@@ -13,7 +13,7 @@ services:
     build:
       context: "."
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     networks:
       - pcmnetwork
     depends_on:
@@ -22,4 +22,4 @@ services:
 networks:
   pcmnetwork:
     driver: bridge
-    name: pcm
+    name: pcmnetwork
