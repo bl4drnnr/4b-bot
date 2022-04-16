@@ -42,13 +42,10 @@ def setalarmcryptopair(message):
 
 
 def setalarmprice(message):
-    print(type(message.text))
-    price = float(message.text)
-    print(price)
-    # if type(message.text) != 'float':
-    #     return bot.send_message(message.chat.id, "Does it look like number? Really?")
-    # else:
-    #     print(message.text)
+    try:
+        price = float(message.text)
+    except ValueError:
+        return bot.send_message(message.chat.id, "Does it look like number? Really?")
 
 
 @bot.message_handler(commands=['commitposition'])
