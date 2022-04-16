@@ -25,7 +25,8 @@ def startcmd(message):
                      f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
                      f'<a>/getalarm</a> - get all your alarms\n\n' \
                      f'<b><i>Positions</i></b>\n\n' \
-                     f'<a>/commitposition</a> - commit your position to collect data\n'
+                     f'<a>/commitposition</a> - commit your position to collect data\n' \
+                     f'<a>/getpositions</a> - get all your committed positions\n'
     # TODO Write everything to database but generate api tokens, to restore positions or smth.
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
@@ -64,12 +65,20 @@ def setalarmprice(message):
 
 @bot.message_handler(commands=['commitposition'])
 def commitpositioncmd(message):
-    bot.send_message(message.chat.id, "")
+    commitPositionMessage = ""
+    bot.send_message(message.chat.id, commitPositionMessage)
+
+
+@bot.message_handler(commands=['getpositions'])
+def getpositionscmd(message):
+    getPositionMessage = ""
+    bot.send_message(message.chat.id, getPositionMessage)
 
 
 @bot.message_handler(commands=['getalarm'])
-def getalarm(message):
+def getalarmcmd(message):
     getAlarmMessage = ""
+    bot.send_message(message.chat.id, getAlarmMessage)
 
 
 @bot.message_handler(commands=['getpair'])
@@ -100,9 +109,9 @@ def getpairbtn(call):
         return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
                                                       "<a>/menu</a>", parse_mode='html')
 
-    pairResult = printPairResult(pair)
+    pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairResult, parse_mode='html')
+    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html')
 
 
 @bot.message_handler(content_types=['text'])
@@ -113,9 +122,9 @@ def getpairfuncmessage(message):
         return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
                                                  "<a>/menu</a>", parse_mode='html')
 
-    pairResult = printPairResult(pair)
+    pairMessage = printPairResult(pair)
 
-    bot.send_message(message.chat.id, pairResult, parse_mode='html')
+    bot.send_message(message.chat.id, pairMessage, parse_mode='html')
 
 
 bot.polling(none_stop=True)
