@@ -1,7 +1,7 @@
 import bybit
 import time
 import sys
-from services import postAlarm
+from services.database import postAlarm
 from decouple import config
 
 API_KEY = config("API_KEY")

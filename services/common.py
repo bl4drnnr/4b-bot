@@ -12,3 +12,9 @@ def printPairResult(pair):
            f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n\n' \
            f'<a>/menu</a>\n' \
            f'<a>/getpair</a>'
+
+
+class Alarm:
+    def __init__(self, crypto):
+        self.crypto = crypto
+        self.price = None
