@@ -11,3 +11,7 @@ db = mysql.connector.connect(
     password=env_config.get("MYSQL_PASSWORD"),
     database=env_config.get("MYSQL_DATABASE"),
 )
+
+
+def postAlarm():
+    return None
