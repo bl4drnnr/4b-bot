@@ -42,8 +42,13 @@ def setalarmcryptopair(message):
 
 
 def setalarmprice(message):
-    print(message.text)
     print(type(message.text))
+    price = float(message.text)
+    print(price)
+    # if type(message.text) != 'float':
+    #     return bot.send_message(message.chat.id, "Does it look like number? Really?")
+    # else:
+    #     print(message.text)
 
 
 @bot.message_handler(commands=['commitposition'])
@@ -77,7 +82,7 @@ def getpairbtn(call):
     pair = getPairApi(userMessage)
     if not pair:
         return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
-                                                      "<a>/menu</a>")
+                                                      "<a>/menu</a>", parse_mode='html')
 
     pairResult = printPairResult(pair)
 
@@ -90,7 +95,7 @@ def getpairfuncmessage(message):
     pair = getPairApi(userMessage)
     if not pair:
         return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
-                                                 "<a>/menu</a>")
+                                                 "<a>/menu</a>", parse_mode='html')
 
     pairResult = printPairResult(pair)
 
