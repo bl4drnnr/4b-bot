@@ -23,8 +23,17 @@ def startcmd(message):
 
 @bot.message_handler(commands=['setalarm'])
 def setalarmcmd(message):
-    setAlarmApi()
-    bot.send_message(message.chat.id, "Alarm has been set successfully!")
+    alarmMessage = "Let's start with setting up alarm.\n\n" \
+                   "First of all, provide the pair you want to observe."
+    msg = bot.send_message(message.chat.id, alarmMessage)
+    bot.register_next_step_handler(msg, setalarmcryptopair)
+
+
+def setalarmcryptopair(message):
+    pair = getPairApi(message.text)
+
+    if not pair:
+        return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
 
 
 @bot.message_handler(commands=['commitposition'])
@@ -68,7 +77,6 @@ def getpairbtn(call):
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
     pair = getPairApi(userMessage)
-
     if not pair:
         return bot.send_message(message.chat.id, "Nah, not that, try something else.")
 

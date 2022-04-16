@@ -27,7 +27,7 @@ def getPairApi(pair):
     return foundPair
 
 
-def setAlarmApi():
+def setAlarmApi(pair, price):
     return None
 
 
