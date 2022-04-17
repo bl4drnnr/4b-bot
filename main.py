@@ -22,7 +22,7 @@ def startcmd(message):
                      f'<b><i>Positions</i></b>\n\n' \
                      f'<a>/commitposition</a> - commit your position to collect data\n' \
                      f'<a>/getpositions</a> - get all your committed positions\n'
-    # TODO Write everything to database but generate api tokens, to restore positions or smth.
+
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
 
