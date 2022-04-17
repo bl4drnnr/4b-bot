@@ -105,10 +105,6 @@ def getpairbtn(call):
             return startcmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
-        else:
-            markup = types.InlineKeyboardMarkup()
-            markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
-            return bot.send_message(call.message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
     else:
         pair = getPairApi(userMessage)
 
@@ -125,6 +121,13 @@ def getpairbtn(call):
 @bot.message_handler(content_types=['text'])
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
+
+    if userMessage[0] == '/':
+        userMessage = userMessage.lower()
+        if userMessage not in commands:
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+            return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
     pair = getPairApi(userMessage)
 
