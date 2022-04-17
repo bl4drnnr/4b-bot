@@ -64,6 +64,11 @@ def setalarmprice(message):
         return bot.send_message(message.chat.id, "Does it really look like number? Don't think so!")
 
 
+@bot.message_handler(commands=['cancel'])
+def cancelcmd(message):
+    return None
+
+
 @bot.message_handler(commands=['commitposition'])
 def commitpositioncmd(message):
     commitPositionMessage = ""
@@ -111,6 +116,8 @@ def getpairbtn(call):
             return startcmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
+        elif userMessage == '/cancel':
+            return cancelcmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
