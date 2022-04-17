@@ -12,6 +12,10 @@ def printPairResult(pair):
            f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>'
 
 
+def getAvailableCommands():
+    return ['start', 'help', 'menu', 'setalarm', 'commitposition', 'getpositions', 'getalarm', 'getpair']
+
+
 class Alarm:
     def __init__(self, crypto):
         self.crypto = crypto
