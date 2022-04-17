@@ -35,7 +35,7 @@ def setalarmcmd(message):
 
 
 def setalarmcryptopair(message):
-    pair = getPairApi(message.text.strip().upper())
+    pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
 
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
@@ -80,7 +80,7 @@ def getalarmcmd(message):
 def getpaircmd(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
-                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)'
+                     'Haven\'t found? Just type crypto! (Only USDT pair are available)'
 
     markup = types.InlineKeyboardMarkup()
     mostPopularPairs = getMostPopularPairs()
@@ -100,23 +100,36 @@ def getpaircmd(message):
 def getpairbtn(call):
     userMessage = call.data
 
-    pair = getPairApi(userMessage)
+    if userMessage[0] == '/':
+        if userMessage == '/menu':
+            return startcmd(call.message)
+        elif userMessage == '/getpair':
+            return getpaircmd(call.message)
+    else:
+        pair = getPairApi(str(userMessage) + str("USDT"))
 
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-    if not pair:
-        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
+        if not pair:
+            return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
-    pairMessage = printPairResult(pair)
+        pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
+        bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
 
-    pair = getPairApi(userMessage)
+    if userMessage[0] == '/':
+        userMessage = userMessage.lower()
+        if userMessage not in commands:
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+            return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
+
+    pair = getPairApi(str(userMessage) + str("USDT"))
 
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
