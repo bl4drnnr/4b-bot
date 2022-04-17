@@ -79,8 +79,7 @@ def getalarmcmd(message):
 def getpaircmd(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
-                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)\n\n' \
-                     '<a>/menu</a>'
+                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)'
 
     markup = types.InlineKeyboardMarkup()
     mostPopularPairs = getMostPopularPairs()
@@ -91,6 +90,7 @@ def getpaircmd(message):
             types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data=mostPopularPairs[i + 1])
         )
         i += 2
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
@@ -99,9 +99,11 @@ def getpaircmd(message):
 def getpairbtn(call):
     userMessage = call.data
     pair = getPairApi(userMessage)
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     if not pair:
-        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
-                                                      "<a>/menu</a>", parse_mode='html')
+        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
@@ -112,9 +114,11 @@ def getpairbtn(call):
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
     pair = getPairApi(userMessage)
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     if not pair:
-        return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
-                                                 "<a>/menu</a>", parse_mode='html')
+        return bot.send_message(message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
