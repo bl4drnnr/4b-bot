@@ -15,3 +15,7 @@ db = mysql.connector.connect(
 
 def postAlarm():
     return None
+
+
+def getAlarm():
+    return None

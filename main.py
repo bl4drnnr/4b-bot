@@ -66,7 +66,7 @@ def setalarmprice(message):
 
 @bot.message_handler(commands=['cancel'])
 def cancelcmd(message):
-    return None
+    return startcmd(message)
 
 
 @bot.message_handler(commands=['commitposition'])
