@@ -30,22 +30,28 @@ def startcmd(message):
 def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
                    "First of all, provide the pair you want to observe."
-    msg = bot.send_message(message.chat.id, alarmMessage)
+
+    markup = types.InlineKeyboardMarkup()
+    types.InlineKeyboardButton('Cancel', callback_data='/cancel')
+
+    msg = bot.send_message(message.chat.id, alarmMessage, reply_markup=markup)
     bot.register_next_step_handler(msg, setalarmcryptopair)
 
 
 def setalarmcryptopair(message):
     pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
+    markup = types.InlineKeyboardMarkup()
+    types.InlineKeyboardButton('Cancel', callback_data='/cancel')
 
     if not pair:
-        return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
+        return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.", reply_markup=markup)
 
     alarm = Alarm(pair['symbol'])
     alarm_dict[message.chat.id] = alarm
 
     alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
                    f"What about trigger price?"
-    msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
+    msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
     bot.register_next_step_handler(msg, setalarmprice)
 
 
