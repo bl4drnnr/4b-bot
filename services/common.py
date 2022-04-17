@@ -13,7 +13,7 @@ def printPairResult(pair):
 
 
 def getAvailableCommands():
-    return ['start', 'help', 'menu', 'setalarm', 'commitposition', 'getpositions', 'getalarm', 'getpair']
+    return ['/start', '/help', '/menu', '/setalarm', '/commitposition', '/getpositions', '/getalarm', '/getpair']
 
 
 class Alarm:

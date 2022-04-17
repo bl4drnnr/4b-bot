@@ -100,9 +100,6 @@ def getpaircmd(message):
 def getpairbtn(call):
     userMessage = call.data
 
-    if userMessage[0] == '/':
-        print('asd')
-
     pair = getPairApi(userMessage)
 
     markup = types.InlineKeyboardMarkup()
@@ -118,9 +115,6 @@ def getpairbtn(call):
 @bot.message_handler(content_types=['text'])
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
-
-    if userMessage[0] == '/':
-        print('asd')
 
     pair = getPairApi(userMessage)
 
