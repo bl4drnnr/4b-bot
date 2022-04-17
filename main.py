@@ -100,16 +100,26 @@ def getpaircmd(message):
 def getpairbtn(call):
     userMessage = call.data
 
-    pair = getPairApi(userMessage)
+    if userMessage[0] == '/':
+        if userMessage == '/menu':
+            return startcmd(call.message)
+        elif userMessage == '/getpair':
+            return getpaircmd(call.message)
+        else:
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+            return bot.send_message(call.message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
+    else:
+        pair = getPairApi(userMessage)
 
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-    if not pair:
-        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
+        if not pair:
+            return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
-    pairMessage = printPairResult(pair)
+        pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
+        bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
