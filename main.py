@@ -32,7 +32,7 @@ def setalarmcmd(message):
                    "First of all, provide the pair you want to observe."
 
     markup = types.InlineKeyboardMarkup()
-    types.InlineKeyboardButton('Cancel', callback_data='/cancel')
+    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
 
     msg = bot.send_message(message.chat.id, alarmMessage, reply_markup=markup)
     bot.register_next_step_handler(msg, setalarmcryptopair)
@@ -41,7 +41,7 @@ def setalarmcmd(message):
 def setalarmcryptopair(message):
     pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
     markup = types.InlineKeyboardMarkup()
-    types.InlineKeyboardButton('Cancel', callback_data='/cancel')
+    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
 
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.", reply_markup=markup)
