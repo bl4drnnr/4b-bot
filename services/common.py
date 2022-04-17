@@ -1,5 +1,5 @@
 def getMostPopularPairs():
-    return ["BTCUSDT", "ETHUSDT", "LTCUSDT", "BNBUSDT"]
+    return ["BTC", "ETH", "LTC", "BNB"]
 
 
 def printPairResult(pair):

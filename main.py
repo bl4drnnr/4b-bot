@@ -35,7 +35,7 @@ def setalarmcmd(message):
 
 
 def setalarmcryptopair(message):
-    pair = getPairApi(message.text.strip().upper())
+    pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
 
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.")
@@ -80,7 +80,7 @@ def getalarmcmd(message):
 def getpaircmd(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
-                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)'
+                     'Haven\'t found? Just type crypto! (Only USDT pair are available)'
 
     markup = types.InlineKeyboardMarkup()
     mostPopularPairs = getMostPopularPairs()
@@ -106,7 +106,7 @@ def getpairbtn(call):
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
     else:
-        pair = getPairApi(userMessage)
+        pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
@@ -129,7 +129,7 @@ def getpairfuncmessage(message):
             markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
-    pair = getPairApi(userMessage)
+    pair = getPairApi(str(userMessage) + str("USDT"))
 
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
