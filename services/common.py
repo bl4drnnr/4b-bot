@@ -9,9 +9,7 @@ def printPairResult(pair):
            f'Purchase price: <b>{pair["bid_price"]}</b>\n' \
            f'Selling price: <b>{pair["ask_price"]}</b>\n\n' \
            f'The highest price in the last 24 hours: <b>{pair["high_price_24h"]}</b>\n' \
-           f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>\n\n' \
-           f'<a>/menu</a>\n' \
-           f'<a>/getpair</a>'
+           f'Lowest price in the last 24 hours: <b>{pair["low_price_24h"]}</b>'
 
 
 class Alarm:

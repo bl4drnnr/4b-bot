@@ -101,13 +101,13 @@ def getpairbtn(call):
     pair = getPairApi(userMessage)
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
     if not pair:
         return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html')
+    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
@@ -116,13 +116,13 @@ def getpairfuncmessage(message):
     pair = getPairApi(userMessage)
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
     if not pair:
         return bot.send_message(message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
-    bot.send_message(message.chat.id, pairMessage, parse_mode='html')
+    bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)
