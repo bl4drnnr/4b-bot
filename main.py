@@ -2,12 +2,13 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.common import getMostPopularPairs, printPairResult, Alarm
+from services.common import getMostPopularPairs, printPairResult, getAvailableCommands, Alarm
 from api.bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 alarm_dict = {}
+commands = getAvailableCommands()
 
 
 @bot.message_handler(commands=['start', 'help', 'menu'])
@@ -79,8 +80,7 @@ def getalarmcmd(message):
 def getpaircmd(message):
     getPairMessage = 'Ok, what\'s pair you are looking for?\n\n' \
                      'Here is the list of most popular pairs.\n\n' \
-                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)\n\n' \
-                     '<a>/menu</a>'
+                     'Haven\'t found? Just type pair! (example of format - BTCUSDT)'
 
     markup = types.InlineKeyboardMarkup()
     mostPopularPairs = getMostPopularPairs()
@@ -91,6 +91,7 @@ def getpaircmd(message):
             types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data=mostPopularPairs[i + 1])
         )
         i += 2
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
@@ -98,27 +99,33 @@ def getpaircmd(message):
 @bot.callback_query_handler(func=lambda call: True)
 def getpairbtn(call):
     userMessage = call.data
+
     pair = getPairApi(userMessage)
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
     if not pair:
-        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.\n\n"
-                                                      "<a>/menu</a>", parse_mode='html')
+        return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
-    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html')
+    bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
+
     pair = getPairApi(userMessage)
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
     if not pair:
-        return bot.send_message(message.chat.id, "Nah, not that, try something else.\n\n"
-                                                 "<a>/menu</a>", parse_mode='html')
+        return bot.send_message(message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
 
     pairMessage = printPairResult(pair)
 
-    bot.send_message(message.chat.id, pairMessage, parse_mode='html')
+    bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)
