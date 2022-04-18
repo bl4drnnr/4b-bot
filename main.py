@@ -110,17 +110,16 @@ def getpairfuncmessage(message):
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
     if len(userMessage.split()) == 2:
-        markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"))
-        markup.add(types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
+        markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
         try:
-            crypto = userMessage.split()[0]
-            price = userMessage.split()[1]
+            crypto = str(userMessage.split()[0])
+            price = float(userMessage.split()[1])
         except ValueError:
             return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen {crypto} hits {price}, we'll notify you.", parse_mode='html', reply_markup=markup)
+        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
