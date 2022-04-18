@@ -32,3 +32,11 @@ def getAlarms(uid):
     for x in cursor:
         allAlarms.append(x)
     return allAlarms
+
+
+def postPosition():
+    return None
+
+
+def getPositions():
+    return None
