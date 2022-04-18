@@ -13,7 +13,7 @@ db = mysql.connector.connect(
 )
 
 
-def postAlarm():
+def postAlarm(crypto, price):
     return None
 
 

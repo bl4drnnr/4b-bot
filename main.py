@@ -3,7 +3,7 @@ from telebot import types
 from decouple import config
 
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.bybitapi import getPairApi
+from api.bybitapi import getPairApi, setAlarmApi, getAlarmApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -122,6 +122,7 @@ def getpairfuncmessage(message):
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
+        alarm = setAlarmApi(pair['symbol'], price)
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
