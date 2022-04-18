@@ -12,7 +12,7 @@ commands = getAvailableCommands()
 
 
 # def startcmd(message):
-#     startMessage = "Hello, you are probably new one?"
+#     startMessage = "Hello, you are probably new one here?"
 #     markup = types.InlineKeyboardMarkup()
 #     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
 #     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)

@@ -35,8 +35,8 @@ def getAllAlarms(userid):
     return getAlarms(userid)
 
 
-def commitPositions():
-    return postPosition()
+def commitPositions(crypto, dateFrom, dateTo, interval, tp, sl):
+    return postPosition(crypto, dateFrom, dateTo, interval, tp, sl)
 
 
 def getPositions(userid):

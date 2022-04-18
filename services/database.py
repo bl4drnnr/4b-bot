@@ -40,7 +40,7 @@ def getAlarms(uid):
     return allAlarms
 
 
-def postPosition():
+def postPosition(crypto, dateFrom, dateTo, interval, tp, sl):
     return None
 
 
