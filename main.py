@@ -2,12 +2,11 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.common import getMostPopularPairs, printPairResult, getAvailableCommands, Alarm
+from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
 from api.bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
-alarm_dict = {}
 commands = getAvailableCommands()
 
 
@@ -22,51 +21,20 @@ def startcmd(message):
                      f'<b><i>Positions</i></b>\n\n' \
                      f'<a>/commitposition</a> - commit your position to collect data\n' \
                      f'<a>/getpositions</a> - get all your committed positions\n'
-    # TODO Write everything to database but generate api tokens, to restore positions or smth.
+
     bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
 
 
 @bot.message_handler(commands=['setalarm'])
 def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
-                   "First of all, provide the pair you want to observe."
-
+                   "Provide the crypto you want to observe and price.\n\n" \
+                   "Example of format - <b>btc 39165.45</b>"
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
-    msg = bot.send_message(message.chat.id, alarmMessage, reply_markup=markup)
-    bot.register_next_step_handler(msg, setalarmcryptopair)
-
-
-def setalarmcryptopair(message):
-    pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
-
-    if not pair:
-        return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.", reply_markup=markup)
-
-    alarm = Alarm(pair['symbol'])
-    alarm_dict[message.chat.id] = alarm
-
-    alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
-                   f"What about trigger price?"
-    msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
-    bot.register_next_step_handler(msg, setalarmprice)
-
-
-def setalarmprice(message):
-    try:
-        price = float(message.text)
-        alarm = alarm_dict[message.chat.id]
-        alarm.price = price
-    except ValueError:
-        return bot.send_message(message.chat.id, "Does it really look like number? Don't think so!")
-
-
-@bot.message_handler(commands=['cancel'])
-def cancelcmd(message):
-    return None
+    bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['commitposition'])
@@ -116,15 +84,17 @@ def getpairbtn(call):
             return startcmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
-        elif userMessage == '/cancel':
-            return cancelcmd(call.message)
+        elif userMessage == '/setalarm':
+            return setalarmcmd(call.message)
+        elif userMessage == '/getalarm':
+            return getalarmcmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
         if not pair:
-            return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+            return bot.send_message(call.message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)
 
@@ -134,24 +104,36 @@ def getpairbtn(call):
 @bot.message_handler(content_types=['text'])
 def getpairfuncmessage(message):
     userMessage = message.text.strip().upper()
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     if userMessage[0] == '/':
         userMessage = userMessage.lower()
         if userMessage not in commands:
-            markup = types.InlineKeyboardMarkup()
-            markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
-    pair = getPairApi(str(userMessage) + str("USDT"))
+    if len(userMessage.split()) == 2:
+        markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
+        try:
+            crypto = str(userMessage.split()[0])
+            price = float(userMessage.split()[1])
+        except ValueError:
+            return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
+        pair = getPairApi(str(crypto) + str("USDT"))
+        if not pair:
+            return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
+        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
+    else:
+        pair = getPairApi(str(userMessage) + str("USDT"))
 
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-    if not pair:
-        return bot.send_message(message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
+        if not pair:
+            return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
-    pairMessage = printPairResult(pair)
+        pairMessage = printPairResult(pair)
 
-    bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
+        return bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)
