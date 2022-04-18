@@ -81,13 +81,17 @@ def getpairbtn(call):
             return startcmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
+        elif userMessage == '/setalarm':
+            return setalarmcmd(call.message)
+        elif userMessage == '/getalarm':
+            return getalarmcmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
         if not pair:
-            return bot.send_message(call.message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+            return bot.send_message(call.message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)
 
@@ -106,17 +110,24 @@ def getpairfuncmessage(message):
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
     if len(userMessage.split()) == 2:
-        crypto = userMessage.split()[0]
-        price = userMessage.split()[1]
+        markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"))
+        markup.add(types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
+        try:
+            crypto = userMessage.split()[0]
+            price = userMessage.split()[1]
+        except ValueError:
+            return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
         pair = getPairApi(str(crypto) + str("USDT"))
-        return bot.send_message(message.chat.id, "Alarm has been set successfully!", reply_markup=markup)
+        if not pair:
+            return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
+        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen {crypto} hits {price}, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
         if not pair:
-            return bot.send_message(message.chat.id, "Nah, not that, try something else.", parse_mode='html', reply_markup=markup)
+            return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)
 
