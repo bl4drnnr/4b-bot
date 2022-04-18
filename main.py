@@ -30,7 +30,7 @@ def startcmd(message):
 def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
                    "Provide the crypto you want to observe and price.\n\n" \
-                   "Example if format - <b>btc 39165.45</b>"
+                   "Example of format - <b>btc 39165.45</b>"
 
     bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
 
