@@ -3,31 +3,37 @@ from telebot import types
 from decouple import config
 
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.bybitapi import getPairApi, setAlarmApi, getAllAlarms
+from services.database import getUserById
+from api.bybitapi import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
 commands = getAvailableCommands()
 
 
-@bot.message_handler(commands['start'])
-def startcmd(message):
-    return None
+# def startcmd(message):
+#     startMessage = "Hello, you are probably new one here?"
+#     markup = types.InlineKeyboardMarkup()
+#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
+#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 
-@bot.message_handler(commands=['help', 'menu'])
+@bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    welcomeMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
-                     f'What are we gonna do?\n\n' \
-                     f'<b><i>Crypto</i></b>\n\n' \
-                     f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
-                     f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
-                     f'<a>/getalarm</a> - get all your alarms\n\n' \
-                     f'<b><i>Positions</i></b>\n\n' \
-                     f'<a>/commitposition</a> - commit your position to collect data\n' \
-                     f'<a>/getpositions</a> - get all your committed positions\n'
+    # TODO Okay, let's start with "start" command, but check if we have this user already
+    user = getUserById(message.chat.id)
 
-    bot.send_message(message.chat.id, welcomeMessage, parse_mode='html')
+    menuMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
+                  f'What are we gonna do?\n\n' \
+                  f'<b><i>Crypto</i></b>\n\n' \
+                  f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
+                  f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
+                  f'<a>/getalarm</a> - get all your alarms\n\n' \
+                  f'<b><i>Positions</i></b>\n\n' \
+                  f'<a>/commitposition</a> - commit your position to collect data\n' \
+                  f'<a>/getpositions</a> - get all your committed positions\n'
+
+    return bot.send_message(message.chat.id, menuMessage, parse_mode='html')
 
 
 @bot.message_handler(commands=['setalarm'])
@@ -39,28 +45,39 @@ def setalarmcmd(message):
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
-    bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
+    return bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['commitposition'])
 def commitpositioncmd(message):
     commitPositionMessage = ""
-    bot.send_message(message.chat.id, commitPositionMessage)
+    return bot.send_message(message.chat.id, commitPositionMessage)
 
 
 @bot.message_handler(commands=['getpositions'])
 def getpositionscmd(message):
-    getPositionMessage = ""
-    bot.send_message(message.chat.id, getPositionMessage)
+    allPositions = getPositions(message.chat.id)
+    allPositionsMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+
+    for position in allPositions:
+        allPositionsMessage += ""
+    return bot.send_message(message.chat.id, allPositionsMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
     allAlarms = getAllAlarms(message.chat.id)
     allAlarmsMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+
     for alarm in allAlarms:
         allAlarmsMessage += f"<b>Crypto</b> / <b>Price</b> / <i>Created at</i> - <b>{alarm[0]}</b> / <b>{alarm[1]}</b> / <i>{alarm[2]}</i>\n\n"
-    bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html')
+    return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['getpair'])
@@ -80,7 +97,7 @@ def getpaircmd(message):
         i += 2
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
-    bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
+    return bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -96,6 +113,9 @@ def getpairbtn(call):
             return setalarmcmd(call.message)
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
+        elif userMessage == '/init':
+            inituser(call.message)
+            return menucmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
@@ -106,7 +126,7 @@ def getpairbtn(call):
 
         pairMessage = printPairResult(pair)
 
-        bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
+        return bot.send_message(call.message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
@@ -143,6 +163,11 @@ def getpairfuncmessage(message):
         pairMessage = printPairResult(pair)
 
         return bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
+
+
+def inituser(message):
+    print("message: " + str(message))
+    return None
 
 
 bot.polling(none_stop=True)
