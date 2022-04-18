@@ -3,7 +3,7 @@ from telebot import types
 from decouple import config
 
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.bybitapi import getPairApi, setAlarmApi, getAlarmApi
+from api.bybitapi import getPairApi, setAlarmApi, getAllAlarms
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -51,8 +51,10 @@ def getpositionscmd(message):
 
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
-    getAlarmMessage = ""
-    bot.send_message(message.chat.id, getAlarmMessage)
+    allAlarms = getAllAlarms(message.chat.id)
+    print("allAlarms: " + str(allAlarms))
+    # getAlarmMessage = ""
+    # bot.send_message(message.chat.id, getAlarmMessage)
 
 
 @bot.message_handler(commands=['getpair'])

@@ -11,7 +11,7 @@ try:
         host=env_config.get("MYSQL_HOST"),
         user="root",
         password=env_config.get("MYSQL_PASSWORD"),
-        database=env_config.get("MYSQL_DATABASE"),
+        database=env_config.get("MYSQL_DATABASE")
     )
     cursor = db.cursor()
 except mysql.connector.Error as err:
@@ -25,5 +25,10 @@ def postAlarm(cryptopair, price, uid):
     return db.commit()
 
 
-def getAlarm():
-    return None
+def getAlarms(uid):
+    getAllAlarms = f"SELECT * FROM alarms WHERE userid = '{uid}'"
+    allAlarms = []
+    cursor.execute(getAllAlarms)
+    for x in cursor:
+        allAlarms.append(x)
+    return allAlarms
