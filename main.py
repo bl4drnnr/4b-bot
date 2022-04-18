@@ -99,6 +99,7 @@ def getpaircmd(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def getpairbtn(call):
+    # TODO Call from bot, not user, needs to be fixed somehow
     userMessage = call.data
 
     if userMessage[0] == '/':
@@ -163,7 +164,7 @@ def getpairfuncmessage(message):
 
 
 def inituser(message):
-    print("message: " + str(message))
+    # print("message: " + str(message))
     return None
 
 
