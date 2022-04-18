@@ -10,8 +10,13 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 commands = getAvailableCommands()
 
 
-@bot.message_handler(commands=['start', 'help', 'menu'])
+@bot.message_handler(commands['start'])
 def startcmd(message):
+    return None
+
+
+@bot.message_handler(commands=['help', 'menu'])
+def menucmd(message):
     welcomeMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                      f'What are we gonna do?\n\n' \
                      f'<b><i>Crypto</i></b>\n\n' \
@@ -84,7 +89,7 @@ def getpairbtn(call):
 
     if userMessage[0] == '/':
         if userMessage == '/menu':
-            return startcmd(call.message)
+            return menucmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
         elif userMessage == '/setalarm':
