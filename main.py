@@ -30,8 +30,11 @@ def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
                    "Provide the crypto you want to observe and price.\n\n" \
                    "Example of format - <b>btc 39165.45</b>"
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
-    bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
+    bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['commitposition'])
