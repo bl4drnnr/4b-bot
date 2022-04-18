@@ -11,13 +11,6 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 commands = getAvailableCommands()
 
 
-# def startcmd(message):
-#     startMessage = "Hello, you are probably new one here?"
-#     markup = types.InlineKeyboardMarkup()
-#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
-#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
-
-
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
     # TODO Okay, let's start with "start" command, but check if we have this user already
@@ -168,6 +161,13 @@ def getpairfuncmessage(message):
 def inituser(message):
     print("message: " + str(message))
     return None
+
+
+# def startcmd(message):
+#     startMessage = "Hello, you are probably new one here?"
+#     markup = types.InlineKeyboardMarkup()
+#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
+#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)
