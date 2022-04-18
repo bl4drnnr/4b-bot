@@ -53,17 +53,28 @@ def commitpositioncmd(message):
 
 @bot.message_handler(commands=['getpositions'])
 def getpositionscmd(message):
-    getPositionMessage = ""
-    return bot.send_message(message.chat.id, getPositionMessage)
+    allPositions = getPositions(message.chat.id)
+    allPositionsMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+
+    for position in allPositions:
+        allPositionsMessage += ""
+    return bot.send_message(message.chat.id, allPositionsMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
     allAlarms = getAllAlarms(message.chat.id)
     allAlarmsMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+
     for alarm in allAlarms:
         allAlarmsMessage += f"<b>Crypto</b> / <b>Price</b> / <i>Created at</i> - <b>{alarm[0]}</b> / <b>{alarm[1]}</b> / <i>{alarm[2]}</i>\n\n"
-    return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html')
+    return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['getpair'])

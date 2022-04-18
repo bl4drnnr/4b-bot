@@ -38,5 +38,10 @@ def postPosition():
     return None
 
 
-def getPositions():
-    return None
+def getUserPositions(uid):
+    getAllPositions = f"SELECT * FROM positions WHERE userid = '{uid}'"
+    allPositions = []
+    cursor.execute(getAllPositions)
+    for x in cursor:
+        allPositions.append(x)
+    return allPositions

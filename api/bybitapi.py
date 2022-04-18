@@ -1,6 +1,6 @@
 import bybit
 import sys
-from services.database import postAlarm, getAlarms, postPosition, getPositions
+from services.database import postAlarm, getAlarms, postPosition, getUserPositions
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -39,5 +39,5 @@ def commitPositions():
     return postPosition()
 
 
-def getPositions():
-    return getPositions()
+def getPositions(userid):
+    return getUserPositions(userid)
