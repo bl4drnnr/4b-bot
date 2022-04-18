@@ -10,16 +10,17 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 commands = getAvailableCommands()
 
 
-@bot.message_handler(commands=['start'])
-def startcmd(message):
-    startMessage = "Hello, you are probably new one?"
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
-    return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
+# @bot.message_handler(commands=['start'])
+# def startcmd(message):
+#     startMessage = "Hello, you are probably new one?"
+#     markup = types.InlineKeyboardMarkup()
+#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
+#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 
-@bot.message_handler(commands=['help', 'menu'])
+@bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
+    # TODO Okay, let's start with "start" command, but check if we have this user already
     menuMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                      f'What are we gonna do?\n\n' \
                      f'<b><i>Crypto</i></b>\n\n' \
@@ -99,7 +100,6 @@ def getpaircmd(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def getpairbtn(call):
-    # TODO Call from bot, not user, needs to be fixed somehow
     userMessage = call.data
 
     if userMessage[0] == '/':
@@ -164,7 +164,7 @@ def getpairfuncmessage(message):
 
 
 def inituser(message):
-    # print("message: " + str(message))
+    print("message: " + str(message))
     return None
 
 
