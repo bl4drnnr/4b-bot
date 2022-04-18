@@ -52,9 +52,10 @@ def getpositionscmd(message):
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
     allAlarms = getAllAlarms(message.chat.id)
-    print("allAlarms: " + str(allAlarms))
-    # getAlarmMessage = ""
-    # bot.send_message(message.chat.id, getAlarmMessage)
+    allAlarmsMessage = ""
+    for alarm in allAlarms:
+        allAlarmsMessage += f"<b>Crypto</b> / <b>Price</b> / Created at - <b>{alarm[0]}</b> / <b>{alarm[1]}</b> / <b>{alarm[2]}</b>\n\n"
+    bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html')
 
 
 @bot.message_handler(commands=['getpair'])

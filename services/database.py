@@ -26,7 +26,7 @@ def postAlarm(cryptopair, price, uid):
 
 
 def getAlarms(uid):
-    getAllAlarms = f"SELECT * FROM alarms WHERE userid = '{uid}'"
+    getAllAlarms = f"SELECT crypto, triggerprice, created_at FROM alarms WHERE userid = '{uid}'"
     allAlarms = []
     cursor.execute(getAllAlarms)
     for x in cursor:
