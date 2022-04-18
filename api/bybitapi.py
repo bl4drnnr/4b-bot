@@ -1,7 +1,6 @@
 import bybit
-import time
 import sys
-from services.database import postAlarm, getAlarm
+from services.database import postAlarm, getAlarms
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -28,11 +27,9 @@ def getPairApi(pair):
     return foundPair
 
 
-def setAlarmApi(crypto, price):
-    return postAlarm(crypto, price)
+def setAlarmApi(crypto, price, userid):
+    return postAlarm(crypto, price, userid)
 
 
-def getAlarmApi():
-    while True:
-        userAlarms = getAlarm()
-        time.sleep(300)
+def getAllAlarms(userid):
+    return getAlarms(userid)
