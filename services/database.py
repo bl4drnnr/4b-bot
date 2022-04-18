@@ -5,16 +5,22 @@ from decouple import Config, RepositoryEnv
 DB_DOTENV_FILE = str(os.getcwd()) + '/db.env'
 env_config = Config(RepositoryEnv(DB_DOTENV_FILE))
 
-db = mysql.connector.connect(
-    host=env_config.get("MYSQL_HOST"),
-    user="root",
-    password=env_config.get("MYSQL_PASSWORD"),
-    database=env_config.get("MYSQL_DATABASE"),
-)
+
+try:
+    db = mysql.connector.connect(
+        host=env_config.get("MYSQL_HOST"),
+        user="root",
+        password=env_config.get("MYSQL_PASSWORD"),
+        database=env_config.get("MYSQL_DATABASE"),
+    )
+    cursor = db.cursor()
+except mysql.connector.Error as err:
+    print(err)
 
 
-def postAlarm(crypto, price):
-    return None
+def postAlarm(cryptopair, price, uid):
+    addAlarm = f"INSERT INTO alarms (userid, crypto, triggerprice) VALUES ({uid}, {cryptopair}, {price})"
+    return cursor.execute(addAlarm)
 
 
 def getAlarm():
