@@ -46,8 +46,7 @@ def setalarmcryptopair(message):
     if not pair:
         return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.", reply_markup=markup)
 
-    alarm = Alarm(pair['symbol'])
-    alarm_dict[message.chat.id] = alarm
+    alarm_dict[message.chat.id] = Alarm(pair['symbol'])
 
     alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
                    f"What about trigger price?"
