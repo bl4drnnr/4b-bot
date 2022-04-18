@@ -3,6 +3,7 @@ from telebot import types
 from decouple import config
 
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
+from services.database import getUserById
 from api.bybitapi import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
@@ -10,7 +11,6 @@ bot = telebot.TeleBot(config('BOT_API_KEY'))
 commands = getAvailableCommands()
 
 
-# @bot.message_handler(commands=['start'])
 # def startcmd(message):
 #     startMessage = "Hello, you are probably new one?"
 #     markup = types.InlineKeyboardMarkup()
@@ -21,15 +21,17 @@ commands = getAvailableCommands()
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
     # TODO Okay, let's start with "start" command, but check if we have this user already
+    user = getUserById(message.chat.id)
+
     menuMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
-                     f'What are we gonna do?\n\n' \
-                     f'<b><i>Crypto</i></b>\n\n' \
-                     f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
-                     f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
-                     f'<a>/getalarm</a> - get all your alarms\n\n' \
-                     f'<b><i>Positions</i></b>\n\n' \
-                     f'<a>/commitposition</a> - commit your position to collect data\n' \
-                     f'<a>/getpositions</a> - get all your committed positions\n'
+                  f'What are we gonna do?\n\n' \
+                  f'<b><i>Crypto</i></b>\n\n' \
+                  f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
+                  f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
+                  f'<a>/getalarm</a> - get all your alarms\n\n' \
+                  f'<b><i>Positions</i></b>\n\n' \
+                  f'<a>/commitposition</a> - commit your position to collect data\n' \
+                  f'<a>/getpositions</a> - get all your committed positions\n'
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode='html')
 

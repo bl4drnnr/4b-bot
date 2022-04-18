@@ -18,6 +18,12 @@ except mysql.connector.Error as err:
     print(err)
 
 
+def getUserById(uid):
+    getUser = f"SELECT * FROM users WHERE id = '{uid}'"
+    user = cursor.execute(getUser)
+    return user
+
+
 def postAlarm(cryptopair, price, uid):
     addAlarm = "INSERT INTO alarms (id, userid, crypto, triggerprice) VALUES (uuid(), %s, %s, %s)"
     dataAlarm = (uid, cryptopair, price)
