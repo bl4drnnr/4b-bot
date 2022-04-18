@@ -29,43 +29,10 @@ def startcmd(message):
 @bot.message_handler(commands=['setalarm'])
 def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
-                   "First of all, provide the pair you want to observe."
+                   "Provide the crypto you want to observe and price.\n\n" \
+                   "Example if format - <b>btc 39165.45</b>"
 
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
-
-    msg = bot.send_message(message.chat.id, alarmMessage, reply_markup=markup)
-    bot.register_next_step_handler(msg, setalarmcryptopair)
-
-
-def setalarmcryptopair(message):
-    pair = getPairApi(str(message.text.strip().upper()) + str("USDT"))
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton('Cancel', callback_data='/cancel'))
-
-    if not pair:
-        return bot.send_message(message.chat.id, "Crypto pair wasn't found, try something else.", reply_markup=markup)
-
-    alarm_dict[message.chat.id] = Alarm(pair['symbol'])
-
-    alarmMessage = f"Okay, looks like we've found <b>{pair['symbol']}</b> pair.\n\n" \
-                   f"What about trigger price?"
-    msg = bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
-    bot.register_next_step_handler(msg, setalarmprice)
-
-
-def setalarmprice(message):
-    try:
-        price = float(message.text)
-        alarm = alarm_dict[message.chat.id]
-        alarm.price = price
-    except ValueError:
-        return bot.send_message(message.chat.id, "Does it really look like number? Don't think so!")
-
-
-@bot.message_handler(commands=['cancel'])
-def cancelcmd(message):
-    return startcmd(message)
+    bot.send_message(message.chat.id, alarmMessage, parse_mode='html')
 
 
 @bot.message_handler(commands=['commitposition'])
@@ -115,8 +82,6 @@ def getpairbtn(call):
             return startcmd(call.message)
         elif userMessage == '/getpair':
             return getpaircmd(call.message)
-        elif userMessage == '/cancel':
-            return cancelcmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
