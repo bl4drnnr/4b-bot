@@ -12,7 +12,7 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['start', 'help', 'menu'])
 def startcmd(message):
-    welcomeMessage = f'Your welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
+    welcomeMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                      f'What are we gonna do?\n\n' \
                      f'<b><i>Crypto</i></b>\n\n' \
                      f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
