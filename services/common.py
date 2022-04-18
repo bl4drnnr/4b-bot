@@ -14,9 +14,3 @@ def printPairResult(pair):
 
 def getAvailableCommands():
     return ['/start', '/help', '/menu', '/setalarm', '/commitposition', '/getpositions', '/getalarm', '/getpair']
-
-
-class Alarm:
-    def __init__(self, crypto):
-        self.crypto = crypto
-        self.price = None
