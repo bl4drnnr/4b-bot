@@ -19,8 +19,9 @@ except mysql.connector.Error as err:
 
 
 def postAlarm(cryptopair, price, uid):
-    addAlarm = f"INSERT INTO alarms (userid, crypto, triggerprice) VALUES ({uid}, {cryptopair}, {price})"
-    return cursor.execute(addAlarm)
+    addAlarm = "INSERT INTO alarms (userid, crypto, triggerprice) VALUES (%s, %s, %s)"
+    dataAlarm = (uid, cryptopair, price)
+    return cursor.execute(addAlarm, dataAlarm)
 
 
 def getAlarm():
