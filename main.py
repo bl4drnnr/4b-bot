@@ -107,6 +107,9 @@ def getpairbtn(call):
             return setalarmcmd(call.message)
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
+    elif len(userMessage.split()) == 2:
+        createUser(userMessage.split()[0], userMessage.split()[1])
+        return menucmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
@@ -157,12 +160,12 @@ def getpairfuncmessage(message):
 
 
 def startcmd(message):
-    startMessage = f"Hello, {message.from_user.first_name}, you are probably new one here?"
+    startMessage = f"Hello, <b>{message.from_user.first_name}</b>, you are probably new one here?"
 
-    createUser(message.from_user.id, message.from_user.first_name)
+    initData = f"{str(message.from_user.id)} {str(message.from_user.first_name)}"
 
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Let's start", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 

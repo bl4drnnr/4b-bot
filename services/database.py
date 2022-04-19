@@ -27,7 +27,10 @@ def createUser(uid, name):
 
 def getUserById(uid):
     getUser = f"SELECT * FROM users WHERE userid = '{uid}'"
-    user = cursor.execute(getUser)
+    user = None
+    cursor.execute(getUser)
+    for x in cursor:
+        user = x
     return user
 
 
