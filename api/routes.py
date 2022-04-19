@@ -1,6 +1,7 @@
 import bybit
+import time
 import sys
-from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser, startAlarmCheck
+from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -51,5 +52,9 @@ def postUser(userid, name):
     return createUser(userid, name)
 
 
-def startAlarmsChecker():
-    return startAlarmCheck()
+def startAlarmsChecker(message):
+    userAlarms = getAllAlarms(message.chat.id)
+    while len(userAlarms) > 0:
+        print('asd')
+        time.sleep(300)
+    # return startAlarmCheck()
