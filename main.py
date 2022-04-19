@@ -13,8 +13,9 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    # TODO Okay, let's start with "start" command, but check if we have this user already
     user = getUserById(message.chat.id)
+    if not user:
+        return startcmd(message)
 
     menuMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
                   f'What are we gonna do?\n\n' \
@@ -163,11 +164,11 @@ def inituser(message):
     return None
 
 
-# def startcmd(message):
-#     startMessage = "Hello, you are probably new one here?"
-#     markup = types.InlineKeyboardMarkup()
-#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
-#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
+def startcmd(message):
+    startMessage = "Hello, you are probably new one here?"
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
+    return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)

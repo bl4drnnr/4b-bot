@@ -18,9 +18,10 @@ except mysql.connector.Error as err:
     print(err)
 
 
-def createUser(uid):
-    addUser = "INSERT INTO users (id, userid) VALUES (uuid(), %s)"
-    cursor.execute(addUser, uid)
+def createUser(uid, name):
+    addUser = "INSERT INTO users (id, userid, name) VALUES (uuid(), %s, %s)"
+    dataUser = (uid, name)
+    cursor.execute(addUser, dataUser)
     return db.commit()
 
 
