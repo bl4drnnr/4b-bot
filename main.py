@@ -43,7 +43,7 @@ def setalarmcmd(message):
 
 @bot.message_handler(commands=['commitposition'])
 def commitpositioncmd(message):
-    commitPositionMessage = ""
+    commitPositionMessage = "Ready to commit your position?"
     return bot.send_message(message.chat.id, commitPositionMessage)
 
 
