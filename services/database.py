@@ -13,7 +13,7 @@ try:
         password=env_config.get("MYSQL_PASSWORD"),
         database=env_config.get("MYSQL_DATABASE")
     )
-    cursor = db.cursor()
+    cursor = db.cursor(buffered=True)
 except mysql.connector.Error as err:
     print(err)
 
