@@ -28,8 +28,8 @@ def getPairApi(pair):
     return foundPair
 
 
-def setAlarmApi(crypto, price, userid):
-    return postAlarm(crypto, price, userid)
+def setAlarmApi(crypto, currentPrice, alarmPrice, userid):
+    return postAlarm(crypto, currentPrice, alarmPrice, userid)
 
 
 def getAllAlarms(userid):
@@ -55,4 +55,8 @@ def postUser(userid, name):
 def startAlarmsChecker(message):
     userAlarms = getAllAlarms(message.chat.id)
     while len(userAlarms) > 0:
+        data = updateData()
+        for item in data:
+            for alarm in userAlarms:
+                print('asd')
         time.sleep(300)
