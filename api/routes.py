@@ -1,6 +1,6 @@
 import bybit
 import sys
-from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser
+from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser, startAlarmCheck
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -49,3 +49,7 @@ def getUser(userid):
 
 def postUser(userid, name):
     return createUser(userid, name)
+
+
+def startAlarmsChecker():
+    return startAlarmCheck()

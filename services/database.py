@@ -61,3 +61,7 @@ def getUserPositions(uid):
     for x in cursor:
         allPositions.append(x)
     return allPositions
+
+
+def startAlarmCheck():
+    return None
