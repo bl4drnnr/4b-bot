@@ -174,7 +174,7 @@ def startcmd(message):
 
 
 def triggerAlarmsChecker(message):
-    startAlarmsChecker(message)
+    return startAlarmsChecker(message)
 
 
 bot.polling(none_stop=True)

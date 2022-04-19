@@ -55,5 +55,4 @@ def postUser(userid, name):
 def startAlarmsChecker(message):
     userAlarms = getAllAlarms(message.chat.id)
     while len(userAlarms) > 0:
-        print(userAlarms)
         time.sleep(300)
