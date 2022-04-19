@@ -18,6 +18,12 @@ except mysql.connector.Error as err:
     print(err)
 
 
+def createUser(uid):
+    addUser = "INSERT INTO users (id, userid) VALUES (uuid(), %s)"
+    cursor.execute(addUser, uid)
+    return db.commit()
+
+
 def getUserById(uid):
     getUser = f"SELECT * FROM users WHERE id = '{uid}'"
     user = cursor.execute(getUser)
