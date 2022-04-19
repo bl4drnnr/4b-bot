@@ -19,14 +19,14 @@ except mysql.connector.Error as err:
 
 
 def createUser(uid, name):
-    addUser = "INSERT INTO users (id, userid, name) VALUES (uuid(), %s, %s)"
+    addUser = "INSERT INTO users (id, userid, nickname) VALUES (uuid(), %s, %s)"
     dataUser = (uid, name)
     cursor.execute(addUser, dataUser)
     return db.commit()
 
 
 def getUserById(uid):
-    getUser = f"SELECT * FROM users WHERE id = '{uid}'"
+    getUser = f"SELECT * FROM users WHERE userid = '{uid}'"
     user = cursor.execute(getUser)
     return user
 
