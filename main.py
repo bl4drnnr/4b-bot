@@ -13,10 +13,11 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    # TODO Okay, let's start with "start" command, but check if we have this user already
     user = getUserById(message.chat.id)
+    if not user:
+        return startcmd(message)
 
-    menuMessage = f'Welcome, <u>{message.from_user.first_name}</u>, let\'s start!\n\n' \
+    menuMessage = f'Welcome, <u>{message.chat.first_name}</u>, let\'s start!\n\n' \
                   f'What are we gonna do?\n\n' \
                   f'<b><i>Crypto</i></b>\n\n' \
                   f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
@@ -106,9 +107,9 @@ def getpairbtn(call):
             return setalarmcmd(call.message)
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
-        elif userMessage == '/init':
-            inituser(call.message)
-            return menucmd(call.message)
+    elif len(userMessage.split()) == 2:
+        createUser(userMessage.split()[0], userMessage.split()[1])
+        return menucmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
 
@@ -158,16 +159,14 @@ def getpairfuncmessage(message):
         return bot.send_message(message.chat.id, pairMessage, parse_mode='html', reply_markup=markup)
 
 
-def inituser(message):
-    print("message: " + str(message))
-    return None
+def startcmd(message):
+    startMessage = f"Hello, <b>{message.from_user.first_name}</b>, you are probably new one here?"
 
+    initData = f"{str(message.from_user.id)} {str(message.from_user.first_name)}"
 
-# def startcmd(message):
-#     startMessage = "Hello, you are probably new one here?"
-#     markup = types.InlineKeyboardMarkup()
-#     markup.add(types.InlineKeyboardButton("Let's start", callback_data="/init"))
-#     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
+    return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
 
 
 bot.polling(none_stop=True)

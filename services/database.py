@@ -13,20 +13,24 @@ try:
         password=env_config.get("MYSQL_PASSWORD"),
         database=env_config.get("MYSQL_DATABASE")
     )
-    cursor = db.cursor()
+    cursor = db.cursor(buffered=True)
 except mysql.connector.Error as err:
     print(err)
 
 
-def createUser(uid):
-    addUser = "INSERT INTO users (id, userid) VALUES (uuid(), %s)"
-    cursor.execute(addUser, uid)
+def createUser(uid, name):
+    addUser = "INSERT INTO users (id, userid, nickname) VALUES (uuid(), %s, %s)"
+    dataUser = (uid, name)
+    cursor.execute(addUser, dataUser)
     return db.commit()
 
 
 def getUserById(uid):
-    getUser = f"SELECT * FROM users WHERE id = '{uid}'"
-    user = cursor.execute(getUser)
+    getUser = f"SELECT * FROM users WHERE userid = '{uid}'"
+    user = None
+    cursor.execute(getUser)
+    for x in cursor:
+        user = x
     return user
 
 
