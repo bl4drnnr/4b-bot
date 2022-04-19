@@ -70,7 +70,7 @@ def getalarmcmd(message):
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     for alarm in allAlarms:
-        allAlarmsMessage += f"<b>Crypto</b> / <b>Price</b> / <i>Created at</i> - <b>{alarm[0]}</b> / <b>{alarm[1]}</b> / <i>{alarm[2]}</i>\n\n"
+        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm[0]}</b> / <u>{alarm[1]}</u> / <i>{alarm[2]}</i>\n\n"
     return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html', reply_markup=markup)
 
 
@@ -160,7 +160,11 @@ def getpairfuncmessage(message):
 
 
 def startcmd(message):
-    startMessage = f"Hello, <b>{message.from_user.first_name}</b>, you are probably new one here?"
+    startMessage = f"Hello, <b><i>{message.from_user.first_name}</i></b>, you are probably new one here?\n\n" \
+                   f"Lemme explain what you can do with this bot and how it use. The idea of this bot is to become your personal crypto diary." \
+                   f"Here you can find such functionality as <b>alarms</b>, <b>getting pairs</b> in one click and even personal <b><i><u>personal AI</u></i></b>.\n\n" \
+                   f"About last one let's talk a little bit more... \n\n" \
+                   f"If I was able to impress you, you know what to press!"
 
     initData = f"{str(message.from_user.id)} {str(message.from_user.first_name)}"
 
