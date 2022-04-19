@@ -1,4 +1,5 @@
 import bybit
+import time
 import sys
 from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser
 from decouple import config
@@ -27,8 +28,8 @@ def getPairApi(pair):
     return foundPair
 
 
-def setAlarmApi(crypto, price, userid):
-    return postAlarm(crypto, price, userid)
+def setAlarmApi(crypto, currentPrice, alarmPrice, userid):
+    return postAlarm(crypto, currentPrice, alarmPrice, userid)
 
 
 def getAllAlarms(userid):
@@ -49,3 +50,17 @@ def getUser(userid):
 
 def postUser(userid, name):
     return createUser(userid, name)
+
+
+# TODO Here we have some problems with multithreading. See 2 solves:
+# 1) Figure out about python multithreading.
+# 2) Webjob, that take data from DB and send messages to users. (Figure out if it's possible)
+def startAlarmsChecker(message):
+    userAlarms = getAllAlarms(message.chat.id)
+    while len(userAlarms) > 0:
+        data = updateData()
+        for item in data:
+            for alarm in userAlarms:
+                if alarm[1] == item['symbol']:
+                    print('asd')
+        time.sleep(300)
