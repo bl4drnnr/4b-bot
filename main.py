@@ -3,8 +3,7 @@ from telebot import types
 from decouple import config
 
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from services.database import getUserById, createUser
-from api.bybitapi import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions
+from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -13,7 +12,7 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    user = getUserById(message.chat.id)
+    user = getUser(message.chat.id)
     if not user:
         return startcmd(message)
 
@@ -108,7 +107,7 @@ def getpairbtn(call):
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2:
-        createUser(userMessage.split()[0], userMessage.split()[1])
+        postUser(userMessage.split()[0], userMessage.split()[1])
         return menucmd(call.message)
     else:
         pair = getPairApi(str(userMessage) + str("USDT"))
