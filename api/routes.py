@@ -52,9 +52,6 @@ def postUser(userid, name):
     return createUser(userid, name)
 
 
-# TODO Here we have some problems with multithreading. See 2 solves:
-# 1) Figure out about python multithreading.
-# 2) Webjob, that take data from DB and send messages to users. (Figure out if it's possible)
 def startAlarmsChecker(message):
     userAlarms = getAllAlarms(message.chat.id)
     while len(userAlarms) > 0:
