@@ -1,5 +1,6 @@
 import threading
 import time
+from api.routes import getPairApi, getAllAlarms
 
 exitFlag = 0
 
@@ -13,12 +14,10 @@ class Thread(threading.Thread):
         self.triggerPrice = triggerPrice
 
     def run(self):
-        print("Starting " + self.name)
-        print_time(self.name, 5, self.counter)
-        print("Exiting " + self.name)
+        checkPairPrice(self.crypto, self.enterPrice, self.triggerPrice)
 
 
-def print_time(threadName, counter, delay):
+def checkPairPrice(threadName, counter, delay):
     while counter:
         if exitFlag:
             threadName.exit()
