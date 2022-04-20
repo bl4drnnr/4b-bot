@@ -2,7 +2,6 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.thread import Thread
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
 from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, startAlarmsChecker
 
