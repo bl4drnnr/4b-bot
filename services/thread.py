@@ -1,8 +1,9 @@
 import threading
 import time
-# from api.routes import getPairApi, getAllAlarms
+# TODO Fix temporary solution by copying envs
+from api.routes import getPairApi, getAllAlarms
 
-ALARMS = []
+ALARM_THREADS = []
 
 
 class Thread(threading.Thread):
@@ -19,9 +20,9 @@ class Thread(threading.Thread):
 
 def checkPairPrice(threadName, counter, delay):
     while counter:
-        time.sleep(delay)
         print("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
+        time.sleep(delay)
 
 
 thread1 = Thread(1, "Thread-1", 5, 1)
