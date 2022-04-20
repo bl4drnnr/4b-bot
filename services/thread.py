@@ -2,7 +2,7 @@ import threading
 import time
 # from api.routes import getPairApi, getAllAlarms
 
-exitFlag = 0
+ALARMS = []
 
 
 class Thread(threading.Thread):
@@ -19,8 +19,6 @@ class Thread(threading.Thread):
 
 def checkPairPrice(threadName, counter, delay):
     while counter:
-        if exitFlag:
-            threadName.exit()
         time.sleep(delay)
         print("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
