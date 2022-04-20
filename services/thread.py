@@ -1,6 +1,6 @@
 import threading
 import time
-from api.routes import getPairApi, getAllAlarms
+# from api.routes import getPairApi, getAllAlarms
 
 exitFlag = 0
 
@@ -26,11 +26,8 @@ def checkPairPrice(threadName, counter, delay):
         counter -= 1
 
 
-thread1 = Thread(1, "Thread-1", 1)
-thread2 = Thread(2, "Thread-2", 2)
+thread1 = Thread(1, "Thread-1", 1, 5)
+thread2 = Thread(2, "Thread-2", 2, 5)
 
-# Start new Threads
 thread1.start()
 thread2.start()
-
-print("Exiting Main Thread")
