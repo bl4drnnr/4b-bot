@@ -18,6 +18,7 @@ class Thread(threading.Thread):
 
 
 def checkPairPrice(threadName, counter, delay):
+    # TODO how to trigger alarm check
     # Logic of working
     # while len(ALARM_THREADS) != 0:
     #   data = updateData()
