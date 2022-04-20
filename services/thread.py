@@ -26,8 +26,8 @@ def checkPairPrice(threadName, counter, delay):
         counter -= 1
 
 
-thread1 = Thread(1, "Thread-1", 1, 5)
-thread2 = Thread(2, "Thread-2", 2, 5)
+thread1 = Thread(1, "Thread-1", 5, 1)
+thread2 = Thread(2, "Thread-2", 5, 2)
 
 thread1.start()
 thread2.start()
