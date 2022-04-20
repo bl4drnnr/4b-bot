@@ -1,7 +1,7 @@
 import threading
 import time
 # TODO Fix temporary solution by copying envs
-from api.routes import getPairApi, getAllAlarms
+from api.routes import updateData, getAllAlarms
 
 ALARM_THREADS = []
 
@@ -19,6 +19,17 @@ class Thread(threading.Thread):
 
 
 def checkPairPrice(threadName, counter, delay):
+    # Login of working
+    # while len(ALARM_THREADS) != 0:
+    #   data = updateData()
+    #   for pair in data:
+    #       for alarm in ALARM_THREADS:
+    #           alarmTrigger = False
+    #           if pair['symbol'] == alarm['pair]:
+    #               # Check on trigger
+    #           if alarmTigger:
+    #               # Notify user and remove alarm from list
+    #   time.sleep(300)
     while counter:
         print("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
