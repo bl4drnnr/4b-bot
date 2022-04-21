@@ -1,6 +1,7 @@
 import bybit
 import sys
 from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser
+from services.thread import startNewAlarmThread
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -33,6 +34,10 @@ def setAlarmApi(crypto, triggerPrice, indexPrice, userid):
 
 def getAllAlarms(userid):
     return getAlarms(userid)
+
+
+def setAlarm(chatid, crypto, triggerPrice, currentPrice):
+    return startNewAlarmThread(chatid, crypto, triggerPrice, currentPrice)
 
 
 def commitPositions(crypto, dateFrom, dateTo, interval, tp, sl):

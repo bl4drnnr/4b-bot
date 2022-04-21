@@ -2,9 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.thread import startNewAlarmThread, lookForTriggeredAlarms
+from services.thread import lookForTriggeredAlarms
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser
+from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -153,7 +153,7 @@ def getpairfuncmessage(message):
         setAlarmApi(pair['symbol'], triggerPrice, pair['index_price'], message.chat.id)
 
         # Start new thread
-        startNewAlarmThread(message.chat.id, pair['symbol'], triggerPrice, pair['index_price'])
+        setAlarm(message.chat.id, pair['symbol'], triggerPrice, pair['index_price'])
 
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
