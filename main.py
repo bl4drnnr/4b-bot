@@ -2,9 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
-# TODO Fix circular error
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
+from api.routes import setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
+from api.bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 

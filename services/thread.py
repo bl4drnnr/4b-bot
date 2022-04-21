@@ -1,7 +1,9 @@
 import threading
 import time
-from api.routes import updateData
-from api.routes import setTriggeredAlarms
+from api.bybitapi import updateData
+# Error because of setAlarm in router
+# from api.routes import setTriggeredAlarms
+from services.database import postTriggeredAlarms
 
 IDX = 0
 
@@ -25,10 +27,10 @@ def checkPairPrice(crypto, currentPrice, triggerPrice, chatid):
         for pair in data:
             if pair['symbol'] == crypto:
                 waitingForLong = float(triggerPrice) > float(currentPrice)
-                if waitingForLong and float(triggerPrice) >= pair['index_price']:
-                    setTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
-                elif not waitingForLong and float(triggerPrice) <= pair['index_price']:
-                    setTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
+                if waitingForLong and float(triggerPrice) >= float(pair['index_price']):
+                    postTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
+                elif not waitingForLong and float(triggerPrice) <= float(pair['index_price']):
+                    postTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
         time.sleep(300)
 
 
