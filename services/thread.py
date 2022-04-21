@@ -45,11 +45,7 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
     thread1 = Thread(IDX, crypto, currentPrice, triggerPrice)
     increaseIdx()
-    # thread2 = Thread(2, "Thread-2", 5, 2)
-
     thread1.start()
-    # thread2.start()
-    return None
 
 
 def increaseIdx():
