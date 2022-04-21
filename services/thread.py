@@ -25,6 +25,8 @@ def checkPairPrice(crypto, currentPrice, triggerPrice, chatid):
             if pair['symbol'] == crypto:
                 waitingForLong = float(triggerPrice) > float(currentPrice)
                 if waitingForLong and float(triggerPrice) >= pair['index_price']:
+                    # Write in db?
+                    # And create one more thread class just to get to DB?
                     print('push record to triggered alarms and remove thread')
                 elif not waitingForLong and float(triggerPrice) <= pair['index_price']:
                     print('push record to triggered alarms and remove thread')
