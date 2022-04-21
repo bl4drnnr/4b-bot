@@ -2,7 +2,6 @@ import threading
 import time
 from api.routes import updateData, getAllAlarms
 
-ALARM_THREADS = []
 IDX = 0
 
 
@@ -36,7 +35,6 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
         print("triggerPrice: " + str(triggerPrice))
         print("-------------------------")
         time.sleep(5)
-    # return None
 
 
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
