@@ -18,23 +18,16 @@ class Thread(threading.Thread):
 
 
 def checkPairPrice(crypto, currentPrice, triggerPrice):
-    # Logic of working
-    # while len(ALARM_THREADS) != 0:
-    #   data = updateData()
-    #   for pair in data:
-    #       for alarm in ALARM_THREADS:
-    #           alarmTrigger = False
-    #           if pair['symbol'] == alarm['pair]:
-    #               # Check on trigger
-    #           if alarmTigger:
-    #               # Notify user and remove alarm from list
-    #   time.sleep(300)
     while True:
-        print("crypto: " + str(crypto))
-        print("currentPrice: " + str(currentPrice))
-        print("triggerPrice: " + str(triggerPrice))
-        print("-------------------------")
-        time.sleep(5)
+        data = updateData()
+        for pair in data:
+            if pair['symbol'] == crypto:
+                alarmTrigger = False
+                # if ...check price -> alarmTrigger = True
+                if alarmTrigger:
+                    # exit thread
+                    print('Notify user')
+        time.sleep(300)
 
 
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
