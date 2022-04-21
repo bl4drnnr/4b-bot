@@ -2,9 +2,10 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.thread import startNewAlarmThread
+# TODO Fix circular error
+from services.thread import lookForTriggeredAlarms
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser
+from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -150,10 +151,10 @@ def getpairfuncmessage(message):
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        setAlarmApi(pair['symbol'], triggerPrice, message.chat.id)
+        setAlarmApi(pair['symbol'], triggerPrice, pair['index_price'], message.chat.id)
 
         # Start new thread
-        startNewAlarmThread(message, pair['symbol'], triggerPrice, pair['index_price'])
+        setAlarm(message.chat.id, pair['symbol'], triggerPrice, pair['index_price'])
 
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
@@ -183,6 +184,11 @@ def startcmd(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
+
+
+def notifyuserwithtriggeredalarms(chatid, alarm):
+    alarmMessage = "<b>Watch out!</b>\n\nYour alarm has been triggered!"
+    return bot.send_message(chatid, alarmMessage, parse_mode='html')
 
 
 bot.polling(none_stop=True)
