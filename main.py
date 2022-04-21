@@ -3,7 +3,6 @@ from telebot import types
 from decouple import config
 
 # TODO Fix circular error
-from services.thread import lookForTriggeredAlarms
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
 from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
 

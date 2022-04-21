@@ -1,6 +1,7 @@
 import threading
 import time
 from api.routes import updateData
+from api.routes import setTriggeredAlarms
 
 IDX = 0
 
@@ -25,11 +26,9 @@ def checkPairPrice(crypto, currentPrice, triggerPrice, chatid):
             if pair['symbol'] == crypto:
                 waitingForLong = float(triggerPrice) > float(currentPrice)
                 if waitingForLong and float(triggerPrice) >= pair['index_price']:
-                    # Write in db?
-                    # And create one more thread class just to get to DB?
-                    print('push record to triggered alarms and remove thread')
+                    setTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
                 elif not waitingForLong and float(triggerPrice) <= pair['index_price']:
-                    print('push record to triggered alarms and remove thread')
+                    setTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid)
         time.sleep(300)
 
 
@@ -42,7 +41,3 @@ def startNewAlarmThread(chatid, crypto, triggerPrice, currentPrice):
 def increaseIdx():
     global IDX
     IDX += 1
-
-
-def lookForTriggeredAlarms():
-    return None
