@@ -153,7 +153,7 @@ def getpairfuncmessage(message):
         setAlarmApi(pair['symbol'], triggerPrice, message.chat.id)
 
         # Start new thread
-        startNewAlarmThread(message, crypto, triggerPrice, pair['index_price'])
+        startNewAlarmThread(message, pair['symbol'], triggerPrice, pair['index_price'])
 
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:

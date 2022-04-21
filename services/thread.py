@@ -2,7 +2,7 @@ import threading
 import time
 from api.routes import updateData, getAllAlarms
 
-ALARM_THREADS = []
+IDX = 0
 
 
 class Thread(threading.Thread):
@@ -29,25 +29,20 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
     #           if alarmTigger:
     #               # Notify user and remove alarm from list
     #   time.sleep(300)
-    # while counter:
-    #     print("%s: %s" % (threadName, time.ctime(time.time())))
-    #     counter -= 1
-    #     time.sleep(delay)
     while True:
         print("crypto: " + str(crypto))
         print("currentPrice: " + str(currentPrice))
         print("triggerPrice: " + str(triggerPrice))
+        print("-------------------------")
         time.sleep(5)
-    # return None
 
 
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
-    # Setup name
-    newAlarmName = "alarm" + str(len(ALARM_THREADS))
+    alarmThread = Thread(IDX, crypto, currentPrice, triggerPrice)
+    increaseIdx()
+    alarmThread.start()
 
-    thread1 = Thread(1, crypto, currentPrice, triggerPrice)
-    # thread2 = Thread(2, "Thread-2", 5, 2)
 
-    thread1.start()
-    # thread2.start()
-    return None
+def increaseIdx():
+    global IDX
+    IDX += 1
