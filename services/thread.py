@@ -23,6 +23,7 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
         for pair in data:
             if pair['symbol'] == crypto:
                 alarmTrigger = False
+                # priceChecker = currentPrice > triggerPrice
                 # if ...check price -> alarmTrigger = True
                 if alarmTrigger:
                     # exit thread

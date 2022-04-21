@@ -150,7 +150,7 @@ def getpairfuncmessage(message):
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        setAlarmApi(pair['symbol'], triggerPrice, message.chat.id)
+        setAlarmApi(pair['symbol'], triggerPrice, pair['index_price'], message.chat.id)
 
         # Start new thread
         startNewAlarmThread(message, pair['symbol'], triggerPrice, pair['index_price'])

@@ -27,8 +27,8 @@ def getPairApi(pair):
     return foundPair
 
 
-def setAlarmApi(crypto, triggerPrice, userid):
-    return postAlarm(crypto, triggerPrice, userid)
+def setAlarmApi(crypto, triggerPrice, indexPrice, userid):
+    return postAlarm(crypto, triggerPrice, indexPrice, userid)
 
 
 def getAllAlarms(userid):
