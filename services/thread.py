@@ -30,22 +30,19 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
     #           if alarmTigger:
     #               # Notify user and remove alarm from list
     #   time.sleep(300)
-    # while counter:
-    #     print("%s: %s" % (threadName, time.ctime(time.time())))
-    #     counter -= 1
-    #     time.sleep(delay)
     while True:
         print("crypto: " + str(crypto))
         print("currentPrice: " + str(currentPrice))
         print("triggerPrice: " + str(triggerPrice))
+        print("-------------------------")
         time.sleep(5)
     # return None
 
 
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
-    thread1 = Thread(IDX, crypto, currentPrice, triggerPrice)
+    alarmThread = Thread(IDX, crypto, currentPrice, triggerPrice)
     increaseIdx()
-    thread1.start()
+    alarmThread.start()
 
 
 def increaseIdx():
