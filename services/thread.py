@@ -3,6 +3,7 @@ import time
 from api.routes import updateData, getAllAlarms
 
 ALARM_THREADS = []
+IDX = 0
 
 
 class Thread(threading.Thread):
@@ -42,12 +43,15 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
 
 
 def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
-    # Setup name
-    newAlarmName = "alarm" + str(len(ALARM_THREADS))
-
-    thread1 = Thread(1, crypto, currentPrice, triggerPrice)
+    thread1 = Thread(IDX, crypto, currentPrice, triggerPrice)
+    increaseIdx()
     # thread2 = Thread(2, "Thread-2", 5, 2)
 
     thread1.start()
     # thread2.start()
     return None
+
+
+def increaseIdx():
+    global IDX
+    IDX += 1
