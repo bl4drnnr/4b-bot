@@ -97,6 +97,7 @@ def getpaircmd(message):
 def getpairbtn(call):
     userMessage = call.data
 
+    # Commands by buttons click
     if userMessage[0] == '/':
         if userMessage == '/menu':
             return menucmd(call.message)
@@ -107,9 +108,11 @@ def getpairbtn(call):
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2:
+        # Creating new user
         postUser(userMessage.split()[0], userMessage.split()[1])
         return menucmd(call.message)
     else:
+        # Looking for pair
         pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
@@ -129,11 +132,13 @@ def getpairfuncmessage(message):
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     if userMessage[0] == '/':
+        # Manual commands handler
         userMessage = userMessage.lower()
         if userMessage not in commands:
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
 
     if len(userMessage.split()) == 2:
+        # Setting new alarms
         markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
         try:
             crypto = str(userMessage.split()[0])
@@ -147,6 +152,7 @@ def getpairfuncmessage(message):
         triggerAlarmsChecker(message)
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
+        # Looking for pair
         pair = getPairApi(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
@@ -160,6 +166,7 @@ def getpairfuncmessage(message):
 
 
 def startcmd(message):
+    # New user start message
     startMessage = f"Hello, <b><i>{message.from_user.first_name}</i></b>, you are probably new one here?\n\n" \
                    f"Lemme explain what you can do with this bot and how it use. The idea of this bot is to become your personal crypto diary." \
                    f"Here you can find such functionality as <b>alarms</b>, <b>getting pairs</b> in one click and even personal <b><i><u>personal AI</u></i></b>.\n\n" \
