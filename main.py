@@ -2,8 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
+from services.thread import startNewAlarmThread
 from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, startAlarmsChecker
+from api.routes import getPairApi, setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -149,7 +150,10 @@ def getpairfuncmessage(message):
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
         setAlarmApi(pair['symbol'], pair['index_price'], price, message.chat.id)
-        triggerAlarmsChecker(message)
+
+        # Start new thread
+        startNewAlarmThread()
+
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
         # Looking for pair
@@ -178,10 +182,6 @@ def startcmd(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
     return bot.send_message(message.chat.id, startMessage, parse_mode='html', reply_markup=markup)
-
-
-def triggerAlarmsChecker(message):
-    return startAlarmsChecker(message)
 
 
 bot.polling(none_stop=True)

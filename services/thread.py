@@ -36,8 +36,10 @@ def checkPairPrice(threadName, counter, delay):
         time.sleep(delay)
 
 
-thread1 = Thread(1, "Thread-1", 5, 1)
-thread2 = Thread(2, "Thread-2", 5, 2)
+def startNewAlarmThread():
+    thread1 = Thread(1, "Thread-1", 5, 1)
+    thread2 = Thread(2, "Thread-2", 5, 2)
 
-thread1.start()
-thread2.start()
+    thread1.start()
+    thread2.start()
+    return None

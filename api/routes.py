@@ -1,5 +1,4 @@
 import bybit
-import time
 import sys
 from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser
 from decouple import config
@@ -50,14 +49,3 @@ def getUser(userid):
 
 def postUser(userid, name):
     return createUser(userid, name)
-
-
-def startAlarmsChecker(message):
-    userAlarms = getAllAlarms(message.chat.id)
-    while len(userAlarms) > 0:
-        data = updateData()
-        for item in data:
-            for alarm in userAlarms:
-                if alarm[1] == item['symbol']:
-                    print('asd')
-        time.sleep(300)
