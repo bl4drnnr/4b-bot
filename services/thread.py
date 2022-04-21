@@ -33,16 +33,21 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
     #     print("%s: %s" % (threadName, time.ctime(time.time())))
     #     counter -= 1
     #     time.sleep(delay)
-    return None
+    while True:
+        print("crypto: " + str(crypto))
+        print("currentPrice: " + str(currentPrice))
+        print("triggerPrice: " + str(triggerPrice))
+        time.sleep(5)
+    # return None
 
 
-def startNewAlarmThread(message, userMessage):
+def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
     # Setup name
     newAlarmName = "alarm" + str(len(ALARM_THREADS))
 
-    thread1 = Thread(1, newAlarmName, 5, float(userMessage.split()[1]))
-    thread2 = Thread(2, "Thread-2", 5, 2)
+    thread1 = Thread(1, crypto, currentPrice, triggerPrice)
+    # thread2 = Thread(2, "Thread-2", 5, 2)
 
     thread1.start()
-    thread2.start()
+    # thread2.start()
     return None
