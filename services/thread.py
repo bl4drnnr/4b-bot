@@ -17,8 +17,7 @@ class Thread(threading.Thread):
         checkPairPrice(self.crypto, self.enterPrice, self.triggerPrice)
 
 
-def checkPairPrice(threadName, counter, delay):
-    # TODO how to trigger alarm check
+def checkPairPrice(crypto, enterPrice, triggerPrice):
     # Logic of working
     # while len(ALARM_THREADS) != 0:
     #   data = updateData()
@@ -30,14 +29,18 @@ def checkPairPrice(threadName, counter, delay):
     #           if alarmTigger:
     #               # Notify user and remove alarm from list
     #   time.sleep(300)
-    while counter:
-        print("%s: %s" % (threadName, time.ctime(time.time())))
-        counter -= 1
-        time.sleep(delay)
+    # while counter:
+    #     print("%s: %s" % (threadName, time.ctime(time.time())))
+    #     counter -= 1
+    #     time.sleep(delay)
+    return None
 
 
-def startNewAlarmThread():
-    thread1 = Thread(1, "Thread-1", 5, 1)
+def startNewAlarmThread(message, userMessage):
+    # Setup name
+    newAlarmName = "alarm" + str(len(ALARM_THREADS))
+
+    thread1 = Thread(1, newAlarmName, 5, float(userMessage.split()[1]))
     thread2 = Thread(2, "Thread-2", 5, 2)
 
     thread1.start()

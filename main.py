@@ -143,6 +143,7 @@ def getpairfuncmessage(message):
         markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
         try:
             crypto = str(userMessage.split()[0])
+            # Trigger price
             price = float(userMessage.split()[1])
         except ValueError:
             return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
@@ -152,7 +153,7 @@ def getpairfuncmessage(message):
         setAlarmApi(pair['symbol'], pair['index_price'], price, message.chat.id)
 
         # Start new thread
-        startNewAlarmThread()
+        startNewAlarmThread(message, userMessage)
 
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
