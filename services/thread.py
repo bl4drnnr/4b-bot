@@ -6,19 +6,18 @@ ALARM_THREADS = []
 
 
 class Thread(threading.Thread):
-    def __init__(self, threadID, crypto, enterPrice, triggerPrice):
+    def __init__(self, threadID, crypto, currentPrice, triggerPrice):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.crypto = crypto
-        self.enterPrice = enterPrice
+        self.currentPrice = currentPrice
         self.triggerPrice = triggerPrice
 
     def run(self):
-        checkPairPrice(self.crypto, self.enterPrice, self.triggerPrice)
+        checkPairPrice(self.crypto, self.currentPrice, self.triggerPrice)
 
 
-def checkPairPrice(threadName, counter, delay):
-    # TODO how to trigger alarm check
+def checkPairPrice(crypto, currentPrice, triggerPrice):
     # Logic of working
     # while len(ALARM_THREADS) != 0:
     #   data = updateData()
@@ -30,14 +29,25 @@ def checkPairPrice(threadName, counter, delay):
     #           if alarmTigger:
     #               # Notify user and remove alarm from list
     #   time.sleep(300)
-    while counter:
-        print("%s: %s" % (threadName, time.ctime(time.time())))
-        counter -= 1
-        time.sleep(delay)
+    # while counter:
+    #     print("%s: %s" % (threadName, time.ctime(time.time())))
+    #     counter -= 1
+    #     time.sleep(delay)
+    while True:
+        print("crypto: " + str(crypto))
+        print("currentPrice: " + str(currentPrice))
+        print("triggerPrice: " + str(triggerPrice))
+        time.sleep(5)
+    # return None
 
 
-thread1 = Thread(1, "Thread-1", 5, 1)
-thread2 = Thread(2, "Thread-2", 5, 2)
+def startNewAlarmThread(message, crypto, triggerPrice, currentPrice):
+    # Setup name
+    newAlarmName = "alarm" + str(len(ALARM_THREADS))
 
-thread1.start()
-thread2.start()
+    thread1 = Thread(1, crypto, currentPrice, triggerPrice)
+    # thread2 = Thread(2, "Thread-2", 5, 2)
+
+    thread1.start()
+    # thread2.start()
+    return None
