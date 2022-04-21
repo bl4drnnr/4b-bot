@@ -51,11 +51,11 @@ def getAlarms(uid):
 
 
 def postTriggeredAlarms(crypto, currentPrice, triggerPrice, chatid):
-    return
+    return 1
 
 
 def getAllTriggeredAlarms(chatid):
-    return
+    return 1
 
 
 def postPosition(crypto, dateFrom, dateTo, interval, tp, sl):
