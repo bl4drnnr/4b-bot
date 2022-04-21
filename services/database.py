@@ -34,9 +34,9 @@ def getUserById(uid):
     return user
 
 
-def postAlarm(cryptopair, currentPrice, alarmPrice, uid):
+def postAlarm(cryptopair, currentPrice, triggerPrice, uid):
     addAlarm = "INSERT INTO alarms (id, userid, crypto, currentprice, triggerprice) VALUES (uuid(), %s, %s, %s)"
-    dataAlarm = (uid, cryptopair, currentPrice, alarmPrice)
+    dataAlarm = (uid, cryptopair, currentPrice, triggerPrice)
     cursor.execute(addAlarm, dataAlarm)
     return db.commit()
 

@@ -144,18 +144,18 @@ def getpairfuncmessage(message):
         try:
             crypto = str(userMessage.split()[0])
             # Trigger price
-            price = float(userMessage.split()[1])
+            triggerPrice = float(userMessage.split()[1])
         except ValueError:
             return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        setAlarmApi(pair['symbol'], pair['index_price'], price, message.chat.id)
+        setAlarmApi(pair['symbol'], pair['index_price'], triggerPrice, message.chat.id)
 
         # Start new thread
         startNewAlarmThread(message, userMessage)
 
-        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{price} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
+        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
         # Looking for pair
         pair = getPairApi(str(userMessage) + str("USDT"))

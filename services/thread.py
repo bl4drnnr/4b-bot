@@ -6,18 +6,18 @@ ALARM_THREADS = []
 
 
 class Thread(threading.Thread):
-    def __init__(self, threadID, crypto, enterPrice, triggerPrice):
+    def __init__(self, threadID, crypto, currentPrice, triggerPrice):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.crypto = crypto
-        self.enterPrice = enterPrice
+        self.currentPrice = currentPrice
         self.triggerPrice = triggerPrice
 
     def run(self):
-        checkPairPrice(self.crypto, self.enterPrice, self.triggerPrice)
+        checkPairPrice(self.crypto, self.currentPrice, self.triggerPrice)
 
 
-def checkPairPrice(crypto, enterPrice, triggerPrice):
+def checkPairPrice(crypto, currentPrice, triggerPrice):
     # Logic of working
     # while len(ALARM_THREADS) != 0:
     #   data = updateData()
