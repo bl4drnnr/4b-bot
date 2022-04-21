@@ -22,12 +22,11 @@ def checkPairPrice(crypto, currentPrice, triggerPrice):
         data = updateData()
         for pair in data:
             if pair['symbol'] == crypto:
-                alarmTrigger = False
-                # priceChecker = currentPrice > triggerPrice
-                # if ...check price -> alarmTrigger = True
-                if alarmTrigger:
-                    # exit thread
-                    print('Notify user')
+                waitingForLong = float(triggerPrice) > float(currentPrice)
+                if waitingForLong and float(triggerPrice) >= pair['index_price']:
+                    print('Notify user with long')
+                elif not waitingForLong:
+                    print('Notify user with short')
         time.sleep(300)
 
 
