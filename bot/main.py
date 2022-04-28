@@ -2,10 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
-from services.dbthread import startForCheckingForTriggeredAlarm
-from services.common import getMostPopularPairs, printPairResult, getAvailableCommands
-from api.routes import setAlarmApi, getAllAlarms, commitPositions, getPositions, getUser, postUser, setAlarm
-from api.bybitapi import getPairApi
+from bot.common import getMostPopularPairs, printPairResult, getAvailableCommands
+from api.routes import setAlarmApi, getAllAlarms, getPositions, getUser, postUser, setAlarm
+from bot.bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 

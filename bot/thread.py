@@ -1,9 +1,9 @@
 import threading
 import time
-from api.bybitapi import updateData
+from bot.bybitapi import updateData
 # Error because of setAlarm in router
 # from api.routes import setTriggeredAlarms
-from services.database import postTriggeredAlarms
+from bot.database import postTriggeredAlarms
 
 IDX = 0
 
