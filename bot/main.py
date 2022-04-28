@@ -2,9 +2,9 @@ import telebot
 from telebot import types
 from decouple import config
 
-from bot.common import getMostPopularPairs, printPairResult, getAvailableCommands
+from common import getMostPopularPairs, printPairResult, getAvailableCommands
 from api.routes import setAlarmApi, getAllAlarms, getPositions, getUser, postUser, setAlarm
-from bot.bybitapi import getPairApi
+from bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
