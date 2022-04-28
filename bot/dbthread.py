@@ -1,7 +1,4 @@
 import threading
-import time
-
-from services.database import getAllTriggeredAlarms
 
 IDX = 0
 

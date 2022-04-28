@@ -1,5 +1,5 @@
-from services.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser, postTriggeredAlarms, getAllTriggeredAlarms
-from services.thread import startNewAlarmThread
+from bot.database import postAlarm, getAlarms, postPosition, getUserPositions, getUserById, createUser, postTriggeredAlarms, getAllTriggeredAlarms
+from bot.thread import startNewAlarmThread
 
 # DATABASE
 
