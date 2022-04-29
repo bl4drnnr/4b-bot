@@ -1,8 +1,8 @@
-venv/
 .DS_Store
 .idea
 .env
-__pycache__
 
 api/node_modules
 api/package-lock.json
+bot/__pycache__
+bot/venv
