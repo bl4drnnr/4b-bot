@@ -1,8 +1,0 @@
-venv/
-DS_Store
-.drone*
-.git
-.cache
-.idea
-__pycache__
-LICENSE
