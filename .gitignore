@@ -4,3 +4,6 @@ venv/
 .env
 __pycache__
 db.env
+
+api/node_modules
+api/package-lock.json
