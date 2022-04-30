@@ -14,4 +14,4 @@ export const createPosition = async (data: object) => {
     } catch (error) {
 
     }
-}
+};
