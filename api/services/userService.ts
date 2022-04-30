@@ -10,7 +10,7 @@ export const getUserById = async (id: string) => {
 
 export const createUser = async (data: object) => {
     try {
-
+        return userRepository.createUser(data);
     } catch (error) {
 
     }
