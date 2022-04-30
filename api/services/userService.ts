@@ -6,4 +6,12 @@ export const getUserById = async (id: string) => {
     } catch (error) {
 
     }
-}
+};
+
+export const createUser = async (data: object) => {
+    try {
+        return userRepository.createUser(data);
+    } catch (error) {
+
+    }
+};

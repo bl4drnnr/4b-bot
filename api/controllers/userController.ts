@@ -9,3 +9,10 @@ export const getUserById = async (req: Request, res: Response) => {
     }
 };
 
+export const createUser = async (req: Request, res: Response) => {
+    try {
+        return await userService.createUser(req.body);
+    } catch (error) {
+
+    }
+};
