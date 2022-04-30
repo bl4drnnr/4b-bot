@@ -3,7 +3,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import setAlarmApi, getAllAlarms, getPositions, getUser, postUser, setAlarm
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition
 from bybitapi import getPairApi
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
@@ -13,7 +13,7 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    user = getUser(message.chat.id)
+    user = getUserById(message.chat.id)
     if not user:
         return startcmd(message)
 
@@ -50,7 +50,7 @@ def commitpositioncmd(message):
 
 @bot.message_handler(commands=['getpositions'])
 def getpositionscmd(message):
-    allPositions = getPositions(message.chat.id)
+    allPositions = getUserPositionsById(message.chat.id)
     allPositionsMessage = ""
 
     markup = types.InlineKeyboardMarkup()
@@ -63,7 +63,7 @@ def getpositionscmd(message):
 
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
-    allAlarms = getAllAlarms(message.chat.id)
+    allAlarms = getUserAlarmsById(message.chat.id)
     allAlarmsMessage = ""
 
     markup = types.InlineKeyboardMarkup()
@@ -110,7 +110,7 @@ def getpairbtn(call):
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2:
         # Creating new user
-        postUser(userMessage.split()[0], userMessage.split()[1])
+        createUser(userMessage.split()[0], userMessage.split()[1])
         return menucmd(call.message)
     else:
         # Looking for pair
@@ -150,10 +150,10 @@ def getpairfuncmessage(message):
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        setAlarmApi(pair['symbol'], triggerPrice, pair['index_price'], message.chat.id)
+        createAlarm(pair['symbol'], triggerPrice, pair['index_price'], message.chat.id)
 
         # Start new thread
-        setAlarm(message.chat.id, pair['symbol'], triggerPrice, pair['index_price'])
+        # createAlarm(message.chat.id, pair['symbol'], triggerPrice, pair['index_price'])
 
         return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
     else:
