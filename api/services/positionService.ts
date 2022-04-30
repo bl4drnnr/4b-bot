@@ -1,8 +1,8 @@
 import * as positionRepository from '../repositories/positionRepository';
 
-export const getAllUserPositionById = async (id: string) => {
+export const getUserPositionsById = async (id: string) => {
     try {
-        return positionRepository.getAllUserPositionById(id);
+        return positionRepository.getUserPositionsById(id);
     } catch (error) {
 
     }
