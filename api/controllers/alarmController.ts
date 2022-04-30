@@ -14,4 +14,4 @@ export const createAlarm =async (req: Request, res: Response) => {
     } catch (error) {
         
     }
-}
+};
