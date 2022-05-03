@@ -1,5 +1,5 @@
 import knex from 'knex';
-import knexConfigs from './knexconfig';
+import knexConfigs from './knexfile';
 import dotenv from "dotenv";
 import path from "path";
 
