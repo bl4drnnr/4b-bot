@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-const userController = require('../controllers/userController');
-const alarmController = require('../controllers/alarmController');
-const positionController = require('../controllers/positionController');
+const userController = require('../controllers/user.controller');
+const alarmController = require('../controllers/alarm.controller');
+const positionController = require('../controllers/position.controller');
 
 router.get('/user/:id', userController.getUserById);
 router.post('/user/create', userController.createUser);

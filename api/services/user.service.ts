@@ -1,4 +1,4 @@
-import * as userRepository from '../repositories/userRepository';
+import * as userRepository from '../repositories/user.repository';
 
 export const getUserById = async (id: string) => {
     try {

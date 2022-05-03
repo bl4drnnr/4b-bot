@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as alarmSerivce from '../services/alarmService';
+import * as alarmSerivce from '../services/alarm.service';
 
 export const getUserAlarmsById = async (req: Request, res: Response) => {
     try {
