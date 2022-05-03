@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({
-    path: path.resolve(path.resolve(), "../.env")
+    path: path.resolve(path.resolve(), "../../../.env")
 })
 
 const knexConfig: Knex.Config = {
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
         host: process.env.DATABASE_HOST,
         user: process.env.DATABASE_USERNAME,
