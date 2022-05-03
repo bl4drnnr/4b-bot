@@ -1,4 +1,4 @@
-import * as alarmRepository from '../repositories/alarmRepository';
+import * as alarmRepository from '../repositories/alarm.repository';
 
 export const getUserAlarmsById = async (id: string) => {
     try {

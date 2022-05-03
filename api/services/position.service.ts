@@ -1,4 +1,4 @@
-import * as positionRepository from '../repositories/positionRepository';
+import * as positionRepository from '../repositories/position.repository';
 
 export const getUserPositionsById = async (id: string) => {
     try {
