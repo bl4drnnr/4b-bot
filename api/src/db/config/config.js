@@ -1,19 +1,17 @@
-require('dotenv').config()
+import { getDbConfig } from '../../../config/index'
 
 const options = {
-  username: conf.getDbConfig().username,
-  password: conf.getDbConfig().password,
-  database: conf.getDbConfig().database,
-  host: conf.getDbConfig().hostname,
-  port: conf.getDbConfig().port,
-  dialect: conf.getDbConfig().dialect,
+  username: getDbConfig().username,
+  password: getDbConfig().password,
+  database: getDbConfig().database,
+  host: getDbConfig().hostname,
+  port: getDbConfig().port,
+  dialect: getDbConfig().dialect,
   dialectOptions: {
     encrypt: true,
     decimalNumbers: true
   }
 }
 
-module.exports = {
-  development: options,
-  production: options
-}
+export const development = options
+export const production = options
