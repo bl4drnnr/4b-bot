@@ -4,7 +4,7 @@ import crypt
 URL="http://localhost:3000"
 
 def getUserById(id):
-    r = requests.get(url=URL + '/user/' + id)
+    r = requests.get(url=URL + '/user/' + str(id))
     return r.json()
 
 def createUser():
@@ -12,7 +12,7 @@ def createUser():
     return r.json()
 
 def getUserAlarmsById(id):
-    r = requests.get(url=URL + '/alarms/' + id)
+    r = requests.get(url=URL + '/alarms/' + str(id))
     return r.json()
 
 def createAlarm(data):
@@ -20,7 +20,7 @@ def createAlarm(data):
     return r.json()
 
 def getUserPositionsById(id):
-    r = requests.get(url=URL + '/positions/' + id)
+    r = requests.get(url=URL + '/positions/' + str(id))
     return r.json()
 
 def createPosition(data):
