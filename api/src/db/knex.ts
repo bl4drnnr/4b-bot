@@ -16,14 +16,12 @@ const knexConfig: Knex.Config = {
     },
     migrations: {
         tableName: 'knex_migrations',
-        directory: __dirname + './migrations'
+        directory: path.resolve() + '/migrations'
     },
     seeds: {
-        directory: __dirname + './seeders'
+        directory: path.resolve() + '/seeders'
     },
     debug: false
 };
 
-const knexInstanse = knex(knexConfig);
-
-export default knexInstanse;
+export default knexConfig;
