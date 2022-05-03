@@ -25,3 +25,6 @@ const knexConfig: Knex.Config = {
 };
 
 export default knexConfig;
+
+// const knexInstanse = knex(knexConfig)
+// export default knexInstanse;
