@@ -1,8 +1,8 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import Sequelize from 'sequelize';
-const config = require(__dirname + '/../config/config.js');
-const envs = require(__dirname + "../../config");
+const config = require(__dirname + './../config/config.js');
+const envs = require(__dirname + "../../config/");
 
 const dbName = envs.getAppEnv() === "production" ? config.production.database : config.development.database;
 const dbUsername = envs.getAppEnv() === "production" ? config.production.username : config.development.username;

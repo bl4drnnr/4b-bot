@@ -2,7 +2,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config({
-    path: path.resolve(path.resolve(), '../../.env')
+    path: path.resolve(path.resolve(), '../.env')
 });
 
 export default {

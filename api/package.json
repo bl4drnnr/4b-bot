@@ -1,6 +1,7 @@
 {
   "name": "pocket-crypto-market",
   "version": "1.0.0",
+  "type": "module",
   "description": "API for telegram bot PCM (pocker crypto market)",
   "main": "index.js",
   "scripts": {
