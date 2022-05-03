@@ -8,14 +8,9 @@
   },
   "author": "bl4drnnr <bl4drnnr@protonmail.com>",
   "dependencies": {
-    "@types/sequelize": "^4.28.12",
     "dotenv": "^16.0.0",
     "express": "^4.18.0",
-    "mysql2": "^2.3.3",
     "nodemon": "^2.0.16",
-    "sequelize": "^6.19.0",
-    "sequelize-cli": "^6.4.1",
-    "sequelize-typescript": "^2.1.3",
     "ts-node": "^10.7.0",
     "winston": "^3.7.2",
     "winston-daily-rotate-file": "^4.6.1"

@@ -2,10 +2,10 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config({
-    path: path.resolve(__dirname, '../../.env')
+    path: path.resolve(path.resolve(), '../.env')
 });
 
-module.exports = {
+export default {
     getDbConfig() {
         return {
             username: process.env.MYSQL_USERNAME,
