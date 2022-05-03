@@ -7,7 +7,7 @@ def getUserById(id):
     r = requests.get(url=URL + '/user/' + str(id))
     return r.json()
 
-def createUser():
+def createUser(data):
     r = requests.post(url=URL + '/user/create', data=data)
     return r.json()
 
