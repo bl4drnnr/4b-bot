@@ -10,7 +10,7 @@ router.post('/user/create', userController.createUser);
 router.get('/alarms/:id', alarmController.getUserAlarmsById);
 router.post('/alarm/create', alarmController.createAlarm);
 
-router.get('/positons/:id', positionController.getUserPositionsById);
-router.post('/position/create', positionController.createPosition);
+router.get('/positions/:id', positionController.getUserPositionsById);
+router.post('/positions/create', positionController.createPosition);
 
 export default router;
