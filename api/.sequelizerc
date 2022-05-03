@@ -1,0 +1,7 @@
+import path from 'path';
+
+module.exports = {
+  'config': path.resolve('CONFIGPATHHERE', 'sequelize.js'),
+  'models-path': path.resolve('api/user', 'sequelize'),
+  'migrations-path': path.resolve('api/user', 'migrations')
+}
