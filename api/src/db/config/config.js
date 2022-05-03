@@ -1,17 +1,19 @@
-import { getDbConfig } from '../../../config/index'
+import config from '../../../config/index.js'
 
 const options = {
-  username: getDbConfig().username,
-  password: getDbConfig().password,
-  database: getDbConfig().database,
-  host: getDbConfig().hostname,
-  port: getDbConfig().port,
-  dialect: getDbConfig().dialect,
+  username: config.getDbConfig().username,
+  password: config.getDbConfig().password,
+  database: config.getDbConfig().database,
+  host: config.getDbConfig().hostname,
+  port: config.getDbConfig().port,
+  dialect: config.getDbConfig().dialect,
   dialectOptions: {
     encrypt: true,
     decimalNumbers: true
   }
 }
 
-export const development = options
-export const production = options
+export default { 
+  development: options, 
+  production: options
+}
