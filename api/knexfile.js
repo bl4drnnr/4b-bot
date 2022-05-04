@@ -1,15 +1,11 @@
-import path from "path";
-import dotenv from "dotenv";
+const dotevn = require("dotenv");
+const path = require("path");
 
-dotenv.config({
-    path: path.resolve(path.resolve(), "../../../.env")
+dotevn.config({
+    path: path.resolve(path.resolve(), "../.env")
 })
 
-interface IKnexConfig {
-    [key: string]: object
-}
-
-const knexConfig: IKnexConfig = {
+module.exports = {
     development: {
         client: 'mysql2',
         connection: {
@@ -20,13 +16,11 @@ const knexConfig: IKnexConfig = {
         },
         migrations: {
             tableName: 'knex_migrations',
-            directory: path.resolve() + '/migrations'
+            directory: path.resolve() + '/src/db/migrations'
         },
         seeds: {
-            directory: path.resolve() + '/seeders'
+            directory: path.resolve() + '/src/db/seeders'
         },
         debug: true
     }
 }
-
-export default knexConfig;

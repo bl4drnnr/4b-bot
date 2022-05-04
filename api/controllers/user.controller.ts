@@ -1,18 +1,22 @@
 import { Request, Response } from "express";
 import * as userService from '../services/user.service';
 
-export const getUserById = async (req: Request, res: Response) => {
-    try {
-        return await userService.getUserById(req.params.id);
-    } catch (error) {
-        
+class UserController {
+    async create(req: Request, res: Response) {
+        const user = await userService.createUser(req.body)
+        return res.json(user)
     }
-};
-
-export const createUser = async (req: Request, res: Response) => {
-    try {
-        return await userService.createUser(req.body);
-    } catch (error) {
-
+    async read(req: Request, res: Response) {
+        const { id } = req.params
+        const user = await userService.getUserById(id)
+        return res.json(user)
     }
-};
+    async update(req: Request, res: Response) {
+        return
+    }
+    async delete(req: Request, res: Response) {
+        return
+    }
+}
+
+export { UserController }

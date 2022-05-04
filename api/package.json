@@ -4,8 +4,7 @@
   "description": "PCM (Pocker Crypto Market) API for telegram bot",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "knex": "knex --knexfile src/db/knex.ts"
+    "dev": "nodemon src/index.ts"
   },
   "author": "bl4drnnr <bl4drnnr@protonmail.com>",
   "dependencies": {

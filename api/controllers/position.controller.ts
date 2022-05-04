@@ -1,18 +1,19 @@
 import { Request, Response } from "express";
 import * as positionService from '../services/position.service';
 
-export const getUserPositionsById = async (req: Request, res: Response) => {
-    try {
-        return await positionService.getUserPositionsById(req.params.id);
-    } catch (error) {
-
+class PositionController {
+    async create(req: Request, res: Response) {
+        return
     }
-};
-
-export const createPosition = async (req: Request, res: Response) => {
-    try {
-        return await positionService.createPosition(req.body);
-    } catch (error) {
-
+    async read(req: Request, res: Response) {
+        return
     }
-};
+    async update(req: Request, res: Response) {
+        return
+    }
+    async delete(req: Request, res: Response) {
+        return
+    }
+}
+
+export { PositionController }
