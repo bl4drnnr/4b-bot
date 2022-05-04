@@ -3,10 +3,13 @@ import * as userService from '../services/user.service';
 
 class UserController {
     async create(req: Request, res: Response) {
-        return
+        const user = await userService.createUser(req.body)
+        return res.json(user)
     }
     async read(req: Request, res: Response) {
-        return
+        const { id } = req.params
+        const user = await userService.getUserById(id)
+        return res.json(user)
     }
     async update(req: Request, res: Response) {
         return

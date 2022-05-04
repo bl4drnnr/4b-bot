@@ -2,16 +2,16 @@ import * as userRepository from '../repositories/user.repository';
 
 export const getUserById = async (id: string) => {
     try {
-        return userRepository.getUserById(id);
+        return await userRepository.getUserById(id);
     } catch (error) {
-
+        console.log(error)
     }
 };
 
 export const createUser = async (data: object) => {
     try {
-        return userRepository.createUser(data);
+        return await userRepository.createUser(data);
     } catch (error) {
-
+        console.log(error)
     }
 };

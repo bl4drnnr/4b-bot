@@ -1,11 +1,9 @@
 const knex = require('../src/db/knex.js')
 
 export const getUserById = async (id: string) => {
-    const test = await knex('test').select('*')
-    console.log(test)
-    return test
+    return await knex('test').select('*')
 };
 
-export const createUser = (data: object) => {
-
+export const createUser = async (data: object) => {
+    return await knex('users').insert(data)
 };
