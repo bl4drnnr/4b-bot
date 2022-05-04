@@ -2,7 +2,7 @@
   "name": "pocket-crypto-market-api",
   "version": "1.0.0",
   "description": "PCM (Pocker Crypto Market) API for telegram bot",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "knex": "knex --knexfile src/db/knex.ts"

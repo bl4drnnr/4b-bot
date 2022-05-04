@@ -1,14 +1,17 @@
-import knex from 'knex';
-import knexConfigs from './knexfile';
-import dotenv from "dotenv";
 import path from "path";
+import Knex from "knex";
+import dotenv from "dotenv";
+import knexConfig from "./knexfile";
 
 dotenv.config({
     path: path.resolve(path.resolve(), "../../../.env")
 })
 
-const config = knexConfigs[process.env.NODE_ENV || 'development']
+const enviroment = process.env.NODE_ENV || "development"
 
-const db = knex(config);
+const knex = Knex(knexConfig[enviroment]);
 
-export default db;
+export default knex;
+
+// If I want to make/run migration/seed I need to use this and don't forget about --esm
+// export default knexConfig;

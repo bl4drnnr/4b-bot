@@ -1,16 +1,15 @@
-import { Knex } from 'knex'
-import dotenv from "dotenv";
 import path from "path";
+import dotenv from "dotenv";
 
 dotenv.config({
     path: path.resolve(path.resolve(), "../../../.env")
 })
 
 interface IKnexConfig {
-    [key: string]: Knex.Config
+    [key: string]: object
 }
 
-const knexConfigs: IKnexConfig = {
+const knexConfig: IKnexConfig = {
     development: {
         client: 'mysql2',
         connection: {
@@ -26,8 +25,8 @@ const knexConfigs: IKnexConfig = {
         seeds: {
             directory: path.resolve() + '/seeders'
         },
-        debug: false
+        debug: true
     }
-};
+}
 
-export default knexConfigs;
+export default knexConfig;
