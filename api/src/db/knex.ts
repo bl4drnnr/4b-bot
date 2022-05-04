@@ -13,5 +13,5 @@ const knex = Knex(knexConfig[enviroment]);
 
 export default knex;
 
-// If I want to make migration I need to use this and don't forget about --esm
+// If I want to make/run migration/seed I need to use this and don't forget about --esm
 // export default knexConfig;
