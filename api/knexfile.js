@@ -21,6 +21,6 @@ module.exports = {
         seeds: {
             directory: path.resolve() + '/src/db/seeders'
         },
-        debug: true
+        debug: false
     }
 }
