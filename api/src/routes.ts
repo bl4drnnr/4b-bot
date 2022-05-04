@@ -2,17 +2,21 @@ import { Router } from "express";
 
 const router = Router();
 
-import * as userController from '../controllers/user.controller';
-import * as alarmController from '../controllers/alarm.controller';
-import * as positionController from '../controllers/position.controller';
+import { UserController } from '../controllers/user.controller';
+import { AlarmController } from '../controllers/alarm.controller';
+import { PositionController } from '../controllers/position.controller';
 
-router.get('/user/:id', userController.getUserById);
-router.post('/user/create', userController.createUser);
+const userController = new UserController();
+const alarmController = new AlarmController();
+const positionController = new PositionController();
 
-router.get('/alarms/:id', alarmController.getUserAlarmsById);
-router.post('/alarm/create', alarmController.createAlarm);
+router.get('/user/:id', userController.read);
+router.post('/user/create', userController.create);
 
-router.get('/positions/:id', positionController.getUserPositionsById);
-router.post('/positions/create', positionController.createPosition);
+router.get('/alarms/:id', alarmController.read);
+router.post('/alarm/create', alarmController.create);
+
+router.get('/positions/:id', positionController.read);
+router.post('/positions/create', positionController.create);
 
 export default router;
