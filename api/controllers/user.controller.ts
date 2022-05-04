@@ -12,10 +12,10 @@ class UserController {
         return res.json(user)
     }
     async update(req: Request, res: Response) {
-        return
+        const { id } = req.params
     }
     async delete(req: Request, res: Response) {
-        return
+        const { id } = req.params
     }
 }
 
