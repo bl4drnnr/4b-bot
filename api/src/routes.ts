@@ -2,16 +2,14 @@ import { Router } from "express";
 
 const router = Router();
 
-import { UserController } from '../controllers/user.controller';
+import * as userController from '../controllers/user.controller';
 import * as alarmController from '../controllers/alarm.controller';
 import * as positionController from '../controllers/position.controller';
 
-const userController = new UserController();
-
-router.get('/user/:id', userController.read);
-router.post('/user/create', userController.create);
-router.put('/user/update/:id', userController.update);
-router.delete('/user/delete/:id', userController.delete);
+router.get('/user/:id', userController.getUserById);
+router.post('/user/create', userController.createUser);
+router.put('/user/update/:id', userController.updateUser);
+router.delete('/user/delete/:id', userController.deleteUser);
 
 router.get('/alarms/:id', alarmController.getUserAlarmsById);
 router.post('/alarm/create', alarmController.createAlarm);
