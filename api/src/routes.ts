@@ -2,9 +2,9 @@ import { Router } from "express";
 
 const router = Router();
 
-const userController = require('../controllers/user.controller');
-const alarmController = require('../controllers/alarm.controller');
-const positionController = require('../controllers/position.controller');
+import * as userController from '../controllers/user.controller';
+import * as alarmController from '../controllers/alarm.controller';
+import * as positionController from '../controllers/position.controller';
 
 router.get('/user/:id', userController.getUserById);
 router.post('/user/create', userController.createUser);
