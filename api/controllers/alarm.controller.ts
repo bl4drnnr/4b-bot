@@ -1,18 +1,19 @@
 import { Request, Response } from "express";
 import * as alarmSerivce from '../services/alarm.service';
 
-export const getUserAlarmsById = async (req: Request, res: Response) => {
-    try {
-        return await alarmSerivce.getUserAlarmsById(req.params.id);
-    } catch (error) { 
-
+class AlarmController {
+    async create(req: Request, res: Response) {
+        return
     }
-};
-
-export const createAlarm =async (req: Request, res: Response) => {
-    try {
-        return await alarmSerivce.createAlarm(req.body);
-    } catch (error) {
-        
+    async read(req: Request, res: Response) {
+        return
     }
-};
+    async update(req: Request, res: Response) {
+        return
+    }
+    async delete(req: Request, res: Response) {
+        return
+    }
+}
+
+export { AlarmController }
