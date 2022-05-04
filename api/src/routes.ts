@@ -1,4 +1,6 @@
-const router = require('express').Router();
+import { Router } from "express";
+
+const router = Router();
 
 const userController = require('../controllers/user.controller');
 const alarmController = require('../controllers/alarm.controller');
