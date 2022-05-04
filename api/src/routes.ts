@@ -12,11 +12,17 @@ const positionController = new PositionController();
 
 router.get('/user/:id', userController.read);
 router.post('/user/create', userController.create);
+router.put('/user/update/:id', userController.update);
+router.delete('/user/delete/:id', userController.delete);
 
 router.get('/alarms/:id', alarmController.read);
 router.post('/alarm/create', alarmController.create);
+router.put('/alarm/update/:id', alarmController.update);
+router.delete('/alarm/delete/:id', alarmController.delete);
 
 router.get('/positions/:id', positionController.read);
 router.post('/positions/create', positionController.create);
+router.put('/positions/update/:id', positionController.update);
+router.delete('/positions/delete/:id', positionController.delete);
 
 export default router;
