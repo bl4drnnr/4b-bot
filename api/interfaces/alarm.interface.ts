@@ -1,6 +1,7 @@
 export interface Alarm {
-    id: string
-    userId: string,
-    pair: string,
+    id?: string
+    userId: string
+    pair: string
     triggerPrice: number
+    indexPrice: number
 }

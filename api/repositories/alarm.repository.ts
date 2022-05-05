@@ -7,7 +7,7 @@ export const getUserAlarmsById = async (id: string) => {
 };
 
 export const createAlarm = async (alarm: Alarm) => {
-    return await knex("alarms").insert(alarm);
+    return await knex("alarms").insert({...alarm, id: uuid.v4()});
 };
 
 export const updateAlarm = async (alarm: Alarm) => {

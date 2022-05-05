@@ -10,7 +10,7 @@ export const createUser = async (req: Request, res: Response) => {
 
         logger.info(`Creating user: ${req.body}`);
 
-        return res.json(user);
+        return res.json({ status: 1 });
     } catch (e) {
         logger.error(`Error while creating user => ${e}`);
         return res.json({ status: -1 });

@@ -8,6 +8,7 @@ exports.up = function(knex) {
         t.uuid("userId").references("users.id")
         t.string("pair")
         t.float("triggerPrice")
+        t.float("indexPrice")
         t.timestamp('createdAt').defaultTo(knex.fn.now())
         t.timestamp('updatedAt').defaultTo(knex.fn.now())
   });
