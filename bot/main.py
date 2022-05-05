@@ -63,11 +63,16 @@ def getpositionscmd(message):
 
 @bot.message_handler(commands=['getalarm'])
 def getalarmcmd(message):
-    allAlarms = getUserAlarmsById(message.chat.id)
-    allAlarmsMessage = ""
-
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(
+        types.InlineKeyboardButton("Menu", callback_data="/menu"),
+        types.InlineKeyboardButton("Set alarm", callback_data="/setalarm"),
+    )
+
+    allAlarms = getUserAlarmsById(message.chat.id)
+    if allAlarms.get('status') == 0:
+        return bot.send_message(message.chat.id, "<b>You have no alarms! Wanna set one?</b>", parse_mode='html', reply_markup=markup)
+    allAlarmsMessage = ""
 
     for alarm in allAlarms:
         allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm[0]}</b> / <u>{alarm[1]}</u> / <i>{alarm[2]}</i>\n\n"

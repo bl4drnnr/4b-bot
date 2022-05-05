@@ -24,7 +24,8 @@ export const getUserAlarmsById = async (req: Request, res: Response) => {
         logger.info(`Getting alarms by id: ${id}`);
 
         const alarm = await alarmSerivce.getUserAlarmsById(id);
-        return res.json(alarm);
+
+        return res.json(alarm || { status: 0 });
     } catch (e) {
         logger.error(`Error while getting alarm => ${e}`);
         return res.json({ status: -1 });
