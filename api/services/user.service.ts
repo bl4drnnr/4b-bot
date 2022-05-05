@@ -1,4 +1,7 @@
 import * as userRepository from '../repositories/user.repository';
+import loggerConfig from "../common/logger";
+
+const logger = loggerConfig({ lable: 'user-service', path: 'user' });
 
 export const getUserById = async (id: string) => {
     try {
@@ -30,4 +33,4 @@ export const deleteUser = async (id: string) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
