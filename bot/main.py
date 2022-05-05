@@ -70,12 +70,13 @@ def getalarmcmd(message):
     )
 
     allAlarms = getUserAlarmsById(message.chat.id)
-    if allAlarms.get('status') == 0:
+    
+    if len(allAlarms) == 0:
         return bot.send_message(message.chat.id, "<b>You have no alarms! Wanna set one?</b>", parse_mode='html', reply_markup=markup)
     allAlarmsMessage = ""
 
     for alarm in allAlarms:
-        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm[0]}</b> / <u>{alarm[1]}</u> / <i>{alarm[2]}</i>\n\n"
+        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm['pair']}</b> / <u>{alarm['triggerPrice']}</u> / <i>{alarm['createdAt']}</i>\n\n"
     return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html', reply_markup=markup)
 
 
