@@ -1,9 +1,18 @@
 import { Request, Response } from "express";
 import * as userService from '../services/user.service';
+import loggerConfig from "../common/logger";
+
+const logger = loggerConfig({ lable: 'user-controller', path: 'user' })
 
 export const createUser = async (req: Request, res: Response) => {
-    const user = await userService.createUser(req.body);
-    return res.json(user);
+    try {
+        const user = await userService.createUser(req.body);
+        logger.info(`Creating user: ${req.body}`)
+        return res.json(user);
+    } catch (e) {
+        logger.error(`Error while creating user => ${e}`)
+        return res.json({ error: true })
+    }
 };
 
 export const getUserById = async (req: Request, res: Response) => {
