@@ -5,6 +5,7 @@ const router = Router();
 import * as userController from '../controllers/user.controller';
 import * as alarmController from '../controllers/alarm.controller';
 import * as positionController from '../controllers/position.controller';
+import * as cryptoController from '../controllers/crypto.controller';
 
 router.get('/user/:id', userController.getUserById);
 router.post('/user/create', userController.createUser);
