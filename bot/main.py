@@ -14,7 +14,7 @@ commands = getAvailableCommands()
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
     user = getUserById(message.chat.id)
-    if user['status'] == 0:
+    if user.get('status') is not None and user['status'] == 0:
         return startcmd(message)
 
     menuMessage = f'Welcome, <u>{message.chat.first_name}</u>, let\'s start!\n\n' \
@@ -110,7 +110,7 @@ def commandshandlebtn(call):
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
-        createUser(userMessage.split()[0], userMessage.split()[1])
+        createUser({'id': userMessage.split()[0]})
         return menucmd(call.message)
     else:
         # Looking for pair
