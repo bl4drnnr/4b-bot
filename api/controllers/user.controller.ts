@@ -33,11 +33,11 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
 
         logger.info(`Updating user by id: ${id}`);
 
-        const user = await userService.updateUser(id, req.body);
+        const user = await userService.updateUser(req.body);
         return res.json(user);
     } catch (e) {
         logger.error(`Error while updating user => ${e}`);
@@ -47,7 +47,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
 
         logger.info(`Delete user with id: ${id}`);
         

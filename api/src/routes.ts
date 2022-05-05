@@ -9,8 +9,8 @@ import * as cryptoController from '../controllers/crypto.controller';
 
 router.get('/user/:id', userController.getUserById);
 router.post('/user/create', userController.createUser);
-router.put('/user/update/:id', userController.updateUser);
-router.delete('/user/delete/:id', userController.deleteUser);
+router.put('/user/update', userController.updateUser);
+router.delete('/user/delete', userController.deleteUser);
 
 router.get('/alarms/:id', alarmController.getUserAlarmsById);
 router.post('/alarm/create', alarmController.createAlarm);

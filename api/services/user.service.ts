@@ -13,48 +13,48 @@ export const getUserById = async (id: string) => {
     }
 };
 
-export const createUser = async (data: User) => {
+export const createUser = async (user: User) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${data.id}`)
-        const user = await getUserById(data.id);
+        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
+        const foundUser = await getUserById(user.id);
 
-        if (user) return user
+        if (foundUser) return foundUser
 
-        return await userRepository.createUser(data);
+        return await userRepository.createUser(user);
     } catch (error: any) {
         logger.error(`error-while-creating-user => ${error.sqlMessage}`);
         throw Error("error-while-creating-user");
     }
 };
 
-export const updateUser = async (id: string, data: object) => {
+export const updateUser = async (user: User) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${id}`)
-        const user = await getUserById(id);
+        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
+        const foundUser = await getUserById(user.id);
 
-        if (!user) {
-            logger.warn(`User with id: ${id} doesn't exists`)
+        if (!foundUser) {
+            logger.warn(`User with id: ${user.id} doesn't exists`)
             return
         }
 
-        return await userRepository.updateUser(id, data);
+        return await userRepository.updateUser(user);
     } catch (error: any) {
         logger.error(`error-while-updating-user => ${error.sqlMessage}`);
         throw Error("error-while-updating-user");
     }
 };
 
-export const deleteUser = async (id: string) => {
+export const deleteUser = async (user: User) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${id}`)
-        const user = await getUserById(id);
+        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
+        const foundUser = await getUserById(user.id);
 
-        if (!user) {
-            logger.warn(`User with id: ${id} doesn't exists`)
+        if (!foundUser) {
+            logger.warn(`User with id: ${user.id} doesn't exists`)
             return
         }
 
-        return await userRepository.deleteUser(id);
+        return await userRepository.deleteUser(user);
     } catch (error: any) {
         logger.error(`error-while-deleting-user => ${error.sqlMessage}`);
         throw Error("error-while-deleting-user");
