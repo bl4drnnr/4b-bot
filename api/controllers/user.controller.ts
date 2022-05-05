@@ -24,7 +24,8 @@ export const getUserById = async (req: Request, res: Response) => {
         logger.info(`Getting user by id: ${id}`);
 
         const user = await userService.getUserById(id);
-        return res.json(user);
+
+        return res.json(user || { status: 0 });
     } catch (e) {
         logger.error(`Error while getting user by id => ${e}`);
         return res.json({ status: -1 });

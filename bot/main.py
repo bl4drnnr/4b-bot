@@ -14,7 +14,7 @@ commands = getAvailableCommands()
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
     user = getUserById(message.chat.id)
-    if not user:
+    if user['status'] == 0:
         return startcmd(message)
 
     menuMessage = f'Welcome, <u>{message.chat.first_name}</u>, let\'s start!\n\n' \

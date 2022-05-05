@@ -5,7 +5,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable("alarms", t => {
         t.uuid("id").primary().notNullable()
-        t.uuid("userId").references("users.is")
+        t.uuid("userId").references("users.id")
         t.string("pair")
         t.float("triggerPrice")
         t.timestamp('createdAt').defaultTo(knex.fn.now())

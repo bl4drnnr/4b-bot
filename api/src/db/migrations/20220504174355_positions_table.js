@@ -4,9 +4,7 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable("positions", t => {
-      return knex.schema.createTable("positions", t => {
-          t.uuid("id").primary().notNullable()
-      })
+    t.uuid("id").primary().notNullable()
   })
 };
 
