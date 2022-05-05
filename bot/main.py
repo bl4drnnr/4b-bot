@@ -95,7 +95,7 @@ def getpaircmd(message):
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def getpairbtn(call):
+def commandshandlebtn(call):
     userMessage = call.data
 
     # Commands by buttons click
@@ -108,7 +108,7 @@ def getpairbtn(call):
             return setalarmcmd(call.message)
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
-    elif len(userMessage.split()) == 2:
+    elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
         createUser(userMessage.split()[0], userMessage.split()[1])
         return menucmd(call.message)
@@ -127,7 +127,7 @@ def getpairbtn(call):
 
 
 @bot.message_handler(content_types=['text'])
-def getpairfuncmessage(message):
+def manualhandlermessage(message):
     userMessage = message.text.strip().upper()
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
@@ -174,11 +174,11 @@ def startcmd(message):
     # New user start message
     startMessage = f"Hello, <b><i>{message.from_user.first_name}</i></b>, you are probably new one here?\n\n" \
                    f"Lemme explain what you can do with this bot and how it use. The idea of this bot is to become your personal crypto diary." \
-                   f"Here you can find such functionality as <b>alarms</b>, <b>getting pairs</b> in one click and even personal <b><i><u>personal AI</u></i></b>.\n\n" \
+                   f"Here you can find such functionality as <b>alarms</b>, <b>getting pairs</b> in one click and even personal <i><u>personal AI</u></i>.\n\n" \
                    f"About last one let's talk a little bit more... \n\n" \
                    f"If I was able to impress you, you know what to press!"
 
-    initData = f"{str(message.from_user.id)} {str(message.from_user.first_name)}"
+    initData = f"{str(message.from_user.id)} create"
 
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
