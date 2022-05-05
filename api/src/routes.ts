@@ -14,8 +14,8 @@ router.delete('/user/delete', userController.deleteUser);
 
 router.get('/alarms/:id', alarmController.getUserAlarmsById);
 router.post('/alarm/create', alarmController.createAlarm);
-router.put('/alarm/update/:id', alarmController.updateAlarm);
-router.delete('/alarm/delete/:id', alarmController.deleteAlarm);
+router.put('/alarm/update', alarmController.updateAlarm);
+router.delete('/alarm/delete', alarmController.deleteAlarm);
 
 router.get('/positions/:id', positionController.getUserPositionsById);
 router.post('/positions/create', positionController.createPosition);
