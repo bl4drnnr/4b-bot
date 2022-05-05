@@ -33,11 +33,11 @@ export const getUserPositionsById = async (req: Request, res: Response) => {
 
 export const updatePosition = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
 
         logger.info(`Updating position by id: ${id}`);
 
-        const position = await positionService.updatePosition(id, req.body);
+        const position = await positionService.updatePosition(req.body);
         return res.json(position);
     } catch (e) {
         logger.error(`Error white updating user positions => ${e}`);
@@ -47,11 +47,11 @@ export const updatePosition = async (req: Request, res: Response) => {
 
 export const deletePosition = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
 
         logger.info(`Deleting position by id: ${id}`);
 
-        const position = await positionService.deletePosition(id);
+        const position = await positionService.deletePosition(req.body);
         return res.json(position);
     } catch (e) {
         logger.error(`Error while deleting position => ${e}`);

@@ -13,27 +13,27 @@ export const getUserPositionsById = async (id: string) => {
     }
 };
 
-export const createPosition = async (data: object) => {
+export const createPosition = async (position: Position) => {
     try {
-        return await positionRepository.createPosition(data);
+        return await positionRepository.createPosition(position);
     } catch (error: any) {
         logger.error(`error-while-creating-position => ${error.sqlMessage}`);
         throw Error("error-while-creating-position");
     }
 };
 
-export const updatePosition = async (id: string, data: object) => {
+export const updatePosition = async (position: Position) => {
     try {
-        return await positionRepository.updatePosition(id, data);
+        return await positionRepository.updatePosition(position);
     } catch (error: any) {
         logger.error(`error-while-updating-position => ${error.sqlMessage}`);
         throw Error("error-while-updating-position");
     }
 };
 
-export const deletePosition = async (id: string) => {
+export const deletePosition = async (position: Position) => {
     try {
-        return await positionRepository.deletePosition(id);
+        return await positionRepository.deletePosition(position);
     } catch (error: any) {
         logger.error(`error-while-deleting-position => ${error.sqlMessage}`);
         throw Error("error-while-deleting-position");

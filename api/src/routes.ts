@@ -19,8 +19,8 @@ router.delete('/alarm/delete/:id', alarmController.deleteAlarm);
 
 router.get('/positions/:id', positionController.getUserPositionsById);
 router.post('/positions/create', positionController.createPosition);
-router.put('/positions/update/:id', positionController.updatePosition);
-router.delete('/positions/delete/:id', positionController.deletePosition);
+router.put('/positions/update', positionController.updatePosition);
+router.delete('/positions/delete', positionController.deletePosition);
 
 router.get('/crypto/update-rates', cryptoController.updateRates);
 
