@@ -3,7 +3,7 @@ const uuid = require("uuid");
 import { Alarm } from "../interfaces/alarm.interface";
 
 export const getUserAlarmsById = async (id: string) => {
-    return await knex("alarms").where("id", id).first();
+    return await knex("alarms").where("userId", id).first();
 };
 
 export const createAlarm = async (alarm: Alarm) => {

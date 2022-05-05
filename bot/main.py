@@ -115,8 +115,11 @@ def commandshandlebtn(call):
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
-        createUser({'id': userMessage.split()[0]})
-        return menucmd(call.message)
+        createdUser = createUser({'id': userMessage.split()[0]})
+        if createdUser['status'] == 1:
+            return menucmd(call.message)
+        else:
+            return defaulterrormessage(call.message)
     else:
         # Looking for pair
         pair = getPairApi(str(userMessage) + str("USDT"))
@@ -155,14 +158,17 @@ def manualhandlermessage(message):
         pair = getPairApi(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        createAlarm({
+        createdAlarm = createAlarm({
             'userId': message.chat.id,
             'pair': pair['symbol'],
             'triggerPrice': triggerPrice,
             'indexPrice': pair['index_price']
         })
 
-        return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
+        if createdAlarm['status'] == 1:
+            return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode='html', reply_markup=markup)
+        else:
+            return defaulterrormessage(call.message)
     else:
         # Looking for pair
         pair = getPairApi(str(userMessage) + str("USDT"))
@@ -195,6 +201,13 @@ def startcmd(message):
 def notifyuserwithtriggeredalarms(chatid, alarm):
     alarmMessage = "<b>Watch out!</b>\n\nYour alarm has been triggered!"
     return bot.send_message(chatid, alarmMessage, parse_mode='html')
+
+
+def defaulterrormessage(chatid):
+    errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Menu", callback_data='/menu'))
+    return bot.send_message(chatid, errorMessage, parse_mode='html')
 
 
 bot.polling(none_stop=True)

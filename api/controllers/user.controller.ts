@@ -6,9 +6,8 @@ const logger = loggerConfig({ label: 'user-controller', path: 'user' })
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const user = await userService.createUser(req.body);
-
-        logger.info(`Creating user: ${req.body}`);
+        logger.info(`Creating user with id: ${req.body.id}`);
+        await userService.createUser(req.body);
 
         return res.json({ status: 1 });
     } catch (e) {
