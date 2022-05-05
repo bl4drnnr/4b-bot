@@ -7,8 +7,8 @@ const logger = loggerConfig({ label: 'user-service', path: 'user' });
 export const getUserById = async (id: string) => {
     try {
         return await userRepository.getUserById(id);
-    } catch (error) {
-        logger.error("error-while-getting-user-by-id");
+    } catch (error: any) {
+        logger.error(`error-while-getting-user-by-id => ${error.sqlMessage}`);
         throw Error("error-while-getting-user-by-id");
     }
 };
@@ -21,8 +21,8 @@ export const createUser = async (data: User) => {
         if (user) return user
 
         return await userRepository.createUser(data);
-    } catch (error) {
-        logger.error("error-while-creating-user");
+    } catch (error: any) {
+        logger.error(`error-while-creating-user => ${error.sqlMessage}`);
         throw Error("error-while-creating-user");
     }
 };
@@ -38,8 +38,8 @@ export const updateUser = async (id: string, data: object) => {
         }
 
         return await userRepository.updateUser(id, data);
-    } catch (error) {
-        logger.error("error-while-updating-user");
+    } catch (error: any) {
+        logger.error(`error-while-updating-user => ${error.sqlMessage}`);
         throw Error("error-while-updating-user");
     }
 };
@@ -55,8 +55,8 @@ export const deleteUser = async (id: string) => {
         }
 
         return await userRepository.deleteUser(id);
-    } catch (error) {
-        logger.error("error-while-deleting-user");
+    } catch (error: any) {
+        logger.error(`error-while-deleting-user => ${error.sqlMessage}`);
         throw Error("error-while-deleting-user");
     }
 };

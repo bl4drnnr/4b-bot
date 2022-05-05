@@ -1,4 +1,5 @@
 import * as positionRepository from '../repositories/position.repository';
+import loggerConfig from "../common/logger";
 
 export const getUserPositionsById = async (id: string) => {
     try {
