@@ -2,7 +2,7 @@ import * as userRepository from '../repositories/user.repository';
 import loggerConfig from "../common/logger";
 import { User } from '../interfaces/user.interface';
 
-const logger = loggerConfig({ lable: 'user-service', path: 'user' });
+const logger = loggerConfig({ label: 'user-service', path: 'user' });
 
 export const getUserById = async (id: string) => {
     try {

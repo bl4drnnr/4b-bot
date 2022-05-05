@@ -2,7 +2,7 @@ const knex = require('../src/db/knex.js');
 const uuid = require('uuid');
 
 export const getUserById = async (id: string) => {
-    return await knex('test').where('userid', id).first();
+    return await knex('users').where('id', id).first();
 };
 
 export const createUser = async (data: object) => {

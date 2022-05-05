@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as userService from '../services/user.service';
 import loggerConfig from "../common/logger";
 
-const logger = loggerConfig({ lable: 'user-controller', path: 'user' })
+const logger = loggerConfig({ label: 'user-controller', path: 'user' })
 
 export const createUser = async (req: Request, res: Response) => {
     try {
@@ -48,7 +48,7 @@ export const updateUser = async (req: Request, res: Response) => {
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        
+
         logger.info(`Delete user with id: ${id}`);
         
         const user = await userService.deleteUser(id);

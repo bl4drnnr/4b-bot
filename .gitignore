@@ -4,5 +4,6 @@
 
 api/node_modules
 api/package-lock.json
+api/logs
 bot/__pycache__
 bot/venv
