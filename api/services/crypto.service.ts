@@ -10,7 +10,7 @@ export const getPair = async (pair: string) => {
 
 export const updateRates = async (data: object) => {
     try {
-
+        return await cryptoRepository.updateRates(data);
     } catch (error) {
         console.log(error);
     }
