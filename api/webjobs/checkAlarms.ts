@@ -1,4 +1,5 @@
 import * as alarmService from "../services/alarm.service";
+import * as cryptoService from "../services/crypto.service";
 
 const Operations = {
     async getAllNonTriggeredAlarms() {
@@ -7,8 +8,8 @@ const Operations = {
     async notifyUser() {
 
     },
-    async getUpdatedCryptoRates() {
-        
+    async getAllRates() {
+        return await cryptoService.getAllRates();
     }
 };
 
@@ -20,4 +21,4 @@ const Operations = {
     } catch (e) {
         process.exit(1)
     }
-})()
+})();
