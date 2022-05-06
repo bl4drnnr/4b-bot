@@ -1,4 +1,5 @@
 import bybit
+import time
 import sys
 from decouple import config
 
@@ -24,3 +25,7 @@ def getPairApi(pair):
         if item['symbol'] == pair:
             foundPair = item
     return foundPair
+
+
+def updateRates():
+    time.sleep(300)
