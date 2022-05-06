@@ -22,6 +22,6 @@ router.post('/positions/create', positionController.createPosition);
 router.put('/positions/update', positionController.updatePosition);
 router.delete('/positions/delete', positionController.deletePosition);
 
-router.get('/crypto/update-rates', cryptoController.updateRates);
+router.get('/crypto/pair/:pair', cryptoController.getPair);
 
 export default router;
