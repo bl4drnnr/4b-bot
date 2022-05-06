@@ -2,6 +2,7 @@ import bybit
 import time
 import sys
 from decouple import config
+from routes import updateRates
 
 API_KEY = config("API_KEY")
 API_SECRET = config("API_SECRET")
@@ -28,4 +29,5 @@ def getPairApi(pair):
 
 
 def updateRates():
+    updateRates(updateData())
     time.sleep(300)
