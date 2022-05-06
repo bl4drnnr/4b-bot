@@ -5,3 +5,7 @@ export const getPair = async (req: Request, res: Response) => {
     const { pair } = req.params
     return await cryptoService.getPair(pair);
 };
+
+export const updateRates = async (req: Request, res: Response) => {
+
+};
