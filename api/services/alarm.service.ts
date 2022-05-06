@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as alarmRepository from '../repositories/alarm.repository';
 import loggerConfig from "../common/logger";
 import { Alarm } from '../interfaces/alarm.interface';
@@ -6,7 +7,11 @@ const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
 
 export const getUserAlarmsById = async (id: string) => {
     try {
-        return await alarmRepository.getUserAlarmsById(id);
+        const alarms = await alarmRepository.getUserAlarmsById(id);
+        alarms.forEach((alarm: Alarm) => {
+            alarm.createdAt = moment(alarm.createdAt).format('YYYY-MM-DD HH:mm:ss')
+        });
+        return alarms;
     } catch (error: any) {
         logger.error(`error-while-getting-alarms-by-id => ${error.sqlMessage}`);
         throw Error("error-while-getting-alarms-by-id");

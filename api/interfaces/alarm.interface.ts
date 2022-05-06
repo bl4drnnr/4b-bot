@@ -4,4 +4,5 @@ export interface Alarm {
     pair: string
     triggerPrice: number
     indexPrice: number
+    createdAt?: string
 }
