@@ -3,8 +3,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition
-from bybitapi import getPairApi
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition, getPair
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -123,7 +122,7 @@ def commandshandlebtn(call):
             return defaulterrormessage(call.message)
     else:
         # Looking for pair
-        pair = getPairApi(str(userMessage) + str("USDT"))
+        pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
@@ -156,7 +155,7 @@ def manualhandlermessage(message):
             triggerPrice = float(userMessage.split()[1])
         except ValueError:
             return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
-        pair = getPairApi(str(crypto) + str("USDT"))
+        pair = getPair(str(crypto) + str("USDT"))
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
         createdAlarm = createAlarm({
@@ -172,7 +171,7 @@ def manualhandlermessage(message):
             return defaulterrormessage(call.message)
     else:
         # Looking for pair
-        pair = getPairApi(str(userMessage) + str("USDT"))
+        pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))

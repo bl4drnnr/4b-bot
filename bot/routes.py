@@ -27,3 +27,7 @@ def getUserPositionsById(id):
 def createPosition(data):
     r = requests.post(url=URL + '/positions/create', data=data)
     return r.json()
+
+def getPair(pair):
+    r = requests.get(url=URL + '/crypto/pair/' + str(pair))
+    return r.json()
