@@ -1,5 +1,7 @@
 import * as cryptoRepository from '../repositories/crypto.repository';
 import loggerConfig from "../common/logger";
+import { ICryptoPair } from '../interfaces/crypto.interface';
+const uuid = require("uuid");
 
 const logger = loggerConfig({ label: 'crypto-service', path: 'crypto' });
 
@@ -21,8 +23,9 @@ export const getPair = async (pair: string) => {
     }
 };
 
-export const updateRates = async (data: object) => {
+export const updateRates = async (data: ICryptoPair[]) => {
     try {
+        data.forEach((pair: ICryptoPair) => { pair.id = uuid.v4() });
         return await cryptoRepository.updateRates(data);
     } catch (error: any) {
         logger.error(`error-while-updating-rates => ${error.sqlMessage}`);

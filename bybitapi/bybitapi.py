@@ -39,8 +39,7 @@ def updatingRates():
             'currentPrice': pair['index_price'] 
         })
 
-    updateRates(filteredUpdatedData)
-    print('Data has been successfully updated...')
+    updateRates({'updatedPairs': filteredUpdatedData})
     time.sleep(300)
     return updatingRates()
 
