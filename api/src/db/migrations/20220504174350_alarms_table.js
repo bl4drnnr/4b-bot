@@ -4,14 +4,14 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable("alarms", t => {
-        t.uuid("id").primary().notNullable()
-        t.uuid("userId").references("users.id")
+        t.uuid('id').notNullable().defaultTo(knex.raw('gen_random_uuid ()')).primary()
+        t.uuid("userid").references("users.id")
         t.string("pair")
-        t.float("triggerPrice")
-        t.float("indexPrice")
-        t.boolean("wasTriggered").nullable().defaultTo(false)
-        t.timestamp('createdAt').defaultTo(knex.fn.now())
-        t.timestamp('updatedAt').defaultTo(knex.fn.now())
+        t.float("triggerprice")
+        t.float("indexprice")
+        t.boolean("wastriggered").nullable().defaultTo(false)
+        t.timestamp('createdat').defaultTo(knex.fn.now())
+        t.timestamp('updatedat').defaultTo(knex.fn.now())
   });
 };
 

@@ -4,9 +4,9 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable("users", t => {
-        t.uuid('id').primary().notNullable()
-        t.timestamp('createdAt').defaultTo(knex.fn.now())
-        t.timestamp('updatedAt').defaultTo(knex.fn.now())
+        t.uuid('id').notNullable().defaultTo(knex.raw('gen_random_uuid ()')).primary()
+        t.timestamp('createdat').defaultTo(knex.fn.now())
+        t.timestamp('updatedat').defaultTo(knex.fn.now())
   });
 };
 
