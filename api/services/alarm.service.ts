@@ -5,15 +5,6 @@ import { IAlarm } from '../interfaces/alarm.interface';
 
 const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
 
-export const getAllAlarms = async () => {
-    try {
-        return await alarmRepository.getAllAlarms();
-    } catch (error: any) {
-        logger.error(`error-while-getting-all-alarms => ${error.sqlMessage}`);
-        throw Error("error-while-getting-all-alarms");
-    }
-}
-
 export const getUserAlarmsById = async (id: string) => {
     try {
         const alarms = await alarmRepository.getUserAlarmsById(id);
