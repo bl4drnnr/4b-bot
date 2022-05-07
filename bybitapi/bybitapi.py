@@ -2,7 +2,7 @@ import bybit
 import time
 import sys
 from decouple import config
-from routes import updateRates
+from server import updateRates
 
 API_KEY = config("API_KEY")
 API_SECRET = config("API_SECRET")
