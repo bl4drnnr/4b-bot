@@ -6,7 +6,7 @@ export const getAllPairs = async () => {
 }
 
 export const getPair = async (pair: string) => {
-    return await knex('crypto').where("pair", pair).first();
+    return await knex('crypto').where("symbol", pair).first();
 }
 
 export const updateRates = async (data: ICryptoPair[]) => {

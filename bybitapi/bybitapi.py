@@ -35,8 +35,13 @@ def updatingRates():
 
     for pair in updatedData:
         filteredUpdatedData.append({
-            'pair': pair['symbol'],
-            'currentPrice': pair['index_price'] 
+            'symbol': pair['symbol'],
+            'mark_price': pair['mark_price'],
+            'index_price': pair['index_price'],
+            'bid_price': pair['bid_price'],
+            'ask_price': pair['ask_price'],
+            'high_price_24h': pair['high_price_24h'],
+            'low_price_24h': pair['low_price_24h']
         })
 
     updateRates({'updatedPairs': filteredUpdatedData})
