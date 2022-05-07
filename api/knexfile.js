@@ -7,7 +7,7 @@ dotevn.config({
 
 module.exports = {
     development: {
-        client: 'mysql2',
+        client: 'pg',
         connection: {
             host: process.env.DATABASE_HOST,
             user: process.env.DATABASE_USERNAME,
