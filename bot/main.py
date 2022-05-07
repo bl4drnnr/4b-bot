@@ -75,7 +75,7 @@ def getalarmcmd(message):
     allAlarmsMessage = ""
 
     for alarm in allAlarms:
-        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm['pair']}</b> / <u>{alarm['triggerPrice']}</u> / <i>{alarm['createdAt']}</i>\n\n"
+        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm['pair']}</b> / <u>{alarm['triggerprice']}</u> / <i>{alarm['createdat']}</i>\n\n"
     return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode='html', reply_markup=markup)
 
 
@@ -159,10 +159,10 @@ def manualhandlermessage(message):
         if not pair:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
         createdAlarm = createAlarm({
-            'userId': message.chat.id,
+            'userid': message.chat.id,
             'pair': pair['symbol'],
-            'triggerPrice': triggerPrice,
-            'indexPrice': pair['index_price']
+            'triggerprice': triggerPrice,
+            'indexprice': pair['index_price']
         })
 
         if createdAlarm['status'] == 1:

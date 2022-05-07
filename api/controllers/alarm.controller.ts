@@ -6,8 +6,8 @@ const logger = loggerConfig({ label: 'alarm-controller', path: 'alarm' })
 
 export const createAlarm = async (req: Request, res: Response) => {
     try {
-        const { userId, pair, triggerPrice, indexPrice } = req.body;
-        logger.info(`Creating alarm for user: ${userId} for pair: ${pair} with trigger price: ${triggerPrice} and index price: ${indexPrice}`);
+        const { userid, pair, triggerprice, indexprice } = req.body;
+        logger.info(`Creating alarm for user: ${userid} for pair: ${pair} with trigger price: ${triggerprice} and index price: ${indexprice}`);
 
         await alarmSerivce.createAlarm(req.body);
 
