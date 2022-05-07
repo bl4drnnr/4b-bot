@@ -29,5 +29,14 @@ def getPairApi(pair):
 
 
 def updateRates():
-    updateRates(updateData())
+    print('Updating data...')
+    updatedData = updateData()
+    filteredUpdatedData = []
+
+    for pair in updatedData:
+        print(pair)
+    updateRates(updatedData)
     time.sleep(300)
+
+
+updateRates()

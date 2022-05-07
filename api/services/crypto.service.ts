@@ -1,17 +1,31 @@
 import * as cryptoRepository from '../repositories/crypto.repository';
+import loggerConfig from "../common/logger";
+
+const logger = loggerConfig({ label: 'crypto-service', path: 'crypto' });
 
 export const getAllRates = async () => {
-    return await cryptoRepository.getAllPairs()
+    try {
+        return await cryptoRepository.getAllPairs();
+    } catch (error: any) {
+        logger.error(`error-while-getting-all-rates => ${error.sqlMessage}`);
+        throw Error("error-while-getting-all-rates");
+    }
 };
 
 export const getPair = async (pair: string) => {
-    return await cryptoRepository.getPair(pair);
+    try {
+        return await cryptoRepository.getPair(pair);
+    } catch (error: any) {
+        logger.error(`error-while-getting-pair => ${error.sqlMessage}`);
+        throw Error("error-while-getting-pair");
+    }
 };
 
 export const updateRates = async (data: object) => {
     try {
         return await cryptoRepository.updateRates(data);
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        logger.error(`error-while-updating-rates => ${error.sqlMessage}`);
+        throw Error("error-while-updating-rates");
     }
 };

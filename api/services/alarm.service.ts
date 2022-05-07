@@ -7,7 +7,7 @@ const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
 
 export const getAllAlarms = async () => {
     try {
-        return await alarmRepository.getAllAlarms()
+        return await alarmRepository.getAllAlarms();
     } catch (error: any) {
         logger.error(`error-while-getting-all-alarms => ${error.sqlMessage}`);
         throw Error("error-while-getting-all-alarms");
@@ -43,7 +43,7 @@ export const updateAlarm = async (alarm: Alarm) => {
         logger.error(`error-while-updating-alarm => ${error.sqlMessage}`);
         throw Error("error-while-updating-alarm");
     }
-}
+};
 
 export const deleteAlarm = async (alarm: Alarm) => {
     try {
@@ -52,4 +52,4 @@ export const deleteAlarm = async (alarm: Alarm) => {
         logger.error(`error-while-deleting-alarm => ${error.sqlMessage}`);
         throw Error("error-while-deleting-alarm");
     }
-}
+};
