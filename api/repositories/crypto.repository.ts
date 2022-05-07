@@ -10,5 +10,6 @@ export const getPair = async (pair: string) => {
 }
 
 export const updateRates = async (data: object) => {
-    return await knex('crypto').update(data);
+    await knex('crypto').del('*')
+    return await knex('crypto').insert({...data, id: uuid.v4()});
 };

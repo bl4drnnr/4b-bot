@@ -29,13 +29,18 @@ def getPairApi(pair):
 
 
 def updatingRates():
-    print('Updating data...')
     updatedData = updateData()
+
     filteredUpdatedData = []
 
     for pair in updatedData:
-        print(pair)
-    updateRates(updatedData)
+        filteredUpdatedData.append({
+            'pair': pair['symbol'],
+            'currentPrice': pair['index_price'] 
+        })
+
+    updateRates(filteredUpdatedData)
+    print('Data has been successfully updated...')
     time.sleep(300)
     return updatingRates()
 
