@@ -1,6 +1,6 @@
 import * as userRepository from '../repositories/user.repository';
 import loggerConfig from "../common/logger";
-import { User } from '../interfaces/user.interface';
+import { IUser } from '../interfaces/user.interface';
 
 const logger = loggerConfig({ label: 'user-service', path: 'user' });
 
@@ -13,7 +13,7 @@ export const getUserById = async (id: string) => {
     }
 };
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: IUser) => {
     try {
         logger.info(`Check while creating if user with this id already exists: ${user.id}`)
         const foundUser = await getUserById(user.id);
@@ -27,7 +27,7 @@ export const createUser = async (user: User) => {
     }
 };
 
-export const updateUser = async (user: User) => {
+export const updateUser = async (user: IUser) => {
     try {
         logger.info(`Check while creating if user with this id already exists: ${user.id}`)
         const foundUser = await getUserById(user.id);
@@ -44,7 +44,7 @@ export const updateUser = async (user: User) => {
     }
 };
 
-export const deleteUser = async (user: User) => {
+export const deleteUser = async (user: IUser) => {
     try {
         logger.info(`Check while creating if user with this id already exists: ${user.id}`)
         const foundUser = await getUserById(user.id);

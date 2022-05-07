@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as alarmRepository from '../repositories/alarm.repository';
 import loggerConfig from "../common/logger";
-import { Alarm } from '../interfaces/alarm.interface';
+import { IAlarm } from '../interfaces/alarm.interface';
 
 const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
 
@@ -17,7 +17,7 @@ export const getAllAlarms = async () => {
 export const getUserAlarmsById = async (id: string) => {
     try {
         const alarms = await alarmRepository.getUserAlarmsById(id);
-        alarms.forEach((alarm: Alarm) => {
+        alarms.forEach((alarm: IAlarm) => {
             alarm.createdAt = moment(alarm.createdAt).format('YYYY-MM-DD HH:mm:ss')
         });
         return alarms;
@@ -27,7 +27,7 @@ export const getUserAlarmsById = async (id: string) => {
     }
 };
 
-export const createAlarm = async (alarm: Alarm) => {
+export const createAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.createAlarm(alarm);
     } catch (error: any) {
@@ -36,7 +36,7 @@ export const createAlarm = async (alarm: Alarm) => {
     }
 };
 
-export const updateAlarm = async (alarm: Alarm) => {
+export const updateAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.updateAlarm(alarm);
     } catch (error: any) {
@@ -45,7 +45,7 @@ export const updateAlarm = async (alarm: Alarm) => {
     }
 };
 
-export const deleteAlarm = async (alarm: Alarm) => {
+export const deleteAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.deleteAlarm(alarm);
     } catch (error: any) {

@@ -1,6 +1,6 @@
 import * as positionRepository from '../repositories/position.repository';
 import loggerConfig from "../common/logger";
-import { Position } from '../interfaces/position.interface';
+import { IPosition } from '../interfaces/position.interface';
 
 const logger = loggerConfig({ label: 'position-service', path: 'position' });
 
@@ -13,7 +13,7 @@ export const getUserPositionsById = async (id: string) => {
     }
 };
 
-export const createPosition = async (position: Position) => {
+export const createPosition = async (position: IPosition) => {
     try {
         return await positionRepository.createPosition(position);
     } catch (error: any) {
@@ -22,7 +22,7 @@ export const createPosition = async (position: Position) => {
     }
 };
 
-export const updatePosition = async (position: Position) => {
+export const updatePosition = async (position: IPosition) => {
     try {
         return await positionRepository.updatePosition(position);
     } catch (error: any) {
@@ -31,7 +31,7 @@ export const updatePosition = async (position: Position) => {
     }
 };
 
-export const deletePosition = async (position: Position) => {
+export const deletePosition = async (position: IPosition) => {
     try {
         return await positionRepository.deletePosition(position);
     } catch (error: any) {
