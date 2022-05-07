@@ -2,6 +2,10 @@ const knex = require("../src/db/knex.js");
 const uuid = require("uuid");
 import { IAlarm } from "../interfaces/alarm.interface";
 
+export const getAllAlarms = async () => {
+    return await knex("alarms").select('*');
+}
+
 export const getUserAlarmsById = async (id: string) => {
     return await knex("alarms").where("userId", id).select('*');
 };
