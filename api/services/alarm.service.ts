@@ -10,7 +10,7 @@ export const getAllAlarms = async () => {
         logger.info("Getting all alarms for job to check...");
         return await alarmRepository.getAllAlarms();
     } catch (error: any) {
-        logger.error(`error-while-getting-all-alarms => ${error.sqlMessage}`);
+        logger.error(`error-while-getting-all-alarms => ${error}`);
         throw Error("error-while-getting-all-alarms");
     }
 }
@@ -23,7 +23,7 @@ export const getUserAlarmsById = async (id: string) => {
         });
         return alarms;
     } catch (error: any) {
-        logger.error(`error-while-getting-alarms-by-id => ${error.sqlMessage}`);
+        logger.error(`error-while-getting-alarms-by-id => ${error}`);
         throw Error("error-while-getting-alarms-by-id");
     }
 };
@@ -32,7 +32,7 @@ export const createAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.createAlarm(alarm);
     } catch (error: any) {
-        logger.error(`error-while-creating-alarm => ${error.sqlMessage}`);
+        logger.error(`error-while-creating-alarm => ${error}`);
         throw Error("error-while-creating-alarm");
     }
 };
@@ -41,7 +41,7 @@ export const updateAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.updateAlarm(alarm);
     } catch (error: any) {
-        logger.error(`error-while-updating-alarm => ${error.sqlMessage}`);
+        logger.error(`error-while-updating-alarm => ${error}`);
         throw Error("error-while-updating-alarm");
     }
 };
@@ -50,7 +50,7 @@ export const deleteAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.deleteAlarm(alarm);
     } catch (error: any) {
-        logger.error(`error-while-deleting-alarm => ${error.sqlMessage}`);
+        logger.error(`error-while-deleting-alarm => ${error}`);
         throw Error("error-while-deleting-alarm");
     }
 };

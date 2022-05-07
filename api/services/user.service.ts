@@ -8,7 +8,7 @@ export const getUserById = async (id: string) => {
     try {
         return await userRepository.getUserById(id);
     } catch (error: any) {
-        logger.error(`error-while-getting-user-by-id => ${error.sqlMessage}`);
+        logger.error(`error-while-getting-user-by-id => ${error}`);
         throw Error("error-while-getting-user-by-id");
     }
 };
@@ -22,7 +22,7 @@ export const createUser = async (user: IUser) => {
 
         return await userRepository.createUser(user);
     } catch (error: any) {
-        logger.error(`error-while-creating-user => ${error.sqlMessage}`);
+        logger.error(`error-while-creating-user => ${error}`);
         throw Error("error-while-creating-user");
     }
 };
@@ -39,7 +39,7 @@ export const updateUser = async (user: IUser) => {
 
         return await userRepository.updateUser(user);
     } catch (error: any) {
-        logger.error(`error-while-updating-user => ${error.sqlMessage}`);
+        logger.error(`error-while-updating-user => ${error}`);
         throw Error("error-while-updating-user");
     }
 };
@@ -56,7 +56,7 @@ export const deleteUser = async (user: IUser) => {
 
         return await userRepository.deleteUser(user);
     } catch (error: any) {
-        logger.error(`error-while-deleting-user => ${error.sqlMessage}`);
+        logger.error(`error-while-deleting-user => ${error}`);
         throw Error("error-while-deleting-user");
     }
 };

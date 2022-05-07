@@ -9,7 +9,7 @@ export const getAllRates = async () => {
     try {
         return await cryptoRepository.getAllPairs();
     } catch (error: any) {
-        logger.error(`error-while-getting-all-rates => ${error.sqlMessage}`);
+        logger.error(`error-while-getting-all-rates => ${error}`);
         throw Error("error-while-getting-all-rates");
     }
 };
@@ -18,7 +18,7 @@ export const getPair = async (pair: string) => {
     try {
         return await cryptoRepository.getPair(pair);
     } catch (error: any) {
-        logger.error(`error-while-getting-pair => ${error.sqlMessage}`);
+        logger.error(`error-while-getting-pair => ${error}`);
         throw Error("error-while-getting-pair");
     }
 };
@@ -28,7 +28,7 @@ export const updateRates = async (data: ICryptoPair[]) => {
         data.forEach((pair: ICryptoPair) => { pair.id = uuid.v4() });
         return await cryptoRepository.updateRates(data);
     } catch (error: any) {
-        logger.error(`error-while-updating-rates => ${error.sqlMessage}`);
+        logger.error(`error-while-updating-rates => ${error}`);
         throw Error("error-while-updating-rates");
     }
 };
