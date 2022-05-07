@@ -1,5 +1,4 @@
 const knex = require("../src/db/knex.js");
-const uuid = require("uuid");
 import { IPosition } from "../interfaces/position.interface";
 
 export const getUserPositionsById = async (id: string) => {

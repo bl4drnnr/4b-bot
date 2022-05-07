@@ -18,11 +18,9 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        logger.info(`Getting user by id: ${req.params.id}`);
 
-        logger.info(`Getting user by id: ${id}`);
-
-        const user = await userService.getUserById(id);
+        const user = await userService.getUserById(req.params.id);
 
         return res.json(user || { status: 0 });
     } catch (e) {
@@ -33,11 +31,10 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
+        logger.info(`Updating user by id: ${req.body.id}`);
 
-        logger.info(`Updating user by id: ${id}`);
+        const user = await userService.updateUser(req.body.id);
 
-        const user = await userService.updateUser(req.body);
         return res.json(user);
     } catch (e) {
         logger.error(`Error while updating user => ${e}`);
@@ -47,11 +44,10 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
-
-        logger.info(`Delete user with id: ${id}`);
+        logger.info(`Delete user with id: ${req.body.id}`);
         
-        const user = await userService.deleteUser(id);
+        const user = await userService.deleteUser(req.body.id);
+        
         return res.json(user);
     } catch (e) {
         logger.error(`Error while deleting user => ${e}`);

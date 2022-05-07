@@ -20,11 +20,9 @@ export const createAlarm = async (req: Request, res: Response) => {
 
 export const getUserAlarmsById = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        logger.info(`Getting alarms by id: ${req.params.id}`);
 
-        logger.info(`Getting alarms by id: ${id}`);
-
-        const alarm = await alarmSerivce.getUserAlarmsById(id);
+        const alarm = await alarmSerivce.getUserAlarmsById(req.params.id);
 
         return res.json(alarm || []);
     } catch (e) {
@@ -35,11 +33,10 @@ export const getUserAlarmsById = async (req: Request, res: Response) => {
 
 export const updateAlarm = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
-
-        logger.info(`Updating alarm by id: ${id}`);
+        logger.info(`Updating alarm by id: ${req.body.id}`);
 
         const alarm = await alarmSerivce.updateAlarm(req.body);
+
         return res.json(alarm);
     } catch (e) {
         logger.error(`Error while updating alarm => ${e}`);
@@ -49,11 +46,10 @@ export const updateAlarm = async (req: Request, res: Response) => {
 
 export const deleteAlarm = async (req: Request, res: Response) => {
     try {
-        const { id } = req.body;
-
-        logger.info(`Deleting alarm by id: ${id}`);
+        logger.info(`Deleting alarm by id: ${req.body.id}`);
 
         const alarm = await alarmSerivce.deleteAlarm(req.body);
+        
         return res.json(alarm);
     } catch (e) {
         logger.error(`Error while deleting alarm => ${e}`);

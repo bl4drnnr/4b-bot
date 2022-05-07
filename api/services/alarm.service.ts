@@ -7,7 +7,6 @@ const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
 
 export const getAllAlarms = async () => {
     try {
-        logger.info("Getting all alarms for job to check...");
         return await alarmRepository.getAllAlarms();
     } catch (error: any) {
         logger.error(`error-while-getting-all-alarms => ${error}`);

@@ -1,5 +1,4 @@
 const knex = require('../src/db/knex.js');
-const uuid = require('uuid');
 import { IUser } from "../interfaces/user.interface";
 
 export const getUserById = async (id: string) => {
