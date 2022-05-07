@@ -1,19 +1,19 @@
 const knex = require("../src/db/knex.js");
 const uuid = require("uuid");
-import { Position } from "../interfaces/position.interface";
+import { IPosition } from "../interfaces/position.interface";
 
 export const getUserPositionsById = async (id: string) => {
     return await knex('positions').where("id", id).first();
 };
 
-export const createPosition = async (position: Position) => {
+export const createPosition = async (position: IPosition) => {
     return await knex('positions').insert(position);
 };
 
-export const updatePosition = async (position: Position) => {
+export const updatePosition = async (position: IPosition) => {
     return await knex('positions').update(position).where("id", position.id);
 };
 
-export const deletePosition = async (position: Position) => {
+export const deletePosition = async (position: IPosition) => {
     return await knex('positions').del().where("id", position.id);
 };
