@@ -9,6 +9,7 @@ exports.up = function(knex) {
         t.string("pair")
         t.float("triggerPrice")
         t.float("indexPrice")
+        t.boolean("wasTriggered").nullable().defaultTo(false)
         t.timestamp('createdAt').defaultTo(knex.fn.now())
         t.timestamp('updatedAt').defaultTo(knex.fn.now())
   });

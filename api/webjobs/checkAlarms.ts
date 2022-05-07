@@ -10,12 +10,16 @@ const Operations = {
     },
     async getAllRates() {
         return await cryptoService.getAllRates();
+    },
+    async markTriggeredAlarms() {
+        
     }
 };
 
 (async () => {
     try {
         const allNoneTriggeredAlarms = await Operations.getAllNonTriggeredAlarms()
+        const allCurrentRates = await Operations.notifyUser();
 
         process.exit(0)
     } catch (e) {
