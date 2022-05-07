@@ -10,9 +10,9 @@ export const createUser = async (user: IUser) => {
 };
 
 export const updateUser = async (user: IUser) => {
-    return await knex('users').update(user).where('userid', user.id);
+    return await knex('users').update(user).where('userid', user.userid);
 };
 
 export const deleteUser = async (user: IUser) => {
-    return await knex('users').del().where('userid', user.id);
+    return await knex('users').del().where('userid', user.userid);
 };

@@ -15,8 +15,8 @@ export const getUserById = async (userid: string) => {
 
 export const createUser = async (user: IUser) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
-        const foundUser = await getUserById(user.id);
+        logger.info(`Check while creating if user with this id already exists: ${user.userid}`)
+        const foundUser = await getUserById(user.userid);
 
         if (foundUser) return foundUser
 
@@ -29,11 +29,11 @@ export const createUser = async (user: IUser) => {
 
 export const updateUser = async (user: IUser) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
-        const foundUser = await getUserById(user.id);
+        logger.info(`Check while creating if user with this id already exists: ${user.userid}`)
+        const foundUser = await getUserById(user.userid);
 
         if (!foundUser) {
-            logger.warn(`User with id: ${user.id} doesn't exists`)
+            logger.warn(`User with id: ${user.userid} doesn't exists`)
             return
         }
 
@@ -46,11 +46,11 @@ export const updateUser = async (user: IUser) => {
 
 export const deleteUser = async (user: IUser) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${user.id}`)
-        const foundUser = await getUserById(user.id);
+        logger.info(`Check while creating if user with this id already exists: ${user.userid}`)
+        const foundUser = await getUserById(user.userid);
 
         if (!foundUser) {
-            logger.warn(`User with id: ${user.id} doesn't exists`)
+            logger.warn(`User with id: ${user.userid} doesn't exists`)
             return
         }
 

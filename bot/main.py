@@ -115,7 +115,7 @@ def commandshandlebtn(call):
             return getalarmcmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
-        createdUser = createUser({'id': userMessage.split()[0]})
+        createdUser = createUser({'userid': userMessage.split()[0]})
         if createdUser['status'] == 1:
             return menucmd(call.message)
         else:

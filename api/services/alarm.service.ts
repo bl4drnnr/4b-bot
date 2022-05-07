@@ -12,7 +12,7 @@ export const getAllAlarms = async () => {
         logger.error(`error-while-getting-all-alarms => ${error}`);
         throw Error("error-while-getting-all-alarms");
     }
-}
+};
 
 export const getUserAlarmsById = async (id: string) => {
     try {
