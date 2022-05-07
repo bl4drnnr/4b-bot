@@ -41,6 +41,7 @@ def updatingRates():
 
     updateRates({'updatedPairs': filteredUpdatedData})
     time.sleep(300)
+    
     return updatingRates()
 
 

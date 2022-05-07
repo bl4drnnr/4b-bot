@@ -6,7 +6,7 @@ const logger = loggerConfig({ label: 'crypto-controller', path: 'crypto' })
 
 export const getPair = async (req: Request, res: Response) => {
     try {
-        const { pair } = req.params
+        const { pair } = req.params;
         return await cryptoService.getPair(pair);
     } catch (e) {
         logger.error(`Error while getting pair => ${e}`);
@@ -16,6 +16,7 @@ export const getPair = async (req: Request, res: Response) => {
 
 export const updateRates = async (req: Request, res: Response) => {
     try {
+        logger.info("Updating rates...");
         return await cryptoService.updateRates(JSON.parse(req.body.updatedPairs));
     } catch (e) {
         logger.error(`Error in updating rates => ${e}`);
