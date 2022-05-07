@@ -44,10 +44,10 @@ def updatingRates():
             'low_price_24h': pair['low_price_24h']
         })
 
-    updateRates({'updatedPairs': filteredUpdatedData})
-    time.sleep(300)
-    
-    return updatingRates()
+    response = updateRates({'updatedPairs': filteredUpdatedData})
+    if response['status'] == 1:
+        time.sleep(300)
+        updatingRates()
 
 
 updatingRates()
