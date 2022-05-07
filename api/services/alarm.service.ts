@@ -18,7 +18,7 @@ export const getUserAlarmsById = async (id: string) => {
     try {
         const alarms = await alarmRepository.getUserAlarmsById(id);
         alarms.forEach((alarm: IAlarm) => {
-            alarm.createdAt = moment(alarm.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            alarm.createdat = moment(alarm.createdat).format('YYYY-MM-DD HH:mm:ss')
         });
         return alarms;
     } catch (error: any) {

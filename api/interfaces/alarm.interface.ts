@@ -1,8 +1,8 @@
 export interface IAlarm {
     id?: string
-    userId: string
+    userid: string
     pair: string
-    triggerPrice: number
-    indexPrice: number
-    createdAt?: string
+    triggerprice: number
+    indexprice: number
+    createdat?: string
 }

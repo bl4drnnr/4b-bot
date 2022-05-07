@@ -4,11 +4,11 @@ import json
 
 URL="http://localhost:3000"
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route('', methods=['POST'])
-def updateCryptocurrencyRates(data):
-    return
+# @app.route('', methods=['POST'])
+# def updateCryptocurrencyRates(data):
+    # return
 
 
 def updateRates(data):

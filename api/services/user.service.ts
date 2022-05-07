@@ -4,9 +4,9 @@ import { IUser } from '../interfaces/user.interface';
 
 const logger = loggerConfig({ label: 'user-service', path: 'user' });
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (userid: string) => {
     try {
-        return await userRepository.getUserById(id);
+        return await userRepository.getUserById(userid);
     } catch (error: any) {
         logger.error(`error-while-getting-user-by-id => ${error}`);
         throw Error("error-while-getting-user-by-id");
