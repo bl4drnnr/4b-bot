@@ -1,6 +1,6 @@
 from flask import Flask, request
-
 from main import notifyuserwithtriggeredalarms
+
 import requests
 import json
 
@@ -22,5 +22,5 @@ def updateRates(data):
     return r.json()
 
 
-# if __name__ == 'server':
-app.run(debug=True, port=5000)
+def initserver():
+    return app.run(debug=True, port=5000)
