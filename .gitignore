@@ -6,5 +6,6 @@ api/node_modules
 api/package-lock.json
 api/logs
 bybitapi/__pycache__
+bybitapi/venv
 bot/__pycache__
 bot/venv
