@@ -11,7 +11,8 @@ app = Flask(__name__)
 
 @app.route('/user', methods=['GET'])
 def getUserById():
-    return
+    r = requests.get(url=URL + '/user/' + str(request.args.get('id')))
+    return r.json()
 
 
 @app.route('/user/create', methods=['POST'])
@@ -21,7 +22,8 @@ def createUser():
 
 @app.route('/alarms', methods=['GET'])
 def getUserAlarmsById():
-    return
+    r = requests.get(url=URL + '/alarms/' + str(request.args.get('id')))
+    return r.json()
 
 
 @app.route('/alarm/create', methods=['POST'])
@@ -31,7 +33,8 @@ def createAlarm():
 
 @app.route('/positions', methods=['GET'])
 def getUserPositionsById():
-    return
+    r = requests.get(url=URL + '/positions/' + str(request.args.get('id')))
+    return r.json()
 
 
 @app.route('/positions/create', methods=['POST'])
@@ -41,8 +44,8 @@ def createPosition():
 
 @app.route('/crypto/pair/', methods=['GET'])
 def getPair():
-    return
-
+    r = requests.get(url=URL + '/crypto/pair/' + str(request.args.get('pair')))
+    return r.json()
 
 
 def updateRates(data):

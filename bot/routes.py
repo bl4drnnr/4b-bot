@@ -5,7 +5,7 @@ URL="http://127.0.0.1:5000"
 
 
 def getUserById(id):
-    r = requests.get(url=URL + '/user/' + str(id))
+    r = requests.get(url=URL + '/user?id={}'.format(id))
     return r.json()
 
 
@@ -15,7 +15,7 @@ def createUser(data):
 
 
 def getUserAlarmsById(id):
-    r = requests.get(url=URL + '/alarms/' + str(id))
+    r = requests.get(url=URL + '/alarms?id={}'.format(id))
     return r.json()
 
 
@@ -25,7 +25,7 @@ def createAlarm(data):
 
 
 def getUserPositionsById(id):
-    r = requests.get(url=URL + '/positions/' + str(id))
+    r = requests.get(url=URL + '/positions?id={}'.format(id))
     return r.json()
 
 
@@ -35,6 +35,6 @@ def createPosition(data):
 
 
 def getPair(pair):
-    r = requests.get(url=URL + '/crypto/pair/' + str(pair))
+    r = requests.get(url=URL + '/crypto/pair?pair={}'.format(pair))
     return r.json()
 

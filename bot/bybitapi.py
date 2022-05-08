@@ -2,7 +2,6 @@ import bybit
 import time
 import sys
 from decouple import config
-# from server import updateRates
 
 API_KEY = config("API_KEY")
 API_SECRET = config("API_SECRET")
@@ -28,26 +27,26 @@ def getPairApi(pair):
     return foundPair
 
 
-# def updatingRates():
-#     updatedData = updateData()
+def updatingRates():
+    updatedData = updateData()
 
-#     filteredUpdatedData = []
+    filteredUpdatedData = []
 
-#     for pair in updatedData:
-#         filteredUpdatedData.append({
-#             'symbol': pair['symbol'],
-#             'mark_price': pair['mark_price'],
-#             'index_price': pair['index_price'],
-#             'bid_price': pair['bid_price'],
-#             'ask_price': pair['ask_price'],
-#             'high_price_24h': pair['high_price_24h'],
-#             'low_price_24h': pair['low_price_24h']
-#         })
+    for pair in updatedData:
+        filteredUpdatedData.append({
+            'symbol': pair['symbol'],
+            'mark_price': pair['mark_price'],
+            'index_price': pair['index_price'],
+            'bid_price': pair['bid_price'],
+            'ask_price': pair['ask_price'],
+            'high_price_24h': pair['high_price_24h'],
+            'low_price_24h': pair['low_price_24h']
+        })
 
-#     response = updateRates({'updatedPairs': filteredUpdatedData})
-#     if response['status'] == 1:
-#         time.sleep(300)
-#         updatingRates()
+    response = updateRates({'updatedPairs': filteredUpdatedData})
+    if response['status'] == 1:
+        time.sleep(300)
+        updatingRates()
 
 
-# updatingRates()
+updatingRates()
