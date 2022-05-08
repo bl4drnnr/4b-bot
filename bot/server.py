@@ -17,7 +17,8 @@ def getUserById():
 
 @app.route('/u/c', methods=['POST'])
 def createUser():
-    return
+    r = requests.post(url=URL + '/user/create', data=request.get_json())
+    return r.json()
 
 
 @app.route('/a', methods=['GET'])
@@ -28,8 +29,8 @@ def getUserAlarmsById():
 
 @app.route('/a/c', methods=['POST'])
 def createAlarm():
-    r = requests.post(url=URL)
-    return
+    r = requests.post(url=URL + '/alarm/create', data=request.get_json())
+    return r.json()
 
 
 @app.route('/p', methods=['GET'])
@@ -40,7 +41,8 @@ def getUserPositionsById():
 
 @app.route('/p/c', methods=['POST'])
 def createPosition():
-    return
+    r = requests.post(url=URL + '/positions/create', data=request.get_json())
+    return r.json()
 
 
 @app.route('/c/p', methods=['GET'])

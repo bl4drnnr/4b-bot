@@ -10,7 +10,7 @@ def getUserById(id):
 
 
 def createUser(data):
-    r = requests.post(url=URL + '/u/c', data=data)
+    r = requests.post(url=URL + '/u/c', json=data)
     return r.json()
 
 
@@ -20,7 +20,7 @@ def getUserAlarmsById(id):
 
 
 def createAlarm(data):
-    r = requests.post(url=URL + '/a/c', data=data)
+    r = requests.post(url=URL + '/a/c', json=data)
     return r.json()
 
 
@@ -30,7 +30,7 @@ def getUserPositionsById(id):
 
 
 def createPosition(data):
-    r = requests.post(url=URL + '/p/c', data=data)
+    r = requests.post(url=URL + '/p/c', json=data)
     return r.json()
 
 
