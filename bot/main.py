@@ -1,4 +1,5 @@
 import telebot
+import time
 from telebot import types
 from decouple import config
 
@@ -211,4 +212,9 @@ def defaulterrormessage(chatid):
     return bot.send_message(chatid, errorMessage, parse_mode='html')
 
 
-bot.polling(none_stop=True)
+if __name__ == '__main__':
+    try:
+        bot.polling(none_stop=True)
+    except Exception as e:
+        print(e)
+        time.sleep(15)
