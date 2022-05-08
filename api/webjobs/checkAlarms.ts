@@ -24,10 +24,27 @@ const Operations = {
         const allCurrentRates = await Operations.getAllRates();
 
         allNoneTriggeredAlarms.forEach((alarm: IAlarm) => {
+
             const onShort = alarm.triggerprice < alarm.indexprice
-            allCurrentRates.forEach((rate: object) => {
-                
+
+            allCurrentRates.forEach(async (rate: any) => {
+                if (alarm.pair === rate.symbol) {
+                    let type = null
+                    if (onShort && rate.index_price <= alarm.triggerprice) {
+                        // Notify user with hit short
+                        type = 'short'
+                    } else if (!onShort && rate.index_price >= alarm.triggerprice) {
+                        // Notify user with hit long
+                        type = 'long'
+                    }
+                    if (type) {
+                        await Operations.notifyUser({
+                            type, userid: alarm.userid
+                        })
+                    }
+                }
             })
+
         });
 
         process.exit(0);
