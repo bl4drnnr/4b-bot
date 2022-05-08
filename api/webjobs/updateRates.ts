@@ -14,6 +14,7 @@ const Operations = {
 (async () => {
     try {
         const { data } = await Operations.getUpdatedCryptoRates();
+        console.log(JSON.parse(data.updatedPairs))
         // await Operations.updateCryptoRates(updatedRates);
         process.exit(0);
     } catch (e) {
