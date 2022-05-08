@@ -14,8 +14,14 @@ const Operations = {
 (async () => {
     try {
         const { data } = await Operations.getUpdatedCryptoRates();
-        console.log(JSON.parse(data.updatedPairs))
-        // await Operations.updateCryptoRates(updatedRates);
+
+        const updatedRates = JSON.parse(data.updatedPairs);
+        updatedRates.forEach((pair: any) => {
+            Object.entries(pair).forEach((item: any) => {
+                if (item[0] !== 'symbol') pair[item[0]] = parseFloat(item[1])
+            })
+        });
+        await Operations.updateCryptoRates(updatedRates);
         process.exit(0);
     } catch (e) {
         process.exit(0);
