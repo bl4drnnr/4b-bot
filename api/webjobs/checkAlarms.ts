@@ -22,6 +22,7 @@ const Operations = {
     try {
         const allNoneTriggeredAlarms = await Operations.getAllNonTriggeredAlarms();
         const allCurrentRates = await Operations.getAllRates();
+        const tirggeredAlarms: [] = [];
 
         allNoneTriggeredAlarms.forEach((alarm: IAlarm) => {
 
@@ -38,6 +39,7 @@ const Operations = {
                         type = 'long'
                     }
                     if (type) {
+                        tirggeredAlarms.push();
                         await Operations.notifyUser({
                             type, userid: alarm.userid
                         })
@@ -46,6 +48,8 @@ const Operations = {
             })
 
         });
+
+        await Operations.markTriggeredAlarms(tirggeredAlarms);
 
         process.exit(0);
     } catch (e) {
