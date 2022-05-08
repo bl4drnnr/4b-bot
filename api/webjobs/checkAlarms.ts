@@ -7,8 +7,8 @@ const Operations = {
     async getAllNonTriggeredAlarms() {
         return await alarmService.getAllAlarms();
     },
-    async notifyUser() {
-        return await serverApi.notifyUser({});
+    async notifyUser(data: object) {
+        return await serverApi.notifyUser(data);
     },
     async getAllRates() {
         return await cryptoService.getAllRates();
