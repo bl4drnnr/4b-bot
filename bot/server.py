@@ -3,6 +3,7 @@ from flask import Flask, request
 
 import requests
 import json
+import time
 
 URL="http://127.0.0.1:3000"
 
@@ -57,4 +58,8 @@ def updateRates(data):
     return r.json()
 
 
-app.run(debug=True, port=5000)
+try:
+    app.run(debug=True, port=5000)
+except Exception as e:
+    print(e)
+    time.sleep(15)
