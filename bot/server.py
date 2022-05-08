@@ -11,9 +11,7 @@ app = Flask(__name__)
 @app.route('/test', methods=['GET'])
 def updateCryptocurrencyRates():
     chatid = request.args.get('chatid')
-    print(chatid)
-    notifyuserwithtriggeredalarms(chatid, 'asd')
-    return args
+    return notifyuserwithtriggeredalarms(chatid, 'asd')
 
 
 def updateRates(data):
@@ -22,5 +20,4 @@ def updateRates(data):
     return r.json()
 
 
-def initserver():
-    return app.run(debug=True, port=5000)
+app.run(debug=True, port=5000)
