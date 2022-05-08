@@ -1,4 +1,5 @@
 from flask import Flask, request
+from bybitapi import updatingRates
 # from main import notifyuserwithtriggeredalarms
 
 import requests
@@ -52,9 +53,9 @@ def getPair():
     return r.json()
 
 
-def updateRates(data):
-    data['updatedPairs'] = json.dumps(data['updatedPairs'])
-    r = requests.post(url=URL + '/crypto/update-rates', data=data)
+@app.route('/c/u-r', methods=['GET'])
+def updateRates():
+    r = updatingRates()
     return r.json()
 
 

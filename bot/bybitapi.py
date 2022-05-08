@@ -1,6 +1,4 @@
 import bybit
-import time
-import sys
 from decouple import config
 
 API_KEY = config("API_KEY")
@@ -16,15 +14,6 @@ except Exception as e:
 def updateData():
     info = client.Market.Market_symbolInfo().result()
     return info[0]['result']
-
-
-def getPairApi(pair):
-    foundPair = None
-    data = updateData()
-    for item in data:
-        if item['symbol'] == pair:
-            foundPair = item
-    return foundPair
 
 
 def updatingRates():
@@ -43,10 +32,4 @@ def updatingRates():
             'low_price_24h': pair['low_price_24h']
         })
 
-    response = updateRates({'updatedPairs': filteredUpdatedData})
-    if response['status'] == 1:
-        time.sleep(300)
-        updatingRates()
-
-
-updatingRates()
+    return {'updatedPairs': filteredUpdatedData}
