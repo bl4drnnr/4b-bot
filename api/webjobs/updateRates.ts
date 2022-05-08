@@ -4,7 +4,7 @@ import { ICryptoPair } from "../interfaces/crypto.interface";
 
 const Operations = {
     async getUpdatedCryptoRates() {
-        return await serverApi.updateRates(); 
+        return await serverApi.getUpdatedRates(); 
     },
     async updateCryptoRates(rates: ICryptoPair[]) {
         return await cryptoService.updateRates(rates);
@@ -21,7 +21,9 @@ const Operations = {
                 if (item[0] !== 'symbol') pair[item[0]] = parseFloat(item[1])
             })
         });
+
         await Operations.updateCryptoRates(updatedRates);
+        
         process.exit(0);
     } catch (e) {
         process.exit(0);

@@ -53,3 +53,12 @@ export const deleteAlarm = async (alarm: IAlarm) => {
         throw Error("error-while-deleting-alarm");
     }
 };
+
+export const markTriggeredAlarms = async (alarms: IAlarm[]) => {
+    try {
+        return await alarmRepository.markTriggeredAlarms(alarms);
+    } catch (error: any) {
+        logger.error(`error-while-marking-triggered-alarms => ${error}`);
+        throw Error("error-while-marking-triggered-alarms");
+    }
+}

@@ -20,3 +20,7 @@ export const updateAlarm = async (alarm: IAlarm) => {
 export const deleteAlarm = async (alarm: IAlarm) => {
     return await knex("alarms").del().where("id", alarm.id);
 } ;
+
+export const markTriggeredAlarms = async (alarm: IAlarm[]) => {
+
+};
