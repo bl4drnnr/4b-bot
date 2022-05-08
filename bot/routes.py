@@ -4,11 +4,6 @@ import json
 URL="http://127.0.0.1:5000"
 
 
-def test():
-    r = requests.post(url=URL + '/test' + '?asdaa=123')
-    return r.json()
-
-
 def getUserById(id):
     r = requests.get(url=URL + '/user/' + str(id))
     return r.json()

@@ -3,7 +3,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition, getPair, test
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition, getPair
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -12,10 +12,9 @@ commands = getAvailableCommands()
 
 @bot.message_handler(commands=['help', 'menu', 'start'])
 def menucmd(message):
-    test()
-    # user = getUserById(message.chat.id)
-    # if user.get('status') is not None and user['status'] == 0:
-        # return startcmd(message)
+    user = getUserById(message.chat.id)
+    if user.get('status') is not None and user['status'] == 0:
+        return startcmd(message)
 
     menuMessage = f'Welcome, <u>{message.chat.first_name}</u>, let\'s start!\n\n' \
                   f'What are we gonna do?\n\n' \
