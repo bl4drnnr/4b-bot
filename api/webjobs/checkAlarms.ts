@@ -26,7 +26,7 @@ const Operations = {
         allNoneTriggeredAlarms.forEach((alarm: IAlarm) => {
             const onShort = alarm.triggerprice < alarm.indexprice
             allCurrentRates.forEach((rate: object) => {
-
+                
             })
         });
 

@@ -70,6 +70,7 @@ def getalarmcmd(message):
     )
 
     allAlarms = getUserAlarmsById(message.chat.id)
+    allAlarms = allAlarms['allAlarms']
     
     if len(allAlarms) == 0:
         return bot.send_message(message.chat.id, "<b>You have no alarms! Wanna set one?</b>", parse_mode='html', reply_markup=markup)

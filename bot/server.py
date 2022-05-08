@@ -26,7 +26,7 @@ def createUser():
 @app.route('/a', methods=['GET'])
 def getUserAlarmsById():
     r = requests.get(url=URL + '/alarms/' + str(request.args.get('id')))
-    return r.json()
+    return {'allAlarms': r.json()}
 
 
 @app.route('/a/c', methods=['POST'])
