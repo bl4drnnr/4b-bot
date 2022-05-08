@@ -4,11 +4,6 @@ import json
 URL="http://127.0.0.1:5000"
 
 
-def test(id):
-    r = requests.get(url=URL + '/test' + '?chatid=' + str(id))
-    return r.json()
-
-
 def getUserById(id):
     r = requests.get(url=URL + '/user/' + str(id))
     return r.json()
