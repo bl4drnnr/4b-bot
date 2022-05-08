@@ -1,5 +1,5 @@
 from flask import Flask, request
-from main import notifyuserwithtriggeredalarms
+# from main import notifyuserwithtriggeredalarms
 
 import requests
 import json
@@ -9,40 +9,41 @@ URL="http://127.0.0.1:3000"
 app = Flask(__name__)
 
 
-@app.route('/user', methods=['GET'])
+@app.route('/u', methods=['GET'])
 def getUserById():
     r = requests.get(url=URL + '/user/' + str(request.args.get('id')))
     return r.json()
 
 
-@app.route('/user/create', methods=['POST'])
+@app.route('/u/c', methods=['POST'])
 def createUser():
     return
 
 
-@app.route('/alarms', methods=['GET'])
+@app.route('/a', methods=['GET'])
 def getUserAlarmsById():
     r = requests.get(url=URL + '/alarms/' + str(request.args.get('id')))
     return r.json()
 
 
-@app.route('/alarm/create', methods=['POST'])
+@app.route('/a/c', methods=['POST'])
 def createAlarm():
+    r = requests.post(url=URL)
     return
 
 
-@app.route('/positions', methods=['GET'])
+@app.route('/p', methods=['GET'])
 def getUserPositionsById():
     r = requests.get(url=URL + '/positions/' + str(request.args.get('id')))
     return r.json()
 
 
-@app.route('/positions/create', methods=['POST'])
+@app.route('/p/c', methods=['POST'])
 def createPosition():
     return
 
 
-@app.route('/crypto/pair/', methods=['GET'])
+@app.route('/c/p', methods=['GET'])
 def getPair():
     r = requests.get(url=URL + '/crypto/pair/' + str(request.args.get('pair')))
     return r.json()
