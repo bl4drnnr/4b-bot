@@ -8,10 +8,41 @@ URL="http://localhost:3000"
 
 app = Flask(__name__)
 
-@app.route('/test', methods=['GET'])
-def updateCryptocurrencyRates():
-    chatid = request.args.get('chatid')
-    return notifyuserwithtriggeredalarms(chatid, 'asd')
+
+@app.route('/user', methods=['GET'])
+def getUserById():
+    return
+
+
+@app.route('/user/create', methods=['POST'])
+def createUser():
+    return
+
+
+@app.route('/alarms', methods=['GET'])
+def getUserAlarmsById():
+    return
+
+
+@app.route('/alarm/create', methods=['POST'])
+def createAlarm():
+    return
+
+
+@app.route('/positions', methods=['GET'])
+def getUserPositionsById():
+    return
+
+
+@app.route('/positions/create', methods=['POST'])
+def createPosition():
+    return
+
+
+@app.route('/crypto/pair/', methods=['GET'])
+def getPair():
+    return
+
 
 
 def updateRates(data):
