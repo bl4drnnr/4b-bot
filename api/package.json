@@ -1,7 +1,7 @@
 {
   "name": "pocket-crypto-market-api",
   "version": "1.0.0",
-  "description": "PCM (Pocker Crypto Market) API for telegram bot",
+  "description": "PCM (Pocker Crypto Market) API for Telegram Bot",
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts"

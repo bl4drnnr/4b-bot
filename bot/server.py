@@ -56,7 +56,8 @@ def getPair():
 @app.route('/c/u-r', methods=['GET'])
 def updateRates():
     r = updatingRates()
-    return r.json()
+    r['updatedPairs'] = json.dumps(r['updatedPairs'])
+    return r
 
 
 try:
