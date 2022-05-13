@@ -35,18 +35,6 @@ def createAlarm():
     return r.json()
 
 
-@app.route('/p', methods=['GET'])
-def getUserPositionsById():
-    r = requests.get(url=URL + '/positions/' + str(request.args.get('id')))
-    return r.json()
-
-
-@app.route('/p/c', methods=['POST'])
-def createPosition():
-    r = requests.post(url=URL + '/positions/create', data=request.get_json())
-    return r.json()
-
-
 @app.route('/c/p', methods=['GET'])
 def getPair():
     r = requests.get(url=URL + '/crypto/pair/' + str(request.args.get('pair')))
