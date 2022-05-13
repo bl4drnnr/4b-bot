@@ -4,7 +4,6 @@ const router = Router();
 
 import * as userController from '../controllers/user.controller';
 import * as alarmController from '../controllers/alarm.controller';
-import * as positionController from '../controllers/position.controller';
 import * as cryptoController from '../controllers/crypto.controller';
 
 router.get('/user/:id', userController.getUserById);
@@ -16,11 +15,6 @@ router.get('/alarms/:id', alarmController.getUserAlarmsById);
 router.post('/alarm/create', alarmController.createAlarm);
 router.put('/alarm/update', alarmController.updateAlarm);
 router.delete('/alarm/delete', alarmController.deleteAlarm);
-
-router.get('/positions/:id', positionController.getUserPositionsById);
-router.post('/positions/create', positionController.createPosition);
-router.put('/positions/update', positionController.updatePosition);
-router.delete('/positions/delete', positionController.deletePosition);
 
 router.get('/crypto/pair/:pair', cryptoController.getPair);
 router.get('/crypto/update-rates', cryptoController.updateRates);
