@@ -24,16 +24,6 @@ def createAlarm(data):
     return r.json()
 
 
-def getUserPositionsById(id):
-    r = requests.get(url=URL + '/p?id={}'.format(id))
-    return r.json()
-
-
-def createPosition(data):
-    r = requests.post(url=URL + '/p/c', json=data)
-    return r.json()
-
-
 def getPair(pair):
     r = requests.get(url=URL + '/c/p?pair={}'.format(pair))
     return r.json()
