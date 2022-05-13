@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getUserPositionsById, createPosition, getPair
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 
@@ -22,10 +22,7 @@ def menucmd(message):
                   f'<b><i>Crypto</i></b>\n\n' \
                   f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
                   f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
-                  f'<a>/getalarm</a> - get all your alarms\n\n' \
-                  f'<b><i>Positions</i></b>\n\n' \
-                  f'<a>/commitposition</a> - commit your position to collect data\n' \
-                  f'<a>/getpositions</a> - get all your committed positions\n'
+                  f'<a>/getalarm</a> - get all your alarms\n' \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode='html')
 
@@ -40,25 +37,6 @@ def setalarmcmd(message):
     markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
     return bot.send_message(message.chat.id, alarmMessage, parse_mode='html', reply_markup=markup)
-
-
-@bot.message_handler(commands=['commitposition'])
-def commitpositioncmd(message):
-    commitPositionMessage = "Ready to commit your position?"
-    return bot.send_message(message.chat.id, commitPositionMessage)
-
-
-@bot.message_handler(commands=['getpositions'])
-def getpositionscmd(message):
-    allPositions = getUserPositionsById(message.chat.id)
-    allPositionsMessage = ""
-
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
-
-    for position in allPositions:
-        allPositionsMessage += ""
-    return bot.send_message(message.chat.id, allPositionsMessage, parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(commands=['getalarm'])
