@@ -19,10 +19,13 @@ def menucmd(message):
 
     menuMessage = f'Welcome, <u>{message.chat.first_name}</u>, let\'s start!\n\n' \
                   f'What are we gonna do?\n\n' \
-                  f'<b><i>Crypto</i></b>\n\n' \
-                  f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
+                  f'<b><i>Alarms</i></b>\n\n' \
                   f'<a>/setalarm</a> - set alarm and get notified when set price is hit\n' \
-                  f'<a>/getalarm</a> - get all your alarms\n' \
+                  f'<a>/getalarm</a> - get all your alarms\n\n' \
+                  f'Crypto\n\n' \
+                  f'<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n' \
+                  f'<a>/buycrypto</a> - buy crypto for USDT\n' \
+                  f'<a>/sellcrypto</a> - sell crypto for USDT\n' \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode='html')
 
