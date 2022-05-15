@@ -6,6 +6,7 @@ URL="http://127.0.0.1:5000"
 
 
 def getUserById(id):
+    print("encrypt(id)", encrypt(id))
     r = requests.get(url=URL + "/u?id={}".format(encrypt(id)))
     return r.json()
 
