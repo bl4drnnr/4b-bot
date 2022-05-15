@@ -78,6 +78,12 @@ def generateVoucher():
     return r.json()
 
 
+@app.route("/v/r", methods=["POST"])
+def redeemVoucher():
+    r = requests.post(url=URL + "/voucher/redeem", data=request.get_json())
+    return r.json()
+
+
 try:
     app.run(debug=True, port=5000)
 except Exception as e:

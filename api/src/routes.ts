@@ -22,6 +22,7 @@ router.post("/crypto/buy", cryptoController.buyCrypto);
 router.post("/crypto/sell", cryptoController.sellCrypto);
 router.post("/crypto/exchange", cryptoController.exchangeCrypto);
 
-router.post("/voucher/generate")
+router.post("/voucher/generate");
+router.post("/voucher/redeem");
 
 export default router;

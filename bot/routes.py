@@ -47,3 +47,8 @@ def exchangeCrypto(data):
 def generateVoucher(data):
     r = requests.post(url=URL + "/v/g", json=data)
     return r.json()
+
+
+def redeemVoucher(data):
+    r = requests.post(url=URL + "/v/r", json=data)
+    return r.json()
