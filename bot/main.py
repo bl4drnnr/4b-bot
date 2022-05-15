@@ -98,6 +98,14 @@ def sellcryptocmd(message):
     return bot.send_message(message.chat.id, sellCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
+@bot.message_handler(commands=["exchangecrypto"])
+def exchangecrypto(message):
+    exchangeCryptoMessage = "Pick pair to exchange cryptocurrencies\n\n"
+
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, exchangeCryptoMessage, reply_markup=markup, parse_mode="html")
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
