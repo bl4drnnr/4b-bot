@@ -72,6 +72,12 @@ def exchangeCrypto():
     return r.json()
 
 
+@app.route("/v/g", methods=["POST"])
+def generateVoucher():
+    r = requests.post(url=URL + "/voucher/generate", data=request.get_json())
+    return r.json()
+
+
 try:
     app.run(debug=True, port=5000)
 except Exception as e:

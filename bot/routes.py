@@ -42,4 +42,8 @@ def sellCrypto(data):
 def exchangeCrypto(data):
     r = requests.post(url=URL + "/c/e", json=data)
     return r.json()
-    
+
+
+def generateVoucher(data):
+    r = requests.post(url=URL + "/v/g", json=data)
+    return r.json()
