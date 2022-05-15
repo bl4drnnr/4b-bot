@@ -2,11 +2,11 @@ const knex = require("../src/db/knex.js");
 import { IAlarm } from "../interfaces/alarm.interface";
 
 export const getAllAlarms = async () => {
-    return await knex("alarms").select('*');
+    return await knex("alarms").select("*");
 }
 
 export const getUserAlarmsById = async (id: string) => {
-    return await knex("alarms").where("userid", id).select('*');
+    return await knex("alarms").where("userid", id).select("*");
 };
 
 export const createAlarm = async (alarm: IAlarm) => {

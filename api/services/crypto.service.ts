@@ -1,8 +1,8 @@
-import * as cryptoRepository from '../repositories/crypto.repository';
+import * as cryptoRepository from "../repositories/crypto.repository";
 import loggerConfig from "../common/logger";
-import { ICryptoPair } from '../interfaces/crypto.interface';
+import { ICryptoPair } from "../interfaces/crypto.interface";
 
-const logger = loggerConfig({ label: 'crypto-service', path: 'crypto' });
+const logger = loggerConfig({ label: "crypto-service", path: "crypto" });
 
 export const getAllRates = async () => {
     try {

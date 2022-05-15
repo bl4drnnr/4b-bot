@@ -7,7 +7,7 @@ dotevn.config({
 
 module.exports = {
     development: {
-        client: 'pg',
+        client: "pg",
         connection: {
             host: process.env.DATABASE_HOST,
             user: process.env.DATABASE_USERNAME,
@@ -16,11 +16,11 @@ module.exports = {
             port: process.env.DATABASE_PORT
         },
         migrations: {
-            tableName: 'knex_migrations',
-            directory: path.resolve() + '/src/db/migrations'
+            tableName: "knex_migrations",
+            directory: path.resolve() + "/src/db/migrations"
         },
         seeds: {
-            directory: path.resolve() + '/src/db/seeders'
+            directory: path.resolve() + "/src/db/seeders"
         },
         debug: false
     }

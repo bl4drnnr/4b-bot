@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import * as alarmSerivce from '../services/alarm.service';
+import * as alarmSerivce from "../services/alarm.service";
 import loggerConfig from "../common/logger";
 
-const logger = loggerConfig({ label: 'alarm-controller', path: 'alarm' })
+const logger = loggerConfig({ label: "alarm-controller", path: "alarm" })
 
 export const createAlarm = async (req: Request, res: Response) => {
     try {

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import * as userService from '../services/user.service';
+import * as userService from "../services/user.service";
 import loggerConfig from "../common/logger";
 
-const logger = loggerConfig({ label: 'user-controller', path: 'user' })
+const logger = loggerConfig({ label: "user-controller", path: "user" })
 
 export const createUser = async (req: Request, res: Response) => {
     try {

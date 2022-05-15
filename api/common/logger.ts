@@ -1,5 +1,5 @@
-import pkg from 'winston';
-import DailyRotateFile from 'winston-daily-rotate-file';
+import pkg from "winston";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 const { createLogger, format, transports } = pkg;
 
@@ -16,35 +16,35 @@ const myFormat = printf(({ level, message, stack, label, timestamp }) => {
 export default (data: any) => {
   const transportsConfig = !data.notSplit ? [
     data.path ? new DailyRotateFile({
-      filename: '%DATE%.log',
+      filename: "%DATE%.log",
       dirname: `logs/${data.path}`,
-      datePattern: '/MM/DD',
-    }) : new transports.File({ filename: 'logs/rest.log' }),
-    new transports.File({ filename: 'logs/errors.log', level: 'error' }),
+      datePattern: "/MM/DD",
+    }) : new transports.File({ filename: "logs/rest.log" }),
+    new transports.File({ filename: "logs/errors.log", level: "error" }),
   ] : [
-    new transports.File({ filename: 'logs/all-transactions.log' }),
-    new transports.File({ filename: 'logs/errors.log', level: 'error' }),
+    new transports.File({ filename: "logs/all-transactions.log" }),
+    new transports.File({ filename: "logs/errors.log", level: "error" }),
   ];
 
   const loggerInstance = createLogger({
-    level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
+    level: process.env.NODE_ENV !== "production" ? "debug" : "info",
     format: combine(
       colorize(),
       json(),
-      label({ label: data.label ? data.label : 'NONE' }),
+      label({ label: data.label ? data.label : "NONE" }),
       timestamp(),
       myFormat,
     ),
     transports: transportsConfig,
   });
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     loggerInstance.add(new transports.Console({
       handleExceptions: true,
     }));
   }
 
-  if (process.env.DISABLE_LOGGER === 'yes') {
+  if (process.env.DISABLE_LOGGER === "yes") {
     loggerInstance.silent = true;
   }
 

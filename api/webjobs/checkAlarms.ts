@@ -33,10 +33,10 @@ const Operations = {
                     let type = null
                     if (onShort && rate.index_price <= alarm.triggerprice) {
                         // Notify user with hit short
-                        type = 'short'
+                        type = "short"
                     } else if (!onShort && rate.index_price >= alarm.triggerprice) {
                         // Notify user with hit long
-                        type = 'long'
+                        type = "long"
                     }
                     if (type) {
                         tirggeredAlarms.push();

@@ -1,9 +1,9 @@
-import moment from 'moment';
-import * as alarmRepository from '../repositories/alarm.repository';
+import moment from "moment";
+import * as alarmRepository from "../repositories/alarm.repository";
 import loggerConfig from "../common/logger";
-import { IAlarm } from '../interfaces/alarm.interface';
+import { IAlarm } from "../interfaces/alarm.interface";
 
-const logger = loggerConfig({ label: 'alarm-service', path: 'alarm' });
+const logger = loggerConfig({ label: "alarm-service", path: "alarm" });
 
 export const getAllAlarms = async () => {
     try {
@@ -18,7 +18,7 @@ export const getUserAlarmsById = async (id: string) => {
     try {
         const alarms = await alarmRepository.getUserAlarmsById(id);
         alarms.forEach((alarm: IAlarm) => {
-            alarm.createdat = moment(alarm.createdat).format('YYYY-MM-DD HH:mm:ss')
+            alarm.createdat = moment(alarm.createdat).format("YYYY-MM-DD HH:mm:ss")
         });
         return alarms;
     } catch (error: any) {

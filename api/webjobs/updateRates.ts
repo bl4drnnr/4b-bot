@@ -18,7 +18,7 @@ const Operations = {
         const updatedRates = JSON.parse(data.updatedPairs);
         updatedRates.forEach((pair: any) => {
             Object.entries(pair).forEach((item: any) => {
-                if (item[0] !== 'symbol') pair[item[0]] = parseFloat(item[1])
+                if (item[0] !== "symbol") pair[item[0]] = parseFloat(item[1])
             })
         });
 

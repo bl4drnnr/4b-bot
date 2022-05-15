@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as cryptoService from "../services/crypto.service";
 import loggerConfig from "../common/logger";
 
-const logger = loggerConfig({ label: 'crypto-controller', path: 'crypto' })
+const logger = loggerConfig({ label: "crypto-controller", path: "crypto" })
 
 export const getPair = async (req: Request, res: Response) => {
     try {
