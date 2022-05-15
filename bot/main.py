@@ -84,12 +84,18 @@ def getpaircmd(message):
 
 @bot.message_handler(commands=["buycrypto"])
 def buycryptocmd(message):
-    return bot.send_message(message.chat.id)
+    buyCryptoMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, buyCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.message_handler(commands=["sellcrypto"])
 def sellcryptocmd(message):
-    return bot.send_message(message.chat.id)
+    sellCryptoMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, sellCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.callback_query_handler(func=lambda call: True)
