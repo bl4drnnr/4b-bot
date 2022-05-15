@@ -30,8 +30,11 @@ def getPair(pair):
 
 
 def buyCrypto(data):
-    return
+    r = requests.post(url=URL + '/c/b', json=data)
+    return r.json()
 
 
 def sellCrypto(data):
-    return
+    r = requests.post(url=URL + '/c/s', json=data)
+    return r.json()
+    
