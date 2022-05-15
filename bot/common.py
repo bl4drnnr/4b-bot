@@ -1,3 +1,13 @@
+import rsa
+
+
+def encrypt(text):
+    with open("keys/public.pem") as publickey:
+        publickeydata = publickey.read()
+    pubkey = rsa.PublicKey.load_pkcs1_openssl_pem(publickeydata.encode("utf-8"))
+    return rsa.encrypt(text, pubkey)
+
+
 def getMostPopularPairs():
     return ["BTC", "ETH", "LTC", "BNB"]
 
