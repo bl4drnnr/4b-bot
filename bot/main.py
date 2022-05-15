@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto
 
 bot = telebot.TeleBot(config('BOT_API_KEY'))
 

@@ -28,3 +28,10 @@ def getPair(pair):
     r = requests.get(url=URL + '/c/p?pair={}'.format(pair))
     return r.json()
 
+
+def buyCrypto(data):
+    return
+
+
+def sellCrypto(data):
+    return

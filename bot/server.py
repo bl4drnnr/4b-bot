@@ -54,6 +54,16 @@ def notifyUserAlarm():
     notifyuserwithtriggeredalarms(data['userid'], data['alarm'])
 
 
+@app.route('/c/b', methods=['POST'])
+def buyCrypto():
+    data = request.get_json()
+
+
+@app.route('/c/s', methods=['POST'])
+def sellCrypto():
+    data = request.get_json()
+
+
 try:
     app.run(debug=True, port=5000)
 except Exception as e:

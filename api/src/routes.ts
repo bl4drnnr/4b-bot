@@ -18,5 +18,7 @@ router.delete('/alarm/delete', alarmController.deleteAlarm);
 
 router.get('/crypto/pair/:pair', cryptoController.getPair);
 router.get('/crypto/update-rates', cryptoController.updateRates);
+router.post('/crypto/buy');
+router.post('/crypto/sell');
 
 export default router;
