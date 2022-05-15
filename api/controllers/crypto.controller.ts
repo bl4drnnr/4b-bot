@@ -23,3 +23,21 @@ export const updateRates = async (req: Request, res: Response) => {
         return res.json({ status: -1 });
     }
 };
+
+export const buyCrypto = async (req: Request, res: Response) => {
+    try {
+
+    } catch (e) {
+        logger.error(`Error while buying crypto => ${e}`);
+        return res.json({ status: -1 });
+    }
+};
+
+export const sellCrypto = async (req: Request, res: Response) => {
+    try {
+
+    } catch (e) {
+        logger.error(`Error while selling crypto => ${e}`);
+        return res.json({ status: -1 });
+    }
+};
