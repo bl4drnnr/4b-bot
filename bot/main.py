@@ -84,12 +84,12 @@ def getpaircmd(message):
 
 @bot.message_handler(commands=['buycrypto'])
 def buycryptocmd(message):
-    return
+    return bot.send_message(message.chat.id)
 
 
 @bot.message_handler(commands=['sellcrypto'])
 def sellcryptocmd(message):
-    return
+    return bot.send_message(message.chat.id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
