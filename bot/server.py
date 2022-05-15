@@ -66,6 +66,12 @@ def sellCrypto():
     return r.json()
 
 
+@app.route("/c/e", methods=["POST"])
+def exchangeCrypto():
+    r = requests.post(url=URL + "/crypto/exchange", data=request.get_json())
+    return r.json()
+
+
 try:
     app.run(debug=True, port=5000)
 except Exception as e:

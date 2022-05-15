@@ -20,5 +20,6 @@ router.get("/crypto/pair/:pair", cryptoController.getPair);
 router.get("/crypto/update-rates", cryptoController.updateRates);
 router.post("/crypto/buy", cryptoController.buyCrypto);
 router.post("/crypto/sell", cryptoController.sellCrypto);
+router.post("/crypto/exchange", cryptoController.exchangeCrypto);
 
 export default router;

@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto
+from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 
@@ -99,7 +99,7 @@ def sellcryptocmd(message):
 
 
 @bot.message_handler(commands=["exchangecrypto"])
-def exchangecrypto(message):
+def exchangecryptocmd(message):
     exchangeCryptoMessage = "Pick pair to exchange cryptocurrencies\n\n"
 
     markup = types.InlineKeyboardMarkup()
@@ -124,6 +124,8 @@ def commandshandlebtn(call):
             return buycryptocmd(call.message)
         elif userMessage == "/sellcrypto":
             return sellcryptocmd(call.message)
+        elif userMessage == "/exchangecrypto":
+            return exchangecryptocmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
         createdUser = createUser({"userid": userMessage.split()[0]})

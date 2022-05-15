@@ -37,3 +37,9 @@ def buyCrypto(data):
 def sellCrypto(data):
     r = requests.post(url=URL + "/c/s", json=data)
     return r.json()
+
+
+def exchangeCrypto(data):
+    r = requests.post(url=URL + "/c/e", json=data)
+    return r.json()
+    

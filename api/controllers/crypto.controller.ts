@@ -41,3 +41,12 @@ export const sellCrypto = async (req: Request, res: Response) => {
         return res.json({ status: -1 });
     }
 };
+
+export const exchangeCrypto = async (req: Request, res: Response) => {
+    try {
+        
+    } catch (e) {
+        logger.error(`Error while exchanging crypto => ${e}`);
+        return res.json({ status: -1 });
+    }
+};
