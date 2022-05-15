@@ -26,6 +26,10 @@ def menucmd(message):
                   f"<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n" \
                   f"<a>/buycrypto</a> - buy crypto for USDT\n" \
                   f"<a>/sellcrypto</a> - sell crypto for USDT\n" \
+                  f"<a>/exchangecrypto</a> - crypto-to-crypto exchange\n\n" \
+                  f"<b><i>Vouchers</i></b>\n\n" \
+                  f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
+                  f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
@@ -35,6 +39,7 @@ def setalarmcmd(message):
     alarmMessage = "Let's start with setting up alarm.\n\n" \
                    "Provide the crypto you want to observe and price.\n\n" \
                    "Example of format - <b>btc 39165.45</b>"
+    
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))

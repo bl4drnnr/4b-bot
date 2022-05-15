@@ -13,4 +13,15 @@ def printPairResult(pair):
 
 
 def getAvailableCommands():
-    return ["/start", "/help", "/menu", "/setalarm", "/getalarm", "/getpair"]
+    return [
+        "/start",
+        "/help", 
+        "/menu", 
+        "/setalarm", 
+        "/getalarm", 
+        "/getpair",
+        "/buycrypto",
+        "/sellcrypto",
+        "/generatevoucher",
+        "/redeemvoucher"
+        ]
