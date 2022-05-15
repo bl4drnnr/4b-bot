@@ -5,6 +5,7 @@ const router = Router();
 import * as userController from "../controllers/user.controller";
 import * as alarmController from "../controllers/alarm.controller";
 import * as cryptoController from "../controllers/crypto.controller";
+import * as voucherController from "../controllers/voucher.controller";
 
 router.get("/user/:id", userController.getUserById);
 router.post("/user/create", userController.createUser);
@@ -22,7 +23,7 @@ router.post("/crypto/buy", cryptoController.buyCrypto);
 router.post("/crypto/sell", cryptoController.sellCrypto);
 router.post("/crypto/exchange", cryptoController.exchangeCrypto);
 
-router.post("/voucher/generate");
-router.post("/voucher/redeem");
+router.post("/voucher/generate", voucherController.generateVoucher);
+router.post("/voucher/redeem", voucherController.redeemVoucher);
 
 export default router;

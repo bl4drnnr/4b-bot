@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as cryptoService from "../services/crypto.service";
 import loggerConfig from "../common/logger";
 
-const logger = loggerConfig({ label: "crypto-controller", path: "crypto" })
+const logger = loggerConfig({ label: "crypto-controller", path: "crypto" });
 
 export const getPair = async (req: Request, res: Response) => {
     try {
@@ -44,7 +44,7 @@ export const sellCrypto = async (req: Request, res: Response) => {
 
 export const exchangeCrypto = async (req: Request, res: Response) => {
     try {
-        
+
     } catch (e) {
         logger.error(`Error while exchanging crypto => ${e}`);
         return res.json({ status: -1 });
