@@ -84,7 +84,7 @@ def getpaircmd(message):
 
 @bot.message_handler(commands=["buycrypto"])
 def buycryptocmd(message):
-    buyCryptoMessage = ""
+    buyCryptoMessage = "Buy cryptocurrencies for <i>USDT</i>\n\n"
 
     markup = types.InlineKeyboardMarkup()
     return bot.send_message(message.chat.id, buyCryptoMessage, reply_markup=markup, parse_mode="html")
@@ -92,7 +92,7 @@ def buycryptocmd(message):
 
 @bot.message_handler(commands=["sellcrypto"])
 def sellcryptocmd(message):
-    sellCryptoMessage = ""
+    sellCryptoMessage = "Sell cryptocurrencies for <i>USDT</i>\n\n"
 
     markup = types.InlineKeyboardMarkup()
     return bot.send_message(message.chat.id, sellCryptoMessage, reply_markup=markup, parse_mode="html")
@@ -188,11 +188,12 @@ def manualhandlermessage(message):
 
 def startcmd(message):
     # New user start message
-    startMessage = f"Hello, <b><i>{message.from_user.first_name}</i></b>, you are probably new one here?\n\n" \
-                   f"Lemme explain what you can do with this bot and how it use. The idea of this bot is to become your personal crypto diary." \
-                   f"Here you can find such functionality as <b>alarms</b>, <b>getting pairs</b> in one click and even personal <i><u>personal AI</u></i>.\n\n" \
-                   f"About last one let's talk a little bit more... \n\n" \
-                   f"If I was able to impress you, you know what to press!"
+    startMessage = f"Hello there, <b><i>{message.from_user.first_name}</i></b>!\n" \
+                   f"Welcome to PCM - P2P cryptoexchange in your pocket.\n\n" \
+                   f"+ No KYC and AML.\n" \
+                   f"+ Big choice of cryptocurrenices - BTC, ETH, LTC, BNB etc. \n" \
+                   f"+ Availability buying and selling crypto for USDT \n" \
+                   f"+ State fee for all operations (0,00008 BTC)"
 
     initData = f"{str(message.from_user.id)} create"
 
