@@ -5,10 +5,7 @@ def encrypt(text):
     with open("keys/public.pem") as publickey:
         publickeydata = publickey.read()
     pubkey = rsa.PublicKey.load_pkcs1_openssl_pem(publickeydata.encode("utf-8"))
-    print(pubkey)
-    t = rsa.encrypt(str(text), pubkey)
-    print(t)
-    return t
+    return rsa.encrypt(str(text).encode("utf-8"), pubkey)
 
 
 def getMostPopularPairs():
