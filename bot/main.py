@@ -111,6 +111,22 @@ def exchangecryptocmd(message):
     return bot.send_message(message.chat.id, exchangeCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
+@bot.message_handler(commands=["generatevoucher"])
+def generatevouchercmd(message):
+    generateVoucherMessage = ""
+    
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, generateVoucherMessage, reply_markup=markup, parse_mode="html")
+
+
+@bot.message_handler(commands=["redeemvoucher"])
+def redeemvouchercmd(message):
+    redeemVoucherMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
@@ -131,6 +147,10 @@ def commandshandlebtn(call):
             return sellcryptocmd(call.message)
         elif userMessage == "/exchangecrypto":
             return exchangecryptocmd(call.message)
+        elif userMessage == "/generatevoucher":
+            return generatevouchercmd(call.message)
+        elif userMessage == "/redeemvoucher":
+            return redeemvouchercmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
         createdUser = createUser({"userid": userMessage.split()[0]})

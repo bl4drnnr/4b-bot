@@ -22,6 +22,7 @@ def getAvailableCommands():
         "/getpair",
         "/buycrypto",
         "/sellcrypto",
+        "/exchangecrypto",
         "/generatevoucher",
         "/redeemvoucher"
         ]
