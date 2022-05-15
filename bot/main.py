@@ -82,6 +82,16 @@ def getpaircmd(message):
     return bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode='html')
 
 
+@bot.message_handler(commands=['buycrypto'])
+def buycryptocmd(message):
+    return
+
+
+@bot.message_handler(commands=['sellcrypto'])
+def sellcryptocmd(message):
+    return
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
@@ -96,6 +106,10 @@ def commandshandlebtn(call):
             return setalarmcmd(call.message)
         elif userMessage == '/getalarm':
             return getalarmcmd(call.message)
+        elif userMessage == '/buycrypto':
+            return buycryptocmd(call.message)
+        elif userMessage == '/sellcrypto':
+            return sellcryptocmd(call.message)
     elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
         createdUser = createUser({'userid': userMessage.split()[0]})
