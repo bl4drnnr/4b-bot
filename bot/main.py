@@ -7,6 +7,10 @@ from common import getMostPopularPairs, printPairResult, getAvailableCommands
 from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
+bot.set_my_commands([
+            telebot.types.BotCommand("/start", "start"),
+            telebot.types.BotCommand("/menu", "menu")
+        ])
 
 commands = getAvailableCommands()
 
@@ -32,6 +36,7 @@ def menucmd(message):
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
 
+    # markup =
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
 
@@ -149,7 +154,7 @@ def commandshandlebtn(call):
         else:
             return defaulterrormessage(call.message)
     elif userMessage == "/menu":
-        return menucmd(call.message)
+        return menucmd(message)
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
