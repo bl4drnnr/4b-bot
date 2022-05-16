@@ -1,11 +1,11 @@
-import rsa
+import hashlib
 from decouple import config
 
 SALT = config("SALT")
 
 
 def encrypt(text):
-    return
+    return hashlib.sha512(text + SALT)
 
 
 def getMostPopularPairs():

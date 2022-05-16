@@ -11,6 +11,7 @@ def getUserById(id):
 
 
 def createUser(data):
+    data["userid"] = encrypt(data["userid"])
     r = requests.post(url=URL + "/u/c", json=data)
     return r.json()
 
