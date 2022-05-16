@@ -8,7 +8,7 @@ from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getP
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
-            telebot.types.BotCommand("/start", "start"),
+            telebot.types.BotCommand("/menu", "Get list of all commands"),
             telebot.types.BotCommand("/menu", "menu")
         ])
 
@@ -36,7 +36,6 @@ def menucmd(message):
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
 
-    # markup =
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
 
@@ -154,7 +153,7 @@ def commandshandlebtn(call):
         else:
             return defaulterrormessage(call.message)
     elif userMessage == "/menu":
-        return menucmd(message)
+        return menucmd(call.message)
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
@@ -179,7 +178,8 @@ def manualhandlermessage(message):
         # Manual commands handler
         userMessage = userMessage.lower()
         if userMessage not in commands:
-            return bot.send_message(message.chat.id, "Are you sure about this command?\n\nGo to menu to get all possible commands:", reply_markup=markup)
+            userMessage = "/menu"
+            return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
 
     if len(userMessage.split()) == 2:
         # Setting new alarms
