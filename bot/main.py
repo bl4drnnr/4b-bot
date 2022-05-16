@@ -160,8 +160,6 @@ def commandshandlebtn(call):
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-        if not pair:
-            return bot.send_message(call.message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)
 
