@@ -189,7 +189,7 @@ def manualhandlermessage(message):
         except ValueError:
             return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
         pair = getPair(str(crypto) + str("USDT"))
-        if not pair:
+        if pair["status"] is not None and pair["status"] == 0:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
         createdAlarm = createAlarm({
             "userid": message.chat.id,
@@ -208,7 +208,7 @@ def manualhandlermessage(message):
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-        if not pair:
+        if pair["status"] is not None and pair["status"] == 0:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)

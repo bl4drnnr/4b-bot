@@ -7,6 +7,7 @@ const logger = loggerConfig({ label: "crypto-controller", path: "crypto" });
 export const getPair = async (req: Request, res: Response) => {
     try {
         const result = await cryptoService.getPair(req.params.pair);
+        if (!result) return res.json({ status: 0 });
         return res.json(result);
     } catch (e) {
         logger.error(`Error while getting pair => ${e}`);
