@@ -5,7 +5,7 @@ SALT = config("SALT")
 
 
 def encrypt(text):
-    return hashlib.sha512(text + SALT)
+    return hashlib.sha512(str(text).encode("utf-8") + str(SALT).encode("utf-8")).hexdigest()
 
 
 def getMostPopularPairs():
