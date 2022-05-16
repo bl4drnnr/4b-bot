@@ -91,8 +91,8 @@ def getpaircmd(message):
     i = 0
     while i != len(mostPopularPairs):
         markup.add(
-            types.InlineKeyboardButton(mostPopularPairs[i], callback_data=mostPopularPairs[i]),
-            types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data=mostPopularPairs[i + 1])
+            types.InlineKeyboardButton(mostPopularPairs[i], callback_data="gc;"+mostPopularPairs[i]),
+            types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data="gc;"+mostPopularPairs[i + 1])
         )
         i += 2
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
@@ -162,9 +162,9 @@ def commandshandlebtn(call):
             return defaulterrormessage(call.message)
     elif userMessage == "/menu":
         return menucmd(call.message)
-    else:
+    elif "gc;" in userMessage:
         # Looking for pair
-        pair = getPair(str(userMessage) + str("USDT"))
+        pair = getPair(str(userMessage.split(";")[1]) + str("USDT"))
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
@@ -216,7 +216,7 @@ def manualhandlermessage(message):
 
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
-        if pair["status"] is not None and pair["status"] == 0:
+        if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
         pairMessage = printPairResult(pair)
