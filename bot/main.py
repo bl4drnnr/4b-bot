@@ -28,6 +28,7 @@ def menucmd(message):
                   f"<a>/sellcrypto</a> - sell crypto for USDT\n" \
                   f"<a>/exchangecrypto</a> - crypto-to-crypto exchange\n\n" \
                   f"<b><i>Vouchers</i></b>\n\n" \
+                  f"<a>/myvouchers</a> - show all my vouchers <b>!DELETE MESSAGE AFTER!</b>\n" \
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
 
@@ -127,37 +128,28 @@ def redeemvouchercmd(message):
     return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
+@bot.message_handler(commands=["myvouchers"])
+def myvoucherscmd(message):
+    myVouchersMessage = ""
+
+    markup = types.InlineKeyboardMarkup()
+    return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
 
     # Commands by buttons click
-    if userMessage[0] == "/":
-        if userMessage == "/menu":
-            return menucmd(call.message)
-        elif userMessage == "/getpair":
-            return getpaircmd(call.message)
-        elif userMessage == "/setalarm":
-            return setalarmcmd(call.message)
-        elif userMessage == "/getalarm":
-            return getalarmcmd(call.message)
-        elif userMessage == "/buycrypto":
-            return buycryptocmd(call.message)
-        elif userMessage == "/sellcrypto":
-            return sellcryptocmd(call.message)
-        elif userMessage == "/exchangecrypto":
-            return exchangecryptocmd(call.message)
-        elif userMessage == "/generatevoucher":
-            return generatevouchercmd(call.message)
-        elif userMessage == "/redeemvoucher":
-            return redeemvouchercmd(call.message)
-    elif len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
+    if len(userMessage.split()) == 2 and userMessage.split()[1] == "create":
         # Creating new user
         createdUser = createUser({"userid": userMessage.split()[0]})
         if createdUser["status"] == 1:
             return menucmd(call.message)
         else:
             return defaulterrormessage(call.message)
+    elif userMessage == "/menu":
+        return menucmd(call.message)
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
