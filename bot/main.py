@@ -160,8 +160,6 @@ def commandshandlebtn(call):
             return menucmd(call.message)
         else:
             return defaulterrormessage(call.message)
-    elif userMessage == "/menu":
-        return menucmd(call.message)
     elif "gc;" in userMessage:
         # Looking for pair
         pair = getPair(str(userMessage.split(";")[1]) + str("USDT"))
@@ -172,6 +170,8 @@ def commandshandlebtn(call):
         pairMessage = printPairResult(pair)
 
         return bot.send_message(call.message.chat.id, pairMessage, parse_mode="html", reply_markup=markup)
+    else:
+        executecommand(call)
 
 
 @bot.message_handler(content_types=["text"])
@@ -250,6 +250,12 @@ def defaulterrormessage(chatid):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html")
+
+
+def executecommand(call):
+    return {
+        "/getpair": getpaircmd(call.message)
+    }.get(call.data)
 
 
 if __name__ == "__main__":
