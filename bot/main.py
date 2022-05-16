@@ -9,7 +9,15 @@ from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getP
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
             telebot.types.BotCommand("/menu", "Get list of all commands"),
-            telebot.types.BotCommand("/menu", "menu")
+            telebot.types.BotCommand("/setalarm", "Get notified when set price is hit"),
+            telebot.types.BotCommand("/getalarm", "Get all your alarms"),
+            telebot.types.BotCommand("/getpair", "Get crypto pair rate"),
+            telebot.types.BotCommand("/buycrypto", "Buy crypto for USDT"),
+            telebot.types.BotCommand("/sellcrypto", "Sell crypto for USDT"),
+            telebot.types.BotCommand("/exchangecrypto", "Crypto-To-Crypto exchange"),
+            telebot.types.BotCommand("/myvouchers", "Show all your vouchers"),
+            telebot.types.BotCommand("/generatevoucher", "Generate voucher and send it to someone"),
+            telebot.types.BotCommand("/redeemvoucher", "Redeem voucher and get crypto on your wallet")
         ])
 
 commands = getAvailableCommands()
@@ -30,9 +38,9 @@ def menucmd(message):
                   f"<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n" \
                   f"<a>/buycrypto</a> - buy crypto for USDT\n" \
                   f"<a>/sellcrypto</a> - sell crypto for USDT\n" \
-                  f"<a>/exchangecrypto</a> - crypto-to-crypto exchange\n\n" \
+                  f"<a>/exchangecrypto</a> - Crypto-To-Crypto exchange\n\n" \
                   f"<b><i>Vouchers</i></b>\n\n" \
-                  f"<a>/myvouchers</a> - show all my vouchers <b>!DELETE MESSAGE AFTER!</b>\n" \
+                  f"<a>/myvouchers</a> - show all your vouchers <b>!DELETE MESSAGE AFTER!</b>\n" \
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
 
