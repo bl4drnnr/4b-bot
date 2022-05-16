@@ -1,11 +1,11 @@
 import rsa
+from decouple import config
+
+SALT = config("SALT")
 
 
 def encrypt(text):
-    with open("keys/public.pem") as publickey:
-        publickeydata = publickey.read()
-    pubkey = rsa.PublicKey.load_pkcs1_openssl_pem(publickeydata.encode("utf-8"))
-    return rsa.encrypt(str(text).encode("utf-8"), pubkey)
+    return
 
 
 def getMostPopularPairs():
