@@ -1,13 +1,11 @@
 import requests
 import json
-from common import encrypt
 
 URL="http://127.0.0.1:5000"
 
 
-# TODO Should be refactored on private/public key pairs
 def getUserById(id):
-    r = requests.get(url=URL + "/u?id={}".format(encrypt(id)))
+    r = requests.get(url=URL + "/u?id={}".format(id))
     return r.json()
 
 

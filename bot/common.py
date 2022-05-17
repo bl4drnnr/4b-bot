@@ -1,13 +1,3 @@
-import hashlib
-from decouple import config
-
-SALT = config("SALT")
-
-
-def encrypt(text):
-    return hashlib.sha512(str(text).encode("utf-8") + str(SALT).encode("utf-8")).hexdigest()
-
-
 def getMostPopularPairs():
     return ["BTC", "ETH", "LTC", "BNB"]
 
