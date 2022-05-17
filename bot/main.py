@@ -54,7 +54,7 @@ def setalarmcmd(message):
                    "Example of format - <b>btc 39165.45</b>"
     
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Set new alarm"))
+    markup.add(types.InlineKeyboardButton("- Set alarm"))
     markup.add(types.InlineKeyboardButton("- All alarms"))
     markup.add(types.InlineKeyboardButton("- Menu"))
 
@@ -203,7 +203,7 @@ def manualhandlermessage(message):
         pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("- Menu"), types.InlineKeyboardButton("- Get new pair"))
+        markup.add(types.InlineKeyboardButton("- Menu"), types.InlineKeyboardButton("- Get pair"))
         if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
@@ -235,14 +235,16 @@ def defaulterrormessage(chatid):
 
 
 def executecommand(message):
-    if message.text.lower() == "getpair":
+    if message.text.lower().split("- ")[1] == "get pair":
         return getpaircmd(message)
-    elif message.text.lower() == "menu":
+    elif message.text.lower().split("- ")[1] == "menu":
         return menucmd(message)
-    elif message.text.lower() == "setalarm":
+    elif message.text.lower().split("- ")[1] == "set alarm":
         return setalarmcmd(message)
-    elif message.text.lower() == "getalarm":
+    elif message.text.lower().split("- ")[1] == "get alarm":
         return getalarmcmd(message)
+    else:
+        return menucmd(message)    
 
 
 if __name__ == "__main__":
