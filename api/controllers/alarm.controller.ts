@@ -31,19 +31,6 @@ export const getUserAlarmsById = async (req: Request, res: Response) => {
     }
 };
 
-export const updateAlarm = async (req: Request, res: Response) => {
-    try {
-        logger.info(`Updating alarm by id: ${req.body.id}`);
-
-        const alarm = await alarmSerivce.updateAlarm(req.body);
-
-        return res.json(alarm);
-    } catch (e) {
-        logger.error(`Error while updating alarm => ${e}`);
-        return res.json({ status: -1 });
-    }
-};
-
 export const deleteAlarm = async (req: Request, res: Response) => {
     try {
         logger.info(`Deleting alarm by id: ${req.body.id}`);
