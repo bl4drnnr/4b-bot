@@ -53,7 +53,7 @@ def setalarmcmd(message):
                    "Provide the crypto you want to observe and price.\n\n" \
                    "Example of format - <b>btc 39165.45</b>"
     
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
@@ -62,7 +62,7 @@ def setalarmcmd(message):
 
 @bot.message_handler(commands=["getalarm"])
 def getalarmcmd(message):
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(
         types.InlineKeyboardButton("Menu", callback_data="/menu"),
         types.InlineKeyboardButton("Set alarm", callback_data="/setalarm"),
@@ -86,7 +86,7 @@ def getpaircmd(message):
                      "Here is the list of most popular pairs.\n\n" \
                      "Haven't found? Just type crypto! (Only USDT pair are available)"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     mostPopularPairs = getMostPopularPairs()
     i = 0
     while i != len(mostPopularPairs):
@@ -104,7 +104,7 @@ def getpaircmd(message):
 def buycryptocmd(message):
     buyCryptoMessage = "Buy cryptocurrencies for <i>USDT</i>\n\n"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, buyCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -112,7 +112,7 @@ def buycryptocmd(message):
 def sellcryptocmd(message):
     sellCryptoMessage = "Sell cryptocurrencies for <i>USDT</i>\n\n"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, sellCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -120,7 +120,7 @@ def sellcryptocmd(message):
 def exchangecryptocmd(message):
     exchangeCryptoMessage = "Pick pair to exchange cryptocurrencies\n\n"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, exchangeCryptoMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -128,7 +128,7 @@ def exchangecryptocmd(message):
 def generatevouchercmd(message):
     generateVoucherMessage = ""
     
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, generateVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -136,7 +136,7 @@ def generatevouchercmd(message):
 def redeemvouchercmd(message):
     redeemVoucherMessage = ""
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -144,7 +144,7 @@ def redeemvouchercmd(message):
 def myvoucherscmd(message):
     myVouchersMessage = ""
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -164,7 +164,7 @@ def commandshandlebtn(call):
         # Looking for pair
         pair = getPair(str(userMessage.split(";")[1]) + str("USDT"))
 
-        markup = types.InlineKeyboardMarkup()
+        markup = types.ReplyKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
 
         pairMessage = printPairResult(pair)
@@ -177,7 +177,7 @@ def commandshandlebtn(call):
 @bot.message_handler(content_types=["text"])
 def manualhandlermessage(message):
     userMessage = message.text.strip().upper()
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
 
     if userMessage[0] == "/":
@@ -214,7 +214,7 @@ def manualhandlermessage(message):
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
 
-        markup = types.InlineKeyboardMarkup()
+        markup = types.ReplyKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
         if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
@@ -234,14 +234,14 @@ def startcmd(message):
 
     initData = f"{str(message.from_user.id)} create"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
     return bot.send_message(message.chat.id, startMessage, parse_mode="html", reply_markup=markup)
 
 
 def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html")
 
