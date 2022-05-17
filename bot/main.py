@@ -229,9 +229,8 @@ def startcmd(message):
     startMessage = f"Hello there, <b><i>{message.from_user.first_name}</i></b>!\n" \
                    f"Welcome to PCM - P2P cryptoexchange in your pocket.\n\n" \
                    f"+ No KYC/AML. Absolutely anonymous!\n" \
-                   f"+ Wide choice of cryptocurrenices - BTC, ETH, LTC, BNB etc. \n" \
                    f"+ Availability of buying and selling crypto for USDT \n" \
-                   f"+ State fee for all operations (0,00008 BTC)"
+                   f"+ State fee for all operations (0,00004 BTC)"
 
     initData = f"{str(message.from_user.id)} create"
 
