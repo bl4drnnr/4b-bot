@@ -146,7 +146,7 @@ def myvoucherscmd(message):
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
 
-# Callback handler
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
@@ -159,19 +159,6 @@ def commandshandlebtn(call):
             return menucmd(call.message)
         else:
             return defaulterrormessage(call.message)
-    elif "gc;" in userMessage:
-        # Looking for pair
-        pair = getPair(str(userMessage.split(";")[1]) + str("USDT"))
-
-        markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("- Get new pair"))
-        markup.add(types.InlineKeyboardButton("- Menu"))
-
-        pairMessage = printPairResult(pair)
-
-        return bot.send_message(call.message.chat.id, pairMessage, parse_mode="html", reply_markup=markup)
-    else:
-        executecommand(call)
 
 
 @bot.message_handler(content_types=["text"])
@@ -186,8 +173,7 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
-
-    if len(userMessage.split()) == 2:
+    elif len(userMessage.split()) == 2 and userMessage[0] != "-":
         # Setting new alarms
         markup.add(types.InlineKeyboardButton("- Set new alarm"), types.InlineKeyboardButton("- All alarms"))
         try:
@@ -210,6 +196,8 @@ def manualhandlermessage(message):
             return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode="html", reply_markup=markup)
         else:
             return defaulterrormessage(call.message)
+    elif userMessage[0] == "-":
+        executecommand(message)
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
@@ -246,15 +234,15 @@ def defaulterrormessage(chatid):
     return bot.send_message(chatid, errorMessage, parse_mode="html")
 
 
-def executecommand(call):
-    if call.data == "/getpair":
-        return getpaircmd(call.message)
-    elif call.data == "/menu":
-        return menucmd(call.message)
-    elif call.data == "/setalarm":
-        return setalarmcmd(call.message)
-    elif call.data == "/getalarm":
-        return getalarmcmd(call.message)
+def executecommand(message):
+    if message.text.lower() == "getpair":
+        return getpaircmd(message)
+    elif message.text.lower() == "menu":
+        return menucmd(message)
+    elif message.text.lower() == "setalarm":
+        return setalarmcmd(message)
+    elif message.text.lower() == "getalarm":
+        return getalarmcmd(message)
 
 
 if __name__ == "__main__":
