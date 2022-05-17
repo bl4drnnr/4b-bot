@@ -1,6 +1,6 @@
 from flask import Flask, request
 from bybitapi import updatingRates
-from main import notifyuserwithtriggeredalarms
+from main import bot
 
 import requests
 import json
@@ -51,7 +51,7 @@ def updateRates():
 @app.route("/u/n", methods=["POST"])
 def notifyUserAlarm():
     data = request.get_json()
-    notifyuserwithtriggeredalarms(data["userid"], data["alarm"])
+    return
 
 
 @app.route("/c/b", methods=["POST"])
