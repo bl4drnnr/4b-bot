@@ -239,11 +239,6 @@ def startcmd(message):
     return bot.send_message(message.chat.id, startMessage, parse_mode="html", reply_markup=markup)
 
 
-def notifyuserwithtriggeredalarms(chatid, alarm):
-    alarmMessage = "<b>Watch out!</b>\n\nYour alarm has been triggered!"
-    return bot.send_message(chatid, alarmMessage, parse_mode="html")
-
-
 def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
     markup = types.InlineKeyboardMarkup()
@@ -252,9 +247,14 @@ def defaulterrormessage(chatid):
 
 
 def executecommand(call):
-    return {
-        "/getpair": getpaircmd(call.message)
-    }.get(call.data)
+    if call.data == "/getpair":
+        return getpaircmd(call.message)
+    elif call.data == "/menu":
+        return menucmd(call.message)
+    elif call.data == "/setalarm":
+        return setalarmcmd(call.message)
+    elif call.data == "/getalarm":
+        return getalarmcmd(call.message)
 
 
 if __name__ == "__main__":

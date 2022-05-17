@@ -11,6 +11,11 @@ URL="http://127.0.0.1:3000"
 app = Flask(__name__)
 
 
+def notifyuserwithtriggeredalarms(chatid, alarm):
+    alarmMessage = "<b>Watch out!</b>\n\nYour alarm has been triggered!"
+    return bot.send_message(chatid, alarmMessage, parse_mode="html")
+
+
 @app.route("/u", methods=["GET"])
 def getUserById():
     r = requests.get(url=URL + "/user/" + str(request.args.get("id")))
