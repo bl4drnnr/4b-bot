@@ -54,8 +54,8 @@ def setalarmcmd(message):
                    "Example of format - <b>btc 39165.45</b>"
     
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
-    markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
+    markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("- Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
 
     return bot.send_message(message.chat.id, alarmMessage, parse_mode="html", reply_markup=markup)
 
@@ -63,10 +63,8 @@ def setalarmcmd(message):
 @bot.message_handler(commands=["getalarm"])
 def getalarmcmd(message):
     markup = types.ReplyKeyboardMarkup()
-    markup.add(
-        types.InlineKeyboardButton("Menu", callback_data="/menu"),
-        types.InlineKeyboardButton("Set alarm", callback_data="/setalarm"),
-    )
+    markup.add(types.InlineKeyboardButton("- Set alarm", callback_data="/setalarm"))
+    markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"))
 
     allAlarms = getUserAlarmsById(message.chat.id)
     allAlarms = allAlarms["allAlarms"]
@@ -95,7 +93,7 @@ def getpaircmd(message):
             types.InlineKeyboardButton(mostPopularPairs[i + 1], callback_data="gc;"+mostPopularPairs[i + 1])
         )
         i += 2
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"))
 
     return bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode="html")
 
@@ -165,7 +163,7 @@ def commandshandlebtn(call):
         pair = getPair(str(userMessage.split(";")[1]) + str("USDT"))
 
         markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
+        markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
 
         pairMessage = printPairResult(pair)
 
@@ -178,7 +176,7 @@ def commandshandlebtn(call):
 def manualhandlermessage(message):
     userMessage = message.text.strip().upper()
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"))
 
     if userMessage[0] == "/":
         # Manual commands handler
@@ -189,7 +187,7 @@ def manualhandlermessage(message):
 
     if len(userMessage.split()) == 2:
         # Setting new alarms
-        markup.add(types.InlineKeyboardButton("Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("All alarms", callback_data="/getalarm"))
+        markup.add(types.InlineKeyboardButton("- Set new alarm", callback_data="/setalarm"), types.InlineKeyboardButton("- All alarms", callback_data="/getalarm"))
         try:
             crypto = str(userMessage.split()[0])
             # Trigger price
@@ -215,7 +213,7 @@ def manualhandlermessage(message):
         pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"), types.InlineKeyboardButton("Get new pair", callback_data="/getpair"))
+        markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"), types.InlineKeyboardButton("- Get new pair", callback_data="/getpair"))
         if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
@@ -234,7 +232,7 @@ def startcmd(message):
 
     initData = f"{str(message.from_user.id)} create"
 
-    markup = types.ReplyKeyboardMarkup()
+    markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("Let's start", callback_data=initData))
     return bot.send_message(message.chat.id, startMessage, parse_mode="html", reply_markup=markup)
 
@@ -242,7 +240,7 @@ def startcmd(message):
 def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("Menu", callback_data="/menu"))
+    markup.add(types.InlineKeyboardButton("- Menu", callback_data="/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html")
 
 
