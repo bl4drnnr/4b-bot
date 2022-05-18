@@ -15,7 +15,7 @@ const logger = loggerConfig({ label: "user-controller", path: "user" })
 export const createUser = async (req: Request, res: Response) => {
     try {
         // @ts-ignore
-        const encryptedId = securityService.encrypt(req.body.id, process.env.CRYPTO_KEY, "")
+        const encryptedId = securityService.encrypt(req.body.userid, process.env.CRYPTO_KEY, process.env.IV)
 
         logger.info(`Creating user with id: ${encryptedId}`);
         await userService.createUser({
@@ -34,7 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
     try {
         // @ts-ignore
-        const encryptedId = securityService.encrypt(req.params.id, process.env.CRYPTO_KEY, "")
+        const encryptedId = securityService.encrypt(req.params.id, process.env.CRYPTO_KEY, process.env.IV)
 
         logger.info(`Getting user by id: ${encryptedId}`);
 
