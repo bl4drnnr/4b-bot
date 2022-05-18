@@ -7,20 +7,22 @@ import * as alarmController from "../controllers/alarm.controller";
 import * as cryptoController from "../controllers/crypto.controller";
 import * as voucherController from "../controllers/voucher.controller";
 
-router.get("/user/:id", userController.getUserById);
-router.post("/user/create", userController.createUser);
+import basicauth from "../middlewares/basicauth";
 
-router.get("/alarms/:id", alarmController.getUserAlarmsById);
-router.post("/alarm/create", alarmController.createAlarm);
-router.delete("/alarm/delete", alarmController.deleteAlarm);
+router.get("/user/:id", basicauth, userController.getUserById);
+router.post("/user/create", basicauth, userController.createUser);
 
-router.get("/crypto/pair/:pair", cryptoController.getPair);
-router.get("/crypto/update-rates", cryptoController.updateRates);
-router.post("/crypto/buy", cryptoController.buyCrypto);
-router.post("/crypto/sell", cryptoController.sellCrypto);
-router.post("/crypto/exchange", cryptoController.exchangeCrypto);
+router.get("/alarms/:id", basicauth, alarmController.getUserAlarmsById);
+router.post("/alarm/create", basicauth, alarmController.createAlarm);
+router.delete("/alarm/delete", basicauth, alarmController.deleteAlarm);
 
-router.post("/voucher/generate", voucherController.generateVoucher);
-router.post("/voucher/redeem", voucherController.redeemVoucher);
+router.get("/crypto/pair/:pair", basicauth, cryptoController.getPair);
+router.get("/crypto/update-rates", basicauth, cryptoController.updateRates);
+router.post("/crypto/buy", basicauth, cryptoController.buyCrypto);
+router.post("/crypto/sell", basicauth, cryptoController.sellCrypto);
+router.post("/crypto/exchange", basicauth, cryptoController.exchangeCrypto);
+
+router.post("/voucher/generate", basicauth, voucherController.generateVoucher);
+router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
 
 export default router;

@@ -1,5 +1,6 @@
 from flask import Flask, request
 from bybitapi import updatingRates
+from decouple import config
 from main import bot
 
 import requests
@@ -7,6 +8,9 @@ import json
 import time
 
 URL="http://127.0.0.1:3000"
+
+BASIC_USERNAME = config('BASIC_USERNAME')
+BASIC_PASSWORD = config('BASIC_PASSWORD')
 
 app = Flask(__name__)
 
@@ -18,31 +22,31 @@ def notifyuserwithtriggeredalarms(chatid, alarm):
 
 @app.route("/u", methods=["GET"])
 def getUserById():
-    r = requests.get(url=URL + "/user/" + str(request.args.get("id")))
+    r = requests.get(url=URL + "/user/" + str(request.args.get("id")), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/u/c", methods=["POST"])
 def createUser():
-    r = requests.post(url=URL + "/user/create", data=request.get_json())
+    r = requests.post(url=URL + "/user/create", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/a", methods=["GET"])
 def getUserAlarmsById():
-    r = requests.get(url=URL + "/alarms/" + str(request.args.get("id")))
+    r = requests.get(url=URL + "/alarms/" + str(request.args.get("id")), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return {"allAlarms": r.json()}
 
 
 @app.route("/a/c", methods=["POST"])
 def createAlarm():
-    r = requests.post(url=URL + "/alarm/create", data=request.get_json())
+    r = requests.post(url=URL + "/alarm/create", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/c/p", methods=["GET"])
 def getPair():
-    r = requests.get(url=URL + "/crypto/pair/" + str(request.args.get("pair")))
+    r = requests.get(url=URL + "/crypto/pair/" + str(request.args.get("pair")), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
@@ -61,31 +65,31 @@ def notifyUserAlarm():
 
 @app.route("/c/b", methods=["POST"])
 def buyCrypto():
-    r = requests.post(url=URL + "/crypto/buy", data=request.get_json())
+    r = requests.post(url=URL + "/crypto/buy", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/c/s", methods=["POST"])
 def sellCrypto():
-    r = requests.post(url=URL + "/crypto/sell", data=request.get_json())
+    r = requests.post(url=URL + "/crypto/sell", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/c/e", methods=["POST"])
 def exchangeCrypto():
-    r = requests.post(url=URL + "/crypto/exchange", data=request.get_json())
+    r = requests.post(url=URL + "/crypto/exchange", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/v/g", methods=["POST"])
 def generateVoucher():
-    r = requests.post(url=URL + "/voucher/generate", data=request.get_json())
+    r = requests.post(url=URL + "/voucher/generate", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 @app.route("/v/r", methods=["POST"])
 def redeemVoucher():
-    r = requests.post(url=URL + "/voucher/redeem", data=request.get_json())
+    r = requests.post(url=URL + "/voucher/redeem", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
