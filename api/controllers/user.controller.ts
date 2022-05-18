@@ -22,8 +22,6 @@ export const createUser = async (req: Request, res: Response) => {
             userid: encryptedId
         });
 
-        // TODO Generate wallets
-
         return res.json({ status: 1 });
     } catch (e) {
         logger.error(`Error while creating user => ${e}`);
