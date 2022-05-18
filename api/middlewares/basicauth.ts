@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({
-    path: path.resolve(__dirname, "../.env")
+    path: path.resolve(__dirname, "../../.env")
 })
 
 export default (req: Request, res: Response, next: any) => {
-    const username = process.env.BASICAUTH_USERNAME;
-	const password = process.env.BASICAUTH_PASSWORD;
+    const username = process.env.BASIC_USERNAME;
+	const password = process.env.BASIC_PASSWORD;
 	const auth = req.headers.authorization;
 
     // @ts-ignore
