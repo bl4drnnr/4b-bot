@@ -1,13 +1,26 @@
 import { Request, Response } from "express";
 import * as userService from "../services/user.service";
+import * as securityService from "../services/security.service";
+
 import loggerConfig from "../common/logger";
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({
+    path: path.resolve(__dirname, "../.env")
+});
 
 const logger = loggerConfig({ label: "user-controller", path: "user" })
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        logger.info(`Creating user with id: ${req.body.id}`);
-        await userService.createUser(req.body);
+        // @ts-ignore
+        const encryptedId = securityService.encrypt(req.body.id, process.env.CRYPTO_KEY, "")
+
+        logger.info(`Creating user with id: ${encryptedId}`);
+        await userService.createUser({
+            userid: encryptedId
+        });
 
         // TODO Generate wallets
 
@@ -20,9 +33,12 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
     try {
-        logger.info(`Getting user by id: ${req.params.id}`);
+        // @ts-ignore
+        const encryptedId = securityService.encrypt(req.params.id, process.env.CRYPTO_KEY, "")
 
-        const user = await userService.getUserById(req.params.id);
+        logger.info(`Getting user by id: ${encryptedId}`);
+
+        const user = await userService.getUserById(encryptedId);
 
         return res.json(user || { status: 0 });
     } catch (e) {
