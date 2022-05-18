@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({
-    path: path.resolve(__dirname, "../.env")
+    path: path.resolve(__dirname, "../../.env")
 })
 
 export default (req: Request, res: Response, next: any) => {
@@ -11,11 +11,8 @@ export default (req: Request, res: Response, next: any) => {
 	const password = process.env.BASICAUTH_PASSWORD;
 	const auth = req.headers.authorization;
 
-    console.log('username', username);
-    console.log('password', password);
-    console.log('auth', auth);
     // @ts-ignore
-	const credentials = new Buffer(auth.split(' ').pop(), 'base64').toString('ascii').split(':');
+	const credentials = Buffer.from(auth.split(' ').pop(), 'base64').toString('ascii').split(':');
 	console.log('credentials', credentials);
     
     if (
