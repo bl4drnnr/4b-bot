@@ -47,7 +47,9 @@ def menucmd(message):
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n\n" \
                   f"<b><i>Wallets</i></b>\n\n" \
-                  f"<a>/mywallets</a> - get amounts of your balances"
+                  f"<a>/mywallets</a> - get amounts of your balances\n" \
+                  f"<a>/deposit</a> - Deposit crypto\n" \
+                  f"<a>/withdrawal</a> - Withdrawal crypto\n" \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
