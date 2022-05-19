@@ -17,7 +17,8 @@ bot.set_my_commands([
             telebot.types.BotCommand("/exchangecrypto", "Crypto-To-Crypto exchange"),
             telebot.types.BotCommand("/myvouchers", "Show all your vouchers"),
             telebot.types.BotCommand("/generatevoucher", "Generate voucher and send it to someone"),
-            telebot.types.BotCommand("/redeemvoucher", "Redeem voucher and get crypto on your wallet")
+            telebot.types.BotCommand("/redeemvoucher", "Redeem voucher and get crypto on your wallet"),
+            telebot.types.BotCommand("/mywallets", "Get amounts of your wallets")
         ])
 
 commands = getAvailableCommands()
@@ -145,6 +146,14 @@ def myvoucherscmd(message):
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
+
+
+@bot.message_handler(commands=["mywallets"])
+def mywalletscmd(message):
+    myWalletsMessage = ""
+
+    markup = types.ReplyKeyboardMarkup()
+    return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.callback_query_handler(func=lambda call: True)
