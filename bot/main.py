@@ -18,7 +18,7 @@ bot.set_my_commands([
             telebot.types.BotCommand("/myvouchers", "Show all your vouchers"),
             telebot.types.BotCommand("/generatevoucher", "Generate voucher and send it to someone"),
             telebot.types.BotCommand("/redeemvoucher", "Redeem voucher and get crypto on your wallet"),
-            telebot.types.BotCommand("/mywallets", "Get amounts of your wallets")
+            telebot.types.BotCommand("/mywallets", "Get amounts of your balances")
         ])
 
 commands = getAvailableCommands()
@@ -43,7 +43,9 @@ def menucmd(message):
                   f"<b><i>Vouchers</i></b>\n\n" \
                   f"<a>/myvouchers</a> - show all your vouchers <b>!DELETE MESSAGE AFTER!</b>\n" \
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
-                  f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n" \
+                  f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n\n" \
+                  f"<b><i>Wallets</i></b>\n\n" \
+                  f"<a>/mywallets</a> - get amounts of your balances"
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
