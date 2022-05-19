@@ -33,7 +33,7 @@ export const updateUser = async (user: IUser) => {
         const foundUser = await getUserById(user.userid);
 
         if (!foundUser) {
-            logger.warn(`User with id: ${user.userid} doesn"t exists`)
+            logger.warn(`User with id: ${user.userid} doesn't exists`)
             return
         }
 
@@ -50,7 +50,7 @@ export const deleteUser = async (user: IUser) => {
         const foundUser = await getUserById(user.userid);
 
         if (!foundUser) {
-            logger.warn(`User with id: ${user.userid} doesn"t exists`)
+            logger.warn(`User with id: ${user.userid} doesn't exists`)
             return
         }
 

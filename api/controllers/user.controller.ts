@@ -22,9 +22,7 @@ export const createUser = async (req: Request, res: Response) => {
         const encryptedId = securityService.encrypt(req.body.userid, bufferKey, bufferIv)
 
         logger.info(`Creating user with id: ${encryptedId}`);
-        await userService.createUser({
-            userid: encryptedId
-        });
+        await userService.createUser({ userid: encryptedId });
 
         return res.json({ status: 1 });
     } catch (e) {
