@@ -93,6 +93,18 @@ def redeemVoucher():
     return r.json()
 
 
+@app.route("/b/w", methods=["POST"])
+def withdrawalCrypto():
+    r = requests.post(url=URL + "/balances/withdrawal", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
+
+
+@app.route("/b/d", methods=["POST"])
+def depositCrypto():
+    r = requests.post(url=URL + "/balances/deposit", data=request.get_json(), auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
+
+
 try:
     app.run(debug=True, port=5000)
 except Exception as e:
