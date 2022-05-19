@@ -160,6 +160,22 @@ def mywalletscmd(message):
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
 
 
+@bot.message_handler(commands=["deposit"])
+def depositcmd(message):
+    depositMessage = ""
+
+    markup = types.ReplyKeyboardMarkup()
+    return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
+
+
+@bot.message_handler(commands=["withdrawal"])
+def withdrawalcmd(message):
+    withdrawalMessage = ""
+
+    markup = types.ReplyKeyboardMarkup()
+    return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def commandshandlebtn(call):
     userMessage = call.data
