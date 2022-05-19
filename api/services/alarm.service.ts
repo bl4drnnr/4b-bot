@@ -36,15 +36,6 @@ export const createAlarm = async (alarm: IAlarm) => {
     }
 };
 
-export const updateAlarm = async (alarm: IAlarm) => {
-    try {
-        return await alarmRepository.updateAlarm(alarm);
-    } catch (error: any) {
-        logger.error(`error-while-updating-alarm => ${error}`);
-        throw Error("error-while-updating-alarm");
-    }
-};
-
 export const deleteAlarm = async (alarm: IAlarm) => {
     try {
         return await alarmRepository.deleteAlarm(alarm);

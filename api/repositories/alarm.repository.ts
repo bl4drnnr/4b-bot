@@ -13,10 +13,6 @@ export const createAlarm = async (alarm: IAlarm) => {
     return await knex("alarms").insert(alarm);
 };
 
-export const updateAlarm = async (alarm: IAlarm) => {
-    return await knex("alarms").update(alarm).where("id", alarm.id);
-};
-
 export const deleteAlarm = async (alarm: IAlarm) => {
     return await knex("alarms").del().where("id", alarm.id);
 } ;
