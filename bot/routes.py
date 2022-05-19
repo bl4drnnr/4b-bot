@@ -52,3 +52,13 @@ def generateVoucher(data):
 def redeemVoucher(data):
     r = requests.post(url=URL + "/v/r", json=data)
     return r.json()
+
+
+def withdrawalCrypto(data):
+    r = requests.post(url=URL + "/b/w", json=data)
+    return r.json()
+
+
+def depositCrypto(data):
+    r = requests.post(url=URL + "/b/d", json=data)
+    return r.json()

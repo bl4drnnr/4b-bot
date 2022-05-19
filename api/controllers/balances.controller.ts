@@ -12,3 +12,19 @@ export const getClientBalancesById = async (req: Request, res: Response) => {
         return res.json({ status: -1 });
     }
 };
+
+export const withdrawalCrypto = async (req: Request, res: Response) => {
+    try {
+
+    } catch (e) {
+
+    }
+};
+
+export const depositCrypto = async (req: Request, res: Response) => {
+    try {
+
+    } catch (e) {
+
+    }
+};
