@@ -18,7 +18,9 @@ bot.set_my_commands([
             telebot.types.BotCommand("/myvouchers", "Show all your vouchers"),
             telebot.types.BotCommand("/generatevoucher", "Generate voucher and send it to someone"),
             telebot.types.BotCommand("/redeemvoucher", "Redeem voucher and get crypto on your wallet"),
-            telebot.types.BotCommand("/mywallets", "Get amounts of your balances")
+            telebot.types.BotCommand("/mywallets", "Get amounts of your balances"),
+            telebot.types.BotCommand("/deposit", "Deposit crypto"),
+            telebot.types.BotCommand("/withdrawal", "Withdrawal crypto")
         ])
 
 commands = getAvailableCommands()
