@@ -6,6 +6,7 @@ import * as userController from "../controllers/user.controller";
 import * as alarmController from "../controllers/alarm.controller";
 import * as cryptoController from "../controllers/crypto.controller";
 import * as voucherController from "../controllers/voucher.controller";
+import * as balancesController from "../controllers/balances.controller";
 
 import basicauth from "../middlewares/basicauth";
 
@@ -24,5 +25,7 @@ router.post("/crypto/exchange", basicauth, cryptoController.exchangeCrypto);
 
 router.post("/voucher/generate", basicauth, voucherController.generateVoucher);
 router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
+
+router.get("/balances/:id", basicauth, balancesController.getClientBalancesById);
 
 export default router;
