@@ -3,3 +3,7 @@ const knex = require("../src/db/knex.js");
 export const getClientBalancesById = async (id: string) => {
     return await knex("balances").where("userid", id).select("*");
 };
+
+export const createBalance = async () => {
+
+};
