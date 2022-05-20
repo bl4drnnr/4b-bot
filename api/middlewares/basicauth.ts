@@ -13,7 +13,6 @@ export default (req: Request, res: Response, next: any) => {
 
     // @ts-ignore
 	const credentials = Buffer.from(auth.split(' ').pop(), 'base64').toString('ascii').split(':');
-	console.log('credentials', credentials);
     
     if (
 		credentials[0] === username &&
