@@ -1,64 +1,57 @@
 import requests
 import json
+from decouple import config
 
-URL="http://127.0.0.1:5000"
+URL="http://127.0.0.1:3000"
+BASIC_USERNAME = config('BASIC_USERNAME')
+BASIC_PASSWORD = config('BASIC_PASSWORD')
 
 
 def getUserById(id):
-    r = requests.get(url=URL + "/u?id={}".format(id))
+    r = requests.get(url=URL + "/user/{}".format(id), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def createUser(data):
-    r = requests.post(url=URL + "/u/c", json=data)
-    return r.json()
-
-
-def getUserAlarmsById(id):
-    r = requests.get(url=URL + "/a?id={}".format(id))
-    return r.json()
-
-
-def createAlarm(data):
-    r = requests.post(url=URL + "/a/c", json=data)
+    r = requests.post(url=URL + "/user/create", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def getPair(pair):
-    r = requests.get(url=URL + "/c/p?pair={}".format(pair))
+    r = requests.get(url=URL + "/crypto/pair/{}".format(pair), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def buyCrypto(data):
-    r = requests.post(url=URL + "/c/b", json=data)
+    r = requests.post(url=URL + "/crypto/buy", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def sellCrypto(data):
-    r = requests.post(url=URL + "/c/s", json=data)
+    r = requests.post(url=URL + "/crypto/sell", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def exchangeCrypto(data):
-    r = requests.post(url=URL + "/c/e", json=data)
+    r = requests.post(url=URL + "/crypto/exchange", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def generateVoucher(data):
-    r = requests.post(url=URL + "/v/g", json=data)
+    r = requests.post(url=URL + "/voucher/generate", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def redeemVoucher(data):
-    r = requests.post(url=URL + "/v/r", json=data)
+    r = requests.post(url=URL + "/voucher/redeem", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def withdrawalCrypto(data):
-    r = requests.post(url=URL + "/b/w", json=data)
+    r = requests.post(url=URL + "/balances/withdrawal", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
 def depositCrypto(data):
-    r = requests.post(url=URL + "/b/d", json=data)
+    r = requests.post(url=URL + "/balances/deposit", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()

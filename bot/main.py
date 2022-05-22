@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
@@ -73,16 +73,6 @@ def getalarmcmd(message):
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("- Set alarm"))
     markup.add(types.InlineKeyboardButton("- Menu"))
-
-    allAlarms = getUserAlarmsById(message.chat.id)
-    allAlarms = allAlarms["allAlarms"]
-    
-    if len(allAlarms) == 0:
-        return bot.send_message(message.chat.id, "<b>You have no alarms! Wanna set one?</b>", parse_mode="html", reply_markup=markup)
-    allAlarmsMessage = ""
-
-    for alarm in allAlarms:
-        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm['pair']}</b> / <u>{alarm['triggerprice']}</u> / <i>{alarm['createdat']}</i>\n\n"
     return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode="html", reply_markup=markup)
 
 
@@ -216,17 +206,6 @@ def manualhandlermessage(message):
         pair = getPair(str(crypto) + str("USDT"))
         if pair["status"] is not None and pair["status"] == 0:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        createdAlarm = createAlarm({
-            "userid": message.chat.id,
-            "pair": pair["symbol"],
-            "triggerprice": triggerPrice,
-            "indexprice": pair["index_price"]
-        })
-
-        if createdAlarm["status"] == 1:
-            return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode="html", reply_markup=markup)
-        else:
-            return defaulterrormessage(call.message)
     elif userMessage[0] == "-":
         executecommand(message)
     else:
