@@ -1,6 +1,5 @@
 import * as balanceRepository from "../repositories/balances.repository";
 import loggerConfig from "../common/logger";
-const bitcore = require("bitcore-lib");
 
 const logger = loggerConfig({ label: "balances-service", path: "balances" });
 
