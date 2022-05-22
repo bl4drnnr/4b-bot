@@ -17,8 +17,6 @@ def getAvailableCommands():
         "/start",
         "/help", 
         "/menu", 
-        "/setalarm", 
-        "/getalarm", 
         "/getpair",
         "/buycrypto",
         "/sellcrypto",
