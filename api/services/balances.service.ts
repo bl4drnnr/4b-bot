@@ -6,9 +6,7 @@ const logger = loggerConfig({ label: "balances-service", path: "balances" });
 
 export const createBtcWallet = async () => {
     try {
-        const randBuffer = bitcore.crypto.Random.getRandomBuffer(32);
-        const randNumber = bitcore.crypto.BN.fromBuffer(randBuffer);
-        const address = new bitcore.PrivateKey(randNumber).toAddress();
+        
     } catch (error: any) {
         logger.error(`error-while-creating-btc-wallet => ${error}`);
         throw Error("error-while-creating-btc-wallet");
