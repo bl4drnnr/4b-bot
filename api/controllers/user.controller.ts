@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as userService from "../services/user.service";
 import * as securityService from "../services/security.service";
+import * as balancesService from "../services/balances.service";
 
 import loggerConfig from "../common/logger";
 import dotenv from "dotenv";
@@ -32,6 +33,8 @@ export const createUser = async (req: Request, res: Response) => {
 
         logger.info(`Creating user with id: ${encryptedId}`);
         await userService.createUser({ userid: encryptedId });
+
+        await balancesService.createBtcWallet();
 
         return res.json({ status: 1 });
     } catch (e) {
