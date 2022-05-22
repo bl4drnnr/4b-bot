@@ -4,13 +4,11 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserAlarmsById, createAlarm, getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
             telebot.types.BotCommand("/menu", "Get list of all commands"),
-            telebot.types.BotCommand("/setalarm", "Get notified when set price is hit"),
-            telebot.types.BotCommand("/getalarm", "Get all your alarms"),
             telebot.types.BotCommand("/getpair", "Get crypto pair rate"),
             telebot.types.BotCommand("/buycrypto", "Buy crypto for USDT"),
             telebot.types.BotCommand("/sellcrypto", "Sell crypto for USDT"),
@@ -34,9 +32,6 @@ def menucmd(message):
 
     menuMessage = f"Welcome, <u>{message.chat.first_name}</u>, let's start!\n\n" \
                   f"What are we gonna do?\n\n" \
-                  f"<b><i>Alarms</i></b>\n\n" \
-                  f"<a>/setalarm</a> - set alarm and get notified when set price is hit\n" \
-                  f"<a>/getalarm</a> - get all your alarms\n\n" \
                   f"<b><i>Crypto</i></b>\n\n" \
                   f"<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n" \
                   f"<a>/buycrypto</a> - buy crypto for USDT\n" \
@@ -52,38 +47,6 @@ def menucmd(message):
                   f"<a>/withdrawal</a> - Withdrawal crypto\n" \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
-
-
-@bot.message_handler(commands=["setalarm"])
-def setalarmcmd(message):
-    alarmMessage = "Let's start with setting up alarm.\n\n" \
-                   "Provide the crypto you want to observe and price.\n\n" \
-                   "Example of format - <b>btc 39165.45</b>"
-    
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Set alarm"))
-    markup.add(types.InlineKeyboardButton("- All alarms"))
-    markup.add(types.InlineKeyboardButton("- Menu"))
-
-    return bot.send_message(message.chat.id, alarmMessage, parse_mode="html", reply_markup=markup)
-
-
-@bot.message_handler(commands=["getalarm"])
-def getalarmcmd(message):
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Set alarm"))
-    markup.add(types.InlineKeyboardButton("- Menu"))
-
-    allAlarms = getUserAlarmsById(message.chat.id)
-    allAlarms = allAlarms["allAlarms"]
-    
-    if len(allAlarms) == 0:
-        return bot.send_message(message.chat.id, "<b>You have no alarms! Wanna set one?</b>", parse_mode="html", reply_markup=markup)
-    allAlarmsMessage = ""
-
-    for alarm in allAlarms:
-        allAlarmsMessage += f"<b>Crypto</b> / <u>Price</u> / <i>Created at</i> - <b>{alarm['pair']}</b> / <u>{alarm['triggerprice']}</u> / <i>{alarm['createdat']}</i>\n\n"
-    return bot.send_message(message.chat.id, allAlarmsMessage, parse_mode="html", reply_markup=markup)
 
 
 @bot.message_handler(commands=["getpair"])
@@ -204,29 +167,6 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
-    elif len(userMessage.split()) == 2 and userMessage[0] != "-":
-        # Setting new alarms
-        markup.add(types.InlineKeyboardButton("- Set new alarm"), types.InlineKeyboardButton("- All alarms"))
-        try:
-            crypto = str(userMessage.split()[0])
-            # Trigger price
-            triggerPrice = float(userMessage.split()[1])
-        except ValueError:
-            return bot.send_message(message.chat.id, "Crypto should be a string, and price should be a number!", reply_markup=markup)
-        pair = getPair(str(crypto) + str("USDT"))
-        if pair["status"] is not None and pair["status"] == 0:
-            return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
-        createdAlarm = createAlarm({
-            "userid": message.chat.id,
-            "pair": pair["symbol"],
-            "triggerprice": triggerPrice,
-            "indexprice": pair["index_price"]
-        })
-
-        if createdAlarm["status"] == 1:
-            return bot.send_message(message.chat.id, f"Alarm has been set successfully!\n\nWhen <b>{pair['symbol']}</b> hits <b>{triggerPrice} USDT</b>, we'll notify you.", parse_mode="html", reply_markup=markup)
-        else:
-            return defaulterrormessage(call.message)
     elif userMessage[0] == "-":
         executecommand(message)
     else:
@@ -270,10 +210,6 @@ def executecommand(message):
         return getpaircmd(message)
     elif message.text.lower().split("- ")[1] == "menu":
         return menucmd(message)
-    elif message.text.lower().split("- ")[1] == "set alarm":
-        return setalarmcmd(message)
-    elif message.text.lower().split("- ")[1] == "get alarm":
-        return getalarmcmd(message)
     else:
         return menucmd(message)    
 

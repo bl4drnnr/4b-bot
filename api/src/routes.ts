@@ -3,7 +3,6 @@ import { Router } from "express";
 const router = Router();
 
 import * as userController from "../controllers/user.controller";
-import * as alarmController from "../controllers/alarm.controller";
 import * as cryptoController from "../controllers/crypto.controller";
 import * as voucherController from "../controllers/voucher.controller";
 import * as balancesController from "../controllers/balances.controller";
@@ -12,10 +11,6 @@ import basicauth from "../middlewares/basicauth";
 
 router.get("/user/:id", basicauth, userController.getUserById);
 router.post("/user/create", basicauth, userController.createUser);
-
-router.get("/alarms/:id", basicauth, alarmController.getUserAlarmsById);
-router.post("/alarm/create", basicauth, alarmController.createAlarm);
-router.delete("/alarm/delete", basicauth, alarmController.deleteAlarm);
 
 router.get("/crypto/pair/:pair", basicauth, cryptoController.getPair);
 router.get("/crypto/update-rates", basicauth, cryptoController.updateRates);
