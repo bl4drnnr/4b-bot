@@ -13,7 +13,7 @@ const ec = require("ecpair");
 const ecc = require("tiny-secp256k1");
 const ECPair = ec.ECPairFactory(ecc);
 
-const network = process.env.NODE_ENV === "development" ? bitcoin.networks.testnet : ""
+const network = process.env.NODE_ENV === "development" ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
 
 const logger = loggerConfig({ label: "balances-service", path: "balances" });
 
