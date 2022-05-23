@@ -6,6 +6,7 @@ api/node_modules
 api/package-lock.json
 api/logs
 api/keys
+api/test.ts
 bybitapi/__pycache__
 bybitapi/venv
 bot/__pycache__
