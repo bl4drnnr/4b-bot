@@ -34,6 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
         logger.info(`Creating user with id: ${encryptedId}`);
         await userService.createUser({ userid: encryptedId });
 
+        logger.info(`Creating BTC wallet for user with id: ${encryptedId}`);
         await balancesService.createBtcWallet();
 
         return res.json({ status: 1 });
