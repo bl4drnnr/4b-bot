@@ -23,6 +23,11 @@ export const createBtcWallet = async (userid: string) => {
         const { address } = bitcoin.payments.p2pkh({  pubkey: keypair.publicKey });
         
         logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
+
+        const btc = await balanceRepository.getCurrencyByName("BTC");
+        // return await balanceRepository.createBalance({
+            // wallet: address, 
+        // });
     } catch (error: any) {
         logger.error(`error-while-creating-btc-wallet => ${error}`);
         throw Error("error-while-creating-btc-wallet");

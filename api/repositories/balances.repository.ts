@@ -4,6 +4,10 @@ export const getClientBalancesById = async (id: string) => {
     return await knex("balances").where("userid", id).select("*");
 };
 
-export const createBalance = async () => {
+export const createBalance = async (data: object) => {
+    return await knex("balances")
+};
 
+export const getCurrencyByName = async (name: string) => {
+    return await knex("availablecurrencies").where("name", name).first();
 };
