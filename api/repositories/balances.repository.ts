@@ -5,7 +5,7 @@ export const getClientBalancesById = async (id: string) => {
 };
 
 export const createBalance = async (data: object) => {
-    return await knex("balances")
+    return await knex("balances").insert(data);
 };
 
 export const getCurrencyByName = async (name: string) => {
