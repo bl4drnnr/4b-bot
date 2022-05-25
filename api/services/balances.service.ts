@@ -17,11 +17,18 @@ const network = process.env.NODE_ENV === "development" ? bitcoin.networks.testne
 
 const logger = loggerConfig({ label: "balances-service", path: "balances" });
 
-export const createBtcWallet = async () => {
+export const createBtcWallet = async (userid: string) => {
     try {
         const keypair = ECPair.makeRandom({ network });
         const { address } = bitcoin.payments.p2pkh({  pubkey: keypair.publicKey });
         
+        logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
+
+        const btc = await balanceRepository.getCurrencyByName("BTC");
+        
+        return await balanceRepository.createBalance({
+            wallet: address, currencyid: btc.id
+        });
     } catch (error: any) {
         logger.error(`error-while-creating-btc-wallet => ${error}`);
         throw Error("error-while-creating-btc-wallet");
