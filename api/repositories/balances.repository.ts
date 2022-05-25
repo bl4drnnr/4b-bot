@@ -11,3 +11,8 @@ export const createBalance = async (data: object) => {
 export const getCurrencyByName = async (name: string) => {
     return await knex("availablecurrencies").where("name", name).first();
 };
+
+export const updateAvailableCurrencies = async (data: object[]) => {
+    await knex("availablecurrencies").del("*")
+    return await knex("availablecurrencies").incert(data)
+};

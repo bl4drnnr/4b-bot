@@ -25,6 +25,7 @@ export const createBtcWallet = async (userid: string) => {
         logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
 
         const btc = await balanceRepository.getCurrencyByName("BTC");
+        
         return await balanceRepository.createBalance({
             wallet: address, currencyid: btc.id
         });
