@@ -16,7 +16,7 @@ export const createUser = async (req: Request, res: Response) => {
         const user = await userService.getUserById(encryptedId);
 
         if (user) {
-            logger.warn(`User alredy exists! Exiting: ${encryptedId}`);
+            logger.warn(`User alredy exists! - ${encryptedId}`);
             return res.json({ status: -1 });
         }
 
