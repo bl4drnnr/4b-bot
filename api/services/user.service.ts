@@ -15,11 +15,6 @@ export const getUserById = async (userid: string) => {
 
 export const createUser = async (user: IUser) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${user.userid}`)
-        const foundUser = await getUserById(user.userid);
-
-        if (foundUser) return foundUser
-
         return await userRepository.createUser(user);
     } catch (error: any) {
         logger.error(`error-while-creating-user => ${error}`);
