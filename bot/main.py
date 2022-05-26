@@ -123,7 +123,7 @@ def mywalletscmd(message):
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"{wallet['wallet']} - {wallet['amount']}\n"
+        myWalletsMessage += f"{wallet['symbol'][:-3]} - {wallet['wallet']} - {wallet['amount']}\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
