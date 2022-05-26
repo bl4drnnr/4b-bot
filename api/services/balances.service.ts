@@ -22,7 +22,7 @@ const logger = loggerConfig({ label: "balances-service", path: "balances" });
 export const createBtcWallet = async (userid: string) => {
     try {
         const keypair = ECPair.makeRandom({ network });
-        const { address } = bitcoin.payments.p2pkh({  pubkey: keypair.publicKey });
+        const { address } = bitcoin.payments.p2pkh({ pubkey: keypair.publicKey, network });
         
         logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
 
