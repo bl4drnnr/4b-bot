@@ -7,8 +7,9 @@ const logger = loggerConfig({ label: "balances-controller", path: "balances" });
 
 export const getClientBalancesById = async (req: Request, res: Response) => {
     try {
-        const encryptedId = securityService.encrypt(req.params.id)
-        return balancesService.getClientBalancesById(encryptedId);
+        const encryptedId = securityService.encrypt(req.params.id);
+        const balances = await balancesService.getClientBalancesById(encryptedId);
+        return res.json(balances)
     } catch (e) {
         logger.error(`Error while getting clients balances => ${e}`);
         return res.json({ status: -1 });

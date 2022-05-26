@@ -1,4 +1,6 @@
+import * as balancesService from "./balances.service";
 import * as userRepository from "../repositories/user.repository";
+
 import loggerConfig from "../common/logger";
 import { IUser } from "../interfaces/user.interface";
 
@@ -15,7 +17,10 @@ export const getUserById = async (userid: string) => {
 
 export const createUser = async (user: IUser) => {
     try {
-        return await userRepository.createUser(user);
+        await userRepository.createUser(user);
+
+        logger.info(`Creating BTC wallet for user with id: ${user.userid}`);
+        return await balancesService.createBtcWallet(user.userid);
     } catch (error: any) {
         logger.error(`error-while-creating-user => ${error}`);
         throw Error("error-while-creating-user");

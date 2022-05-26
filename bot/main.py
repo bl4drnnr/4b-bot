@@ -121,7 +121,9 @@ def myvoucherscmd(message):
 def mywalletscmd(message):
     myWalletsMessage = ""
     wallets = getWallets(message.chat.id)
-    print("wallets", wallets)
+
+    for wallet in wallets:
+        myWalletsMessage += f"{wallet['wallet']} - {wallet['amount']}\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")

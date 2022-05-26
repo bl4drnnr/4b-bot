@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import * as userService from "../services/user.service";
 import * as securityService from "../services/security.service";
-import * as balancesService from "../services/balances.service";
 
 import loggerConfig from "../common/logger";
 
@@ -22,9 +21,6 @@ export const createUser = async (req: Request, res: Response) => {
 
         logger.info(`Creating user with id: ${encryptedId}`);
         await userService.createUser({ userid: encryptedId });
-
-        logger.info(`Creating BTC wallet for user with id: ${encryptedId}`);
-        await balancesService.createBtcWallet(encryptedId);
 
         return res.json({ status: 1 });
     } catch (e) {
