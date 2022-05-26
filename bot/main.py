@@ -121,6 +121,7 @@ def myvoucherscmd(message):
 def mywalletscmd(message):
     myWalletsMessage = ""
     wallets = getWallets(message.chat.id)
+    print("wallets", wallets)
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
