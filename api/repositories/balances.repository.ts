@@ -14,5 +14,5 @@ export const getCurrencyByName = async (name: string) => {
 
 export const updateAvailableCurrencies = async (data: object[]) => {
     await knex("availablecurrencies").del("*")
-    return await knex("availablecurrencies").incert(data)
+    return await knex("availablecurrencies").insert(data)
 };

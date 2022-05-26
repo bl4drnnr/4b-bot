@@ -17,7 +17,7 @@ export const getPair = async (req: Request, res: Response) => {
 
 export const updateRates = async (req: Request, res: Response) => {
     try {
-        await cryptoService.updateRates(JSON.parse(req.body.updatedPairs));
+        await cryptoService.updateRates(req.body.updatedPairs);
         return res.json({ status: 1 });
     } catch (e) {
         logger.error(`Error in updating rates => ${e}`);

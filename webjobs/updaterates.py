@@ -6,8 +6,11 @@ URL="http://127.0.0.1:3000"
 BASIC_USERNAME = config('BASIC_USERNAME')
 BASIC_PASSWORD = config('BASIC_PASSWORD')
 
+
 def updateRates():
     data = updatingRates()
-    r = requests.post("/crypto/update-rates", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    r = requests.post(url=URL+"/crypto/update-rates", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return
+
 
 updateRates()
