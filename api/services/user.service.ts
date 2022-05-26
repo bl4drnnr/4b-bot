@@ -1,4 +1,7 @@
+import * as balancesService from "./balances.service";
+import * as securityService from "./security.service";
 import * as userRepository from "../repositories/user.repository";
+
 import loggerConfig from "../common/logger";
 import { IUser } from "../interfaces/user.interface";
 
@@ -6,7 +9,9 @@ const logger = loggerConfig({ label: "user-service", path: "user" });
 
 export const getUserById = async (userid: string) => {
     try {
-        return await userRepository.getUserById(userid);
+        const encryptedId = securityService.encrypt(userid)
+        logger.info(`Getting user by id: ${encryptedId}`);
+        return await userRepository.getUserById(encryptedId);
     } catch (error: any) {
         logger.error(`error-while-getting-user-by-id => ${error}`);
         throw Error("error-while-getting-user-by-id");
@@ -15,12 +20,22 @@ export const getUserById = async (userid: string) => {
 
 export const createUser = async (user: IUser) => {
     try {
-        logger.info(`Check while creating if user with this id already exists: ${user.userid}`)
-        const foundUser = await getUserById(user.userid);
+        const encryptedId = securityService.encrypt(user.userid);
 
-        if (foundUser) return foundUser
+        logger.info(`Check if user already exists: ${encryptedId}`);
 
-        return await userRepository.createUser(user);
+        const existingUser = await getUserById(encryptedId);
+
+        if (existingUser) {
+            logger.warn(`User alredy exists! - ${encryptedId}`);
+            return { status: -1 };
+        }
+
+        logger.info(`Creating user with id: ${encryptedId}`);
+        await userRepository.createUser({ userid: encryptedId });
+
+        logger.info(`Creating BTC wallet for user with id: ${encryptedId}`);
+        return await balancesService.createBtcWallet(encryptedId);
     } catch (error: any) {
         logger.error(`error-while-creating-user => ${error}`);
         throw Error("error-while-creating-user");

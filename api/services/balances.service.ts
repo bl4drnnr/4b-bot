@@ -1,5 +1,6 @@
 import * as balanceRepository from "../repositories/balances.repository";
 import * as cryptoRepository from "../repositories/crypto.repository";
+import * as securityService from "./security.service";
 
 import loggerConfig from "../common/logger";
 import dotenv from "dotenv";
@@ -28,7 +29,7 @@ export const createBtcWallet = async (userid: string) => {
         const btc = await cryptoRepository.getPair("BTCUSD");
         
         return await balanceRepository.createBalance({
-            wallet: address, currencyid: btc.id
+            wallet: address, currencyid: btc.id, userid
         });
     } catch (error: any) {
         logger.error(`error-while-creating-btc-wallet => ${error}`);
@@ -38,7 +39,9 @@ export const createBtcWallet = async (userid: string) => {
 
 export const getClientBalancesById = async (id: string) => {
     try {
-        return await balanceRepository.getClientBalancesById(id);
+        const encryptedId = securityService.encrypt(id);
+        logger.info(`Getting balances for user: ${encryptedId}`);
+        return await balanceRepository.getClientBalancesById(encryptedId);
     } catch (error: any) {
         logger.error(`error-while-getting-clients-balances => ${error}`);
         throw Error("error-while-getting-clients-balances");
