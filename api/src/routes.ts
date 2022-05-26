@@ -13,7 +13,7 @@ router.get("/user/:id", basicauth, userController.getUserById);
 router.post("/user/create", basicauth, userController.createUser);
 
 router.get("/crypto/pair/:pair", basicauth, cryptoController.getPair);
-router.get("/crypto/update-rates", basicauth, cryptoController.updateRates);
+router.post("/crypto/update-rates", basicauth, cryptoController.updateRates);
 router.post("/crypto/buy", basicauth, cryptoController.buyCrypto);
 router.post("/crypto/sell", basicauth, cryptoController.sellCrypto);
 router.post("/crypto/exchange", basicauth, cryptoController.exchangeCrypto);

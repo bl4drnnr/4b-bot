@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, depositCrypto, withdrawalCrypto, getWallets
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
@@ -120,6 +120,8 @@ def myvoucherscmd(message):
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
     myWalletsMessage = ""
+    wallets = getWallets(message.chat.id)
+    print("wallets", wallets)
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")

@@ -7,7 +7,7 @@
         t.uuid("id").notNullable().defaultTo(knex.raw("gen_random_uuid ()")).primary()
         t.string("userid").references("users.userid")
         t.string("wallet").defaultTo(null)
-        t.uuid("currencyid").references("availablecurrencies.id")
+        t.uuid("currencyid").references("crypto.id")
         t.float("amount").defaultTo(0)
         t.timestamp("createdat").defaultTo(knex.fn.now())
         t.timestamp("updatedat").defaultTo(knex.fn.now())

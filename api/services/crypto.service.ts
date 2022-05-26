@@ -25,12 +25,6 @@ export const getPair = async (pair: string) => {
 
 export const updateRates = async (data: ICryptoPair[]) => {
     try {
-        let availableCurrencies: object[] = []
-        data.forEach(item => {
-            availableCurrencies.push({currencyname: item.symbol})
-        })
-        await balancesRepository.updateAvailableCurrencies(availableCurrencies);
-
         return await cryptoRepository.updateRates(data);
     } catch (error: any) {
         logger.error(`error-while-updating-rates => ${error}`);
