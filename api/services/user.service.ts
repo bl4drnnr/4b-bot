@@ -34,8 +34,8 @@ export const createUser = async (user: IUser) => {
         logger.info(`Creating user with id: ${encryptedId}`);
         await userRepository.createUser({ userid: encryptedId });
 
-        logger.info(`Creating BTC wallet for user with id: ${user.userid}`);
-        return await balancesService.createBtcWallet(user.userid);
+        logger.info(`Creating BTC wallet for user with id: ${encryptedId}`);
+        return await balancesService.createBtcWallet(encryptedId);
     } catch (error: any) {
         logger.error(`error-while-creating-user => ${error}`);
         throw Error("error-while-creating-user");
