@@ -132,6 +132,12 @@ def mywalletscmd(message):
 @bot.message_handler(commands=["deposit"])
 def depositcmd(message):
     depositMessage = ""
+    wallets = getWallets(message.chat.id)
+
+    depositMessage += "Here is list of your wallets, just copy and deposit crypto on them!"
+
+    for wallet in wallets:
+        myWalletsMessage += f"{wallet['symbol'][:-3]} - {wallet['wallet']} - {wallet['amount']}\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
