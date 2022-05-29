@@ -24,5 +24,7 @@ router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
 router.get("/balances/:id", basicauth, balancesController.getClientBalancesById);
 router.post("/balances/deposit", basicauth, balancesController.depositCrypto);
 router.post("/balances/withdrawal", basicauth, balancesController.withdrawalCrypto);
+router.get("/balances/all", basicauth, balancesController.getAll);
+router.put("/balances/update", basicauth, balancesController.updateWallets);
 
 export default router;
