@@ -1,4 +1,3 @@
-import blockcypher
 import requests
 
 from decouple import config
