@@ -8,7 +8,13 @@ BASIC_USERNAME = config('BASIC_USERNAME')
 BASIC_PASSWORD = config('BASIC_PASSWORD')
 
 
+def getAllBalances():
+    r = requests.get(url=URL + "/balances/all", auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
+
+
 def updateWallets():
+    allBalances = getAllBalances()
     return
 
 

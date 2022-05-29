@@ -14,6 +14,16 @@ export const getClientBalancesById = async (req: Request, res: Response) => {
     }
 };
 
+export const getAll = async (req: Request, res: Response) => {
+    try {
+        const allBalances = await balancesService.getAllBalances();
+        return res.json(allBalances);
+    } catch (e) {
+        logger.error(`Error while getting all balances => ${e}`);
+        return res.json({ status: -1 });
+    }
+};
+
 export const withdrawalCrypto = async (req: Request, res: Response) => {
     try {
 

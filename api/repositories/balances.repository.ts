@@ -9,3 +9,7 @@ export const getClientBalancesById = async (id: string) => {
 export const createBalance = async (data: object) => {
     return await knex("balances").insert(data);
 };
+
+export const getAllBalances = async () => {
+    return await knex("balances").select("*");
+};
