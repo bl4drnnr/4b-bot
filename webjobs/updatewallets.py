@@ -3,7 +3,7 @@ import requests
 
 from decouple import config
 
-URL="http://127.0.0.1:3000"
+URL = config("DEV_API") if config("NODE_ENV") == "development" else config("PROD_API")
 BASIC_USERNAME = config('BASIC_USERNAME')
 BASIC_PASSWORD = config('BASIC_PASSWORD')
 
