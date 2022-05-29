@@ -28,9 +28,7 @@ export const createBtcWallet = async (userid: string) => {
 
         const btc = await cryptoRepository.getPair("BTCUSD");
         
-        return await balanceRepository.createBalance({
-            wallet: address, currencyid: btc.id, userid
-        });
+        return await balanceRepository.createBalance({ wallet: address, currencyid: btc.id, userid });
     } catch (error: any) {
         logger.error(`error-while-creating-btc-wallet => ${error}`);
         throw Error("error-while-creating-btc-wallet");
