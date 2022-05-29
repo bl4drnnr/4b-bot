@@ -119,7 +119,7 @@ def myvoucherscmd(message):
 
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
-    myWalletsMessage = ""
+    myWalletsMessage = "Crypto / Amount / Wallet\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
@@ -134,7 +134,7 @@ def depositcmd(message):
     depositMessage = ""
     wallets = getWallets(message.chat.id)
 
-    depositMessage += "Here is list of your wallets, just copy and deposit crypto on them:\n\n"
+    depositMessage += "Here is list of your crypto wallets:\n\n"
 
     for wallet in wallets:
         depositMessage += f"<b>{wallet['symbol'][:-3]}</b> / {wallet['wallet']}\n"

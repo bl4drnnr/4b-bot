@@ -12,3 +12,4 @@ bybitapi/venv
 bot/__pycache__
 bot/venv
 webjobs/__pycache__
+webjobs/venv
