@@ -123,7 +123,7 @@ def mywalletscmd(message):
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"{wallet['symbol'][:-3]} - {wallet['wallet']} - {wallet['amount']}\n"
+        myWalletsMessage += f"<b>{wallet['symbol'][:-3]}</b> / {wallet['amount']} / {wallet['wallet']}\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
@@ -134,10 +134,10 @@ def depositcmd(message):
     depositMessage = ""
     wallets = getWallets(message.chat.id)
 
-    depositMessage += "Here is list of your wallets, just copy and deposit crypto on them!"
+    depositMessage += "Here is list of your wallets, just copy and deposit crypto on them:\n\n"
 
     for wallet in wallets:
-        myWalletsMessage += f"{wallet['symbol'][:-3]} - {wallet['wallet']} - {wallet['amount']}\n"
+        depositMessage += f"<b>{wallet['symbol'][:-3]}</b> / {wallet['wallet']}\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
