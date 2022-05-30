@@ -20,7 +20,7 @@ def updateWallets():
         updatedBalance = getWalletAmount(balance["wallet"])
         updatedBalances.append({
             "id": balance["id"],
-            "amounr": updatedBalance["balance"]
+            "amount": updatedBalance["balance"]
         })
     print(updatedBalances)
     return updatedBalances
