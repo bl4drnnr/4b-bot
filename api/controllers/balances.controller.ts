@@ -44,8 +44,7 @@ export const depositCrypto = async (req: Request, res: Response) => {
 
 export const updateWallets = async (req: Request, res: Response) => {
     try {
-        const { wallets } = req.body;
-        return await balancesService.updateBalances(wallets);
+        return await balancesService.updateBalances(req.body.wallets);
     } catch (e) {
         logger.error(`Error while updating wallets => ${e}`);
         return res.json({ status: -1 });

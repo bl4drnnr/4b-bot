@@ -56,10 +56,12 @@ export const getAllBalances = async () => {
     }
 };
 
-export const updateBalances = async (wallets: object) => {
+export const updateBalances = async (wallets: object[]) => {
     try {
         logger.info("Updating balances...");
-        return await balanceRepository.updateBalance(wallets);
+        return Promise.all(wallets.map(async (wallet) => {
+            await balanceRepository.updateBalance(wallet)
+        }))
     } catch (error: any) {
         logger.error(`error-while-updating-balances => ${error}`);
         throw Error("error-while-updating-balances");
