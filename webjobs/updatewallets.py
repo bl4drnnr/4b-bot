@@ -1,11 +1,11 @@
 import requests
 
 from decouple import config
-from blockcypher import getWalletAmount
+from blockcypherapi import getWalletAmount
 
 URL = config("DEV_API") if config("NODE_ENV") == "development" else config("PROD_API")
-BASIC_USERNAME = config('BASIC_USERNAME')
-BASIC_PASSWORD = config('BASIC_PASSWORD')
+BASIC_USERNAME = config("BASIC_USERNAME")
+BASIC_PASSWORD = config("BASIC_PASSWORD")
 
 
 def getAllBalances():
@@ -15,8 +15,15 @@ def getAllBalances():
 
 def updateWallets():
     allBalances = getAllBalances()
-    print("allBalances", allBalances)
-    return
+    updatedBalances = []
+    for balance in allBalances:
+        updatedBalance = getWalletAmount(balance["wallet"])
+        updatedBalances.append({
+            "id": balance["id"],
+            "amounr": updatedBalance["balance"]
+        })
+    print(updatedBalances)
+    return updatedBalances
 
 
 updateWallets()
