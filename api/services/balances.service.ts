@@ -48,7 +48,7 @@ export const getClientBalancesById = async (id: string) => {
 
 export const getAllBalances = async () => {
     try {
-        return balanceRepository.getAllBalances();
+        return await balanceRepository.getAllBalances();
     } catch (error: any) {
         logger.error(`error-while-getting-all-balances => ${error}`);
         throw Error("error-while-getting-all-balances");

@@ -14,7 +14,7 @@ export const getClientBalancesById = async (req: Request, res: Response) => {
     }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAllBalances = async (req: Request, res: Response) => {
     try {
         const allBalances = await balancesService.getAllBalances();
         return res.json(allBalances);
