@@ -13,3 +13,7 @@ export const createBalance = async (data: object) => {
 export const getAllBalances = async () => {
     return await knex("balances").select("*");
 };
+
+export const updateBalance = async (balance: object) => {
+    return await knex("balances").update(balance).where("id", balance.id);
+};

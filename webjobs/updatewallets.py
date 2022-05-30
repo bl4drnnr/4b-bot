@@ -13,7 +13,11 @@ def getAllBalances():
     return r.json()
 
 
-def updateWallets():
+def updateWallets(wallets):
+    return requests.put(url=URL + "/balances/update", json=wallets, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+
+
+def updateBalances():
     allBalances = getAllBalances()
     updatedBalances = []
     for balance in allBalances:
@@ -22,8 +26,4 @@ def updateWallets():
             "id": balance["id"],
             "amount": updatedBalance["balance"]
         })
-    print(updatedBalances)
-    return updatedBalances
-
-
-updateWallets()
+    updateWallets({'wallets': updatedBalances})
