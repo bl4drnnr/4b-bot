@@ -48,6 +48,7 @@ export const getClientBalancesById = async (id: string) => {
 
 export const getAllBalances = async () => {
     try {
+        logger.info("Getting all balances...");
         return await balanceRepository.getAllBalances();
     } catch (error: any) {
         logger.error(`error-while-getting-all-balances => ${error}`);
@@ -57,6 +58,7 @@ export const getAllBalances = async () => {
 
 export const updateBalances = async (wallets: object) => {
     try {
+        logger.info("Updating balances...");
         return await balanceRepository.updateBalance(wallets);
     } catch (error: any) {
         logger.error(`error-while-updating-balances => ${error}`);

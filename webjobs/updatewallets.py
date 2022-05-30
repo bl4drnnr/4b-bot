@@ -20,10 +20,12 @@ def updateWallets(wallets):
 def updateBalances():
     allBalances = getAllBalances()
     updatedBalances = []
+
     for balance in allBalances:
         updatedBalance = getWalletAmount(balance["wallet"])
         updatedBalances.append({
             "id": balance["id"],
             "amount": updatedBalance["balance"]
         })
+        
     updateWallets({'wallets': updatedBalances})
