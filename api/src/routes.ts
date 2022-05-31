@@ -21,6 +21,7 @@ router.post("/crypto/exchange", basicauth, cryptoController.exchangeCrypto);
 router.post("/voucher/generate", basicauth, voucherController.generateVoucher);
 router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
 
+router.get("/balances/history/:id", basicauth, balancesController.getHistory);
 router.get("/balances/:id", basicauth, balancesController.getClientBalancesById);
 router.get("/balances/withdrawals/pending/:id", basicauth, balancesController.getAllPendingWithdrawals);
 router.post("/balances/withdrawal", basicauth, balancesController.withdrawalCrypto);

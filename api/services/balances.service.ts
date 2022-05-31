@@ -87,3 +87,14 @@ export const withdrawalCrypto = async (data: object) => {
         throw Error("error-while-withdrawal-crypto");
     }
 };
+
+export const getHistory = async (userid: string) => {
+    try {
+        const encryptedId = securityService.encrypt(userid);
+        logger.info(`Getting history for user: ${encryptedId}`);
+        return await balanceRepository.getHistory(encryptedId);
+    } catch (error: any) {
+        logger.error(`error-while-getting-history => ${error}`);
+        throw Error("error-while-getting-history");
+    }
+};

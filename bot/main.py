@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals, withdrawalCrypto
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals, withdrawalCrypto, getHistory
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
@@ -162,6 +162,7 @@ def withdrawalcmd(message):
 @bot.message_handler(commands=["history"])
 def historycmd(message):
     historyMessage = ""
+    userHistory = getHistory(message.chat.id)
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")

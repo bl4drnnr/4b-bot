@@ -53,3 +53,13 @@ export const withdrawalCrypto = async (req: Request, res: Response) => {
         return res.json({ status: -1 });
     }
 };
+
+export const getHistory = async (req: Request, res: Response) => {
+    try {
+        const history = await balancesService.getHistory(req.params.id);
+        return res.json(history);
+    } catch (e) {
+        logger.error(`Error while getting history => ${e}`);
+        return res.json({ status: -1 });
+    }
+};

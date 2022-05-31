@@ -60,3 +60,8 @@ def getPendingWithdrawals(id):
 def withdrawalCrypto(data):
     r = requests.post(url=URL + "/balances/withdrawal", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
+
+
+def getHistory(id):
+    r = requests.get(url=URL + "/balances/history/{}".format(id), auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
