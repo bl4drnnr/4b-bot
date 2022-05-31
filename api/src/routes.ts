@@ -22,7 +22,7 @@ router.post("/voucher/generate", basicauth, voucherController.generateVoucher);
 router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
 
 router.get("/balances/:id", basicauth, balancesController.getClientBalancesById);
-router.post("/balances/deposit", basicauth, balancesController.depositCrypto);
+router.get("/balances/withdrawals/pending/:id", basicauth, balancesController.getAllPendingWithdrawals);
 router.post("/balances/withdrawal", basicauth, balancesController.withdrawalCrypto);
 router.get("/balances/list/all", basicauth, balancesController.getAllBalances);
 router.put("/balances/update", basicauth, balancesController.updateWallets);

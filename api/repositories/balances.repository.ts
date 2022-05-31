@@ -18,3 +18,7 @@ export const getAllBalances = async () => {
 export const updateBalance = async (balance: IBalance) => {
     return await knex("balances").update(balance).where("id", balance.id);
 };
+
+export const getAllPendingWithdrawals = async (id: string) => {
+    return await knex("withdrawalqueue").where("userid", id).select("*");
+};

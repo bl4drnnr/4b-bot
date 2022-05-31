@@ -52,11 +52,11 @@ def getWallets(id):
     return r.json()
 
 
-def withdrawalCrypto(data):
-    r = requests.post(url=URL + "/balances/withdrawal", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+def getPendingWithdrawals(id):
+    r = requests.get(url=URL + "/balances/withdrawals/pending/{}".format(id), auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
 
 
-def depositCrypto(data):
-    r = requests.post(url=URL + "/balances/deposit", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+def withdrawalCrypto(data):
+    r = requests.post(url=URL + "/balances/withdrawal", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
