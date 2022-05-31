@@ -145,8 +145,13 @@ def depositcmd(message):
 
 @bot.message_handler(commands=["withdrawal"])
 def withdrawalcmd(message):
-    withdrawalMessage = ""
+    withdrawalMessage = "<b>Your pending withdrawals:</b>\n\n"
     pendingWithdrawals = getPendingWithdrawals(message.chat.id)
+
+    if (len(pendingWithdrawals) == 0):
+        withdrawalMessage += "You have no pending withdrawals."
+    else:
+        withdrawalMessage += "Here is the list of your pending withdrawals:\n"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
