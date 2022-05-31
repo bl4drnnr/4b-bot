@@ -22,5 +22,9 @@ def getAvailableCommands():
         "/sellcrypto",
         "/exchangecrypto",
         "/generatevoucher",
-        "/redeemvoucher"
+        "/redeemvoucher",
+        "/mywallets",
+        "/deposit",
+        "/withdrawal",
+        "/history"
         ]

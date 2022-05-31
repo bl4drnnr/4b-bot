@@ -9,11 +9,11 @@ module.exports = {
     development: {
         client: "pg",
         connection: {
-            host: process.env.DATABASE_HOST,
-            user: process.env.DATABASE_USERNAME,
-            password: process.env.DATABASE_PASSWORD,
-            database: process.env.DATABASE_DATABASE,
-            port: process.env.DATABASE_PORT
+            host: process.env.DEV_DATABASE_HOST,
+            user: process.env.DEV_DATABASE_USERNAME,
+            password: process.env.DEV_DATABASE_PASSWORD,
+            database: process.env.DEV_DATABASE_DATABASE,
+            port: process.env.DEV_DATABASE_PORT
         },
         migrations: {
             tableName: "knex_migrations",
@@ -27,11 +27,11 @@ module.exports = {
     production: {
         client: "pg",
         connection: {
-            host: process.env.DATABASE_HOST,
-            user: process.env.DATABASE_USERNAME,
-            password: process.env.DATABASE_PASSWORD,
-            database: process.env.DATABASE_DATABASE,
-            port: process.env.DATABASE_PORT
+            host: process.env.PROD_DATABASE_HOST,
+            user: process.env.PROD_DATABASE_USERNAME,
+            password: process.env.PROD_DATABASE_PASSWORD,
+            database: process.env.PROD_DATABASE_DATABASE,
+            port: process.env.PROD_DATABASE_PORT
         },
         migrations: {
             tableName: "knex_migrations",

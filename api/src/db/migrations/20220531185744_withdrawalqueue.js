@@ -9,6 +9,7 @@ exports.up = function(knex) {
         t.string("sourcebalanceid").references("balances.id")
         t.string("destinationbalance")
         t.float("amount")
+        t.enum("status", ["pending", "done", "canceled"])
         t.timestamp("createdat").defaultTo(knex.fn.now())
         t.timestamp("updatedat").defaultTo(knex.fn.now())
     })

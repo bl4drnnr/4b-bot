@@ -20,5 +20,12 @@ export const updateBalance = async (balance: IBalance) => {
 };
 
 export const getAllPendingWithdrawals = async (id: string) => {
-    return await knex("withdrawalqueue").where("userid", id).select("*");
+    return await knex("withdrawalqueue")
+        .where("userid", id)
+        .andWhere("status", "pending")
+        .select("*").orderBy("createdat", "desc");
+};
+
+export const getHistory = async (id: string) => {
+    return await knex("withdrawalqueue").where("userid", id).select("*").orderBy("createdat", "desc");
 };
