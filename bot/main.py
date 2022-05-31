@@ -46,7 +46,7 @@ def menucmd(message):
                   f"<a>/mywallets</a> - get amounts of your balances\n" \
                   f"<a>/deposit</a> - deposit crypto\n" \
                   f"<a>/withdrawal</a> - withdrawal crypto\n" \
-                  f"<a>/history</a> get history of your wallet\n " \
+                  f"<a>/history</a> - get history of your wallet\n " \
 
     return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
 
@@ -157,6 +157,14 @@ def withdrawalcmd(message):
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
+
+
+@bot.message_handler(commands=["history"])
+def historycmd(message):
+    historyMessage = ""
+
+    markup = types.ReplyKeyboardMarkup()
+    return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.callback_query_handler(func=lambda call: True)
