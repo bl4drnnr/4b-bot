@@ -67,3 +67,14 @@ export const updateBalances = async (wallets: object[]) => {
         throw Error("error-while-updating-balances");
     }
 };
+
+export const getAllPendingWithdrawals = async (userid: string) => {
+    try {
+        const encryptedId = securityService.encrypt(userid);
+        logger.info(`Getting all pending withdrawals for user: ${encryptedId}`);
+        return await balanceRepository.getAllPendingWithdrawals(userid);
+    } catch (error: any) {
+        logger.error(`error-while-getting-all-pending-withdrawals => ${error}`);
+        throw Error("error-while-getting-all-pending-withdrawals");
+    }
+};
