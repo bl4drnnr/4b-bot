@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals, withdrawalCrypto
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([

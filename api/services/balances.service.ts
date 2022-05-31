@@ -78,3 +78,12 @@ export const getAllPendingWithdrawals = async (userid: string) => {
         throw Error("error-while-getting-all-pending-withdrawals");
     }
 };
+
+export const withdrawalCrypto = async (data: object) => {
+    try {
+
+    } catch (error: any) {
+        logger.error(`error-while-withdrawal-crypto => ${error}`);
+        throw Error("error-while-withdrawal-crypto");
+    }
+};
