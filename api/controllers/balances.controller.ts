@@ -24,9 +24,9 @@ export const getAllBalances = async (req: Request, res: Response) => {
     }
 };
 
-export const withdrawalCrypto = async (req: Request, res: Response) => {
+export const getAllPendingWithdrawals = async (req: Request, res: Response) => {
     try {
-        const pendingWithdrawals = await balancesService.getAllPendingWithdrawals(req.body.id);
+        const pendingWithdrawals = await balancesService.getAllPendingWithdrawals(req.params.id);
         return res.json(pendingWithdrawals);
     } catch (e) {
         logger.error(`Error while withdrawal crypto => ${e}`);
