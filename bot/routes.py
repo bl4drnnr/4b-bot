@@ -55,8 +55,3 @@ def getWallets(id):
 def withdrawalCrypto(data):
     r = requests.post(url=URL + "/balances/withdrawal", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()
-
-
-def depositCrypto(data):
-    r = requests.post(url=URL + "/balances/deposit", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
-    return r.json()

@@ -34,15 +34,6 @@ export const withdrawalCrypto = async (req: Request, res: Response) => {
     }
 };
 
-export const depositCrypto = async (req: Request, res: Response) => {
-    try {
-
-    } catch (e) {
-        logger.error(`Error while deposit crypto => ${e}`);
-        return res.json({ status: -1 });
-    }
-};
-
 export const updateWallets = async (req: Request, res: Response) => {
     try {
         return await balancesService.updateBalances(req.body.wallets);
