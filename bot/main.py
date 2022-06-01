@@ -66,7 +66,7 @@ def getpaircmd(message):
             types.InlineKeyboardButton(mostPopularPairs[i + 1])
         )
         i += 2
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
 
     return bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode="html")
 
@@ -159,6 +159,7 @@ def withdrawalcmd(message):
         "and then provide external wallet and amount to withdraw."
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/deposit"), types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -173,6 +174,7 @@ def historycmd(message):
         historyMessage += ""
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/deposit"), types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -194,7 +196,7 @@ def commandshandlebtn(call):
 def manualhandlermessage(message):
     userMessage = message.text.strip().upper()
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
 
     if userMessage[0] == "/":
         # Manual commands handler
@@ -209,7 +211,7 @@ def manualhandlermessage(message):
         pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("- Menu"), types.InlineKeyboardButton("- Get pair"))
+        markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/getpair"))
         if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
@@ -236,7 +238,7 @@ def startcmd(message):
 def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html")
 
 
