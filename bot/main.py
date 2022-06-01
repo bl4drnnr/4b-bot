@@ -147,13 +147,16 @@ def depositcmd(message):
 
 @bot.message_handler(commands=["withdrawal"])
 def withdrawalcmd(message):
-    withdrawalMessage = "<b>Your pending withdrawals:</b>\n\n"
+    withdrawalMessage = ""
     pendingWithdrawals = getPendingWithdrawals(message.chat.id)
 
     if (len(pendingWithdrawals) == 0):
-        withdrawalMessage += "You have no pending withdrawals."
+        withdrawalMessage += "<b>You have no pending withdrawals.</b>\n\n"
     else:
-        withdrawalMessage += "Here is the list of your pending withdrawals:\n"
+        withdrawalMessage += "<b>Your pending withdrawals:</b>\n\n"
+
+    withdrawalMessage += "If you want withdrawal crypto on external wallet, first choose the crypto, " \
+        "and then provide external wallet and amount to withdraw."
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
@@ -161,8 +164,13 @@ def withdrawalcmd(message):
 
 @bot.message_handler(commands=["history"])
 def historycmd(message):
-    historyMessage = ""
+    historyMessage = "<b>Here is history of your wallet transactoins:</b>\n\n"
     userHistory = getHistory(message.chat.id)
+
+    if (len(userHistory) == 0):
+        historyMessage += "You have no history on your wallets. Go on, and do crypto <a>/deposit</a>!"
+    else:
+        historyMessage += ""
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
