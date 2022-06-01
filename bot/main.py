@@ -66,7 +66,7 @@ def getpaircmd(message):
             types.InlineKeyboardButton(mostPopularPairs[i + 1])
         )
         i += 2
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
 
     return bot.send_message(message.chat.id, getPairMessage, reply_markup=markup, parse_mode="html")
 
@@ -121,11 +121,11 @@ def myvoucherscmd(message):
 
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
-    myWalletsMessage = "Crypto / Amount / Wallet\n\n"
+    myWalletsMessage = "<b>Your wallets:</b>\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"<b>{wallet['symbol'][:-3]}</b> / {wallet['amount']} / {wallet['wallet']}\n"
+        myWalletsMessage += f"Crypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n----------------"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
@@ -133,13 +133,11 @@ def mywalletscmd(message):
 
 @bot.message_handler(commands=["deposit"])
 def depositcmd(message):
-    depositMessage = ""
+    depositMessage = "Here is list of your crypto wallets:\n\n"
     wallets = getWallets(message.chat.id)
 
-    depositMessage += "Here is list of your crypto wallets:\n\n"
-
     for wallet in wallets:
-        depositMessage += f"<b>{wallet['symbol'][:-3]}</b> / {wallet['wallet']}\n"
+        depositMessage += f"Crypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n----------------"
 
     markup = types.ReplyKeyboardMarkup()
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
@@ -147,24 +145,34 @@ def depositcmd(message):
 
 @bot.message_handler(commands=["withdrawal"])
 def withdrawalcmd(message):
-    withdrawalMessage = "<b>Your pending withdrawals:</b>\n\n"
+    withdrawalMessage = ""
     pendingWithdrawals = getPendingWithdrawals(message.chat.id)
 
     if (len(pendingWithdrawals) == 0):
-        withdrawalMessage += "You have no pending withdrawals."
+        withdrawalMessage += "<b>You have no pending withdrawals.</b>\n\n"
     else:
-        withdrawalMessage += "Here is the list of your pending withdrawals:\n"
+        withdrawalMessage += "<b>Your pending withdrawals:</b>\n\n"
+
+    withdrawalMessage += "If you want withdrawal crypto on external wallet, first choose the crypto, " \
+        "and then provide external wallet and amount to withdraw."
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/deposit"), types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.message_handler(commands=["history"])
 def historycmd(message):
-    historyMessage = ""
+    historyMessage = "<b>Here is history of your wallet transactoins:</b>\n\n"
     userHistory = getHistory(message.chat.id)
 
+    if (len(userHistory) == 0):
+        historyMessage += "You have no history on your wallets. Go on, and do crypto <a>/deposit</a>!"
+    else:
+        historyMessage += ""
+
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/deposit"), types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -186,7 +194,7 @@ def commandshandlebtn(call):
 def manualhandlermessage(message):
     userMessage = message.text.strip().upper()
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
 
     if userMessage[0] == "/":
         # Manual commands handler
@@ -201,7 +209,7 @@ def manualhandlermessage(message):
         pair = getPair(str(userMessage) + str("USDT"))
 
         markup = types.ReplyKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("- Menu"), types.InlineKeyboardButton("- Get pair"))
+        markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/getpair"))
         if pair.get("status") is not None:
             return bot.send_message(message.chat.id, "We haven't found that crypto. :(", reply_markup=markup)
 
@@ -228,7 +236,7 @@ def startcmd(message):
 def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("- Menu"))
+    markup.add(types.InlineKeyboardButton("/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html")
 
 
