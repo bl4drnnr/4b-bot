@@ -157,7 +157,9 @@ def withdrawalcmd(message):
         "and then provide external wallet and amount to withdraw."
 
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"), types.InlineKeyboardButton("/deposit"), types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/deposit"))
+    markup.add(types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
