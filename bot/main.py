@@ -206,7 +206,7 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
-    else:
+    elif userMessage[0:2] == "gp ":
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
 
@@ -218,6 +218,8 @@ def manualhandlermessage(message):
         pairMessage = printPairResult(pair)
 
         return bot.send_message(message.chat.id, pairMessage, parse_mode="html", reply_markup=markup)
+    else:
+        return bot.send_message(message.chat.id, "Nah... What do you mean?", parse_mode="html", reply_markup=markup)
 
 
 def startcmd(message):
