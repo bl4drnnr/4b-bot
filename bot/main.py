@@ -202,8 +202,6 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
-    elif userMessage[0] == "-":
-        executecommand(message)
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
@@ -237,16 +235,7 @@ def defaulterrormessage(chatid):
     errorMessage = "<b><i>Something went wrong! Maybe you should try again?</i></b>"
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
-    return bot.send_message(chatid, errorMessage, parse_mode="html")
-
-
-def executecommand(message):
-    if message.text.lower().split("- ")[1] == "get pair":
-        return getpaircmd(message)
-    elif message.text.lower().split("- ")[1] == "menu":
-        return menucmd(message)
-    else:
-        return menucmd(message)    
+    return bot.send_message(chatid, errorMessage, parse_mode="html") 
 
 
 if __name__ == "__main__":
