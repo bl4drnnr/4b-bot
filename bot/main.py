@@ -162,7 +162,8 @@ def withdrawalcmd(message):
 
     withdrawalMessage += "If you want withdrawal crypto on external wallet, first choose the crypto, " \
         "and then provide external wallet and amount to withdraw.\n\n" \
-        "Or provide message in this format: <b>\w Crypto Amount Destination</b>"
+        "Or provide message in this format: <b>\w Crypto Amount Destination</b>\n" \
+        "Example: \w BTC 0.00008 mwR1LkQVXJ6fWYcTKmtQRPfV6a8o6883XE"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
