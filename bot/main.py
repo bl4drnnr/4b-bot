@@ -128,6 +128,10 @@ def mywalletscmd(message):
         myWalletsMessage += f"Crypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n----------------"
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/deposit"))
+    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/history"))
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -140,6 +144,9 @@ def depositcmd(message):
         depositMessage += f"Crypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n----------------"
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -159,7 +166,7 @@ def withdrawalcmd(message):
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/deposit"))
-    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
