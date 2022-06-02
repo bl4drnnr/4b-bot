@@ -161,7 +161,8 @@ def withdrawalcmd(message):
         withdrawalMessage += "<b>Your pending withdrawals:</b>\n\n"
 
     withdrawalMessage += "If you want withdrawal crypto on external wallet, first choose the crypto, " \
-        "and then provide external wallet and amount to withdraw."
+        "and then provide external wallet and amount to withdraw.\n\n" \
+        "Or provide message in this format: <b>\w Crypto Amount Destination</b>"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
@@ -213,6 +214,8 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
+    elif userMessage[0:3] == "\w ":
+        withdrawalCrypto({})
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
