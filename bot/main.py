@@ -121,11 +121,11 @@ def myvoucherscmd(message):
 
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
-    myWalletsMessage = "<b>Your wallets:</b>\n\n"
+    myWalletsMessage = "<b>List of your wallets:</b>\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"Crypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n----------------"
+        myWalletsMessage += f"----------------\nCrypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
@@ -137,11 +137,11 @@ def mywalletscmd(message):
 
 @bot.message_handler(commands=["deposit"])
 def depositcmd(message):
-    depositMessage = "Here is list of your crypto wallets:\n\n"
+    depositMessage = "Your wallets:\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        depositMessage += f"Crypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n----------------"
+        depositMessage += f"----------------\nCrypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
