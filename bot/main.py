@@ -121,25 +121,32 @@ def myvoucherscmd(message):
 
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
-    myWalletsMessage = "<b>Your wallets:</b>\n\n"
+    myWalletsMessage = "<b>List of your wallets:</b>\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"Crypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n----------------"
+        myWalletsMessage += f"----------------\nCrypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n"
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/deposit"))
+    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/history"))
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.message_handler(commands=["deposit"])
 def depositcmd(message):
-    depositMessage = "Here is list of your crypto wallets:\n\n"
+    depositMessage = "Your wallets:\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        depositMessage += f"Crypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n----------------"
+        depositMessage += f"----------------\nCrypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n"
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -154,12 +161,14 @@ def withdrawalcmd(message):
         withdrawalMessage += "<b>Your pending withdrawals:</b>\n\n"
 
     withdrawalMessage += "If you want withdrawal crypto on external wallet, first choose the crypto, " \
-        "and then provide external wallet and amount to withdraw."
+        "and then provide external wallet and amount to withdraw.\n\n" \
+        "Or provide message in this format: <b>\w Crypto Amount Destination</b>\n" \
+        "Example: \w BTC 0.00008 mwR1LkQVXJ6fWYcTKmtQRPfV6a8o6883XE"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/deposit"))
-    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -206,6 +215,8 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
+    elif userMessage[0:3] == "\w ":
+        withdrawalCrypto({})
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))
