@@ -13,4 +13,6 @@
 ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-### Description
+### Technical description
+
+Telegram bot that has been created using telegram API with Python `pyTelegramBotAPI`. The communication beteen telegram bot and API has been implemented with `requests` package on bot side and `Express.js` HTTP server by server side. As database was used `postgresql` and `knex.js` as query builder (communication with database functionality was implemented with `JavaScript`, not `TypeScript`, as the rest of the project). 
