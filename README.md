@@ -19,4 +19,7 @@ Telegram bot that has been created using telegram API with Python `pyTelegramBot
 
 ### Functional description
 
-There are a couple of functionalities that have been implemented and that allow user to own and manage his own crypto wallets.
+There are a couple of functionalities that have been implemented and that allow user to own and manage his own crypto wallets. Bot is using 2 API's:
+
+- `bybit` API - for getting crypto rates
+- `blockchair` API - for updating wallets' amounts
