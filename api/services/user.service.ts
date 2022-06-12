@@ -20,17 +20,14 @@ export const getUserById = async (userid: string) => {
 
 export const createUser = async (user: IUser) => {
     try {
-        const encryptedId = securityService.encrypt(user.userid);
-
-        logger.info(`Check if user already exists: ${encryptedId}`);
-
-        const existingUser = await getUserById(encryptedId);
+        const existingUser = await getUserById(user.userid);
 
         if (existingUser) {
-            logger.warn(`User alredy exists! - ${encryptedId}`);
+            logger.warn(`User alredy exists! - ${existingUser.userid}`);
             return { status: -1 };
         }
 
+        const encryptedId = securityService.encrypt(user.userid);
         logger.info(`Creating user with id: ${encryptedId}`);
         await userRepository.createUser({ userid: encryptedId });
 

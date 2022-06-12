@@ -1,7 +1,7 @@
 export interface IVoucher {
     amount: number
     codeenc: string
-    createdat: string
-    symbol: string
+    currencyid: string
     userid: string
+    fingerprint: string
 }
