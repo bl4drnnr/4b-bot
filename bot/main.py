@@ -127,17 +127,17 @@ def redeemvouchercmd(message):
 
 @bot.message_handler(commands=["myvouchers"])
 def myvoucherscmd(message):
-    myVouchersMessage = "List of your vouchers:\n\n"
+    myVouchersMessage = "*List of your unreedemed vouchers:* (click on to copy to clipboard)\n\n"
     vouchers = getVouchers(message.chat.id)
 
     for voucher in vouchers:
-        myVouchersMessage += f"{voucher['codeenc']}"
+        myVouchersMessage += f"----------------\nCrypto: {voucher['symbol']}\nAmount: {voucher['amount']}\nVoucher: `{voucher['codeenc']}`\n"
 
-    markup = types.ReplyKeyboardMarkup()
+    markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/generatevoucher"))
     markup.add(types.InlineKeyboardButton("/redeemvoucher"))
-    return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
+    return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="markdown")
 
 
 @bot.message_handler(commands=["mywallets"])
