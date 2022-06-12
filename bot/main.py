@@ -104,6 +104,9 @@ def generatevouchercmd(message):
     generateVoucherMessage = ""
     
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/redeemvoucher"))
+    markup.add(types.InlineKeyboardButton("/myvouchers"))
     return bot.send_message(message.chat.id, generateVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -112,6 +115,9 @@ def redeemvouchercmd(message):
     redeemVoucherMessage = ""
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/generatevoucher"))
+    markup.add(types.InlineKeyboardButton("/myvouchers"))
     return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -121,6 +127,9 @@ def myvoucherscmd(message):
     vouchers = getVouchers(message.chat.id)
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/generatevoucher"))
+    markup.add(types.InlineKeyboardButton("/redeemvoucher"))
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
 
 
