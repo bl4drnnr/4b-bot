@@ -7,7 +7,6 @@ exports.up = function(knex) {
         t.uuid("id").notNullable().defaultTo(knex.raw("gen_random_uuid ()")).primary()
         t.float("amount")
         t.string("codeenc")
-        t.string("fingerprint")
         t.string("userid").references("users.userid")
         t.uuid("currencyid").references("crypto.id")
         t.string("redeemedby").references("users.userid").nullable()

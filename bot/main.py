@@ -131,7 +131,7 @@ def myvoucherscmd(message):
     vouchers = getVouchers(message.chat.id)
 
     for voucher in vouchers:
-        myVouchersMessage += f""
+        myVouchersMessage += f"{voucher['codeenc']}"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))

@@ -2,6 +2,7 @@ import * as voucherRepository from "../repositories/voucher.repository";
 import * as securityService from "./security.service";
 import * as userService from "./user.service";
 import * as cryptoService from "./crypto.service";
+import { IVoucher } from "../interfaces/voucher.interface";
 
 import moment from "moment";
 
@@ -13,11 +14,13 @@ export const getVouchersByClientId = async (userid: string) => {
     try {
         const user = await userService.getUserById(userid);
         if (!user) {
-            logger.warn(`There is no such user...`)
+            logger.warn(`There is no such user: ${userid}`)
             return { status: -1 }
         }
+        
         logger.info(`Getting vouchers for user: ${user.userid}`);
         const encryptedVouchers = await voucherRepository.getVouchersByClientId(user.userid);
+        encryptedVouchers.forEach((voucher: IVoucher) => { voucher.codeenc = securityService.decrypt(voucher.codeenc) })
 
         return encryptedVouchers;
     } catch (error: any) {
@@ -37,17 +40,14 @@ export const generateVoucher = async (userid: string, crypto: string, amount: st
 
         logger.info(`Generating voucher by user ${user.userid} for ${amount} and ${crypto}`);
 
-        const encryptedVoucher = securityService.encrypt(encriptionString);
-        const encryptedVoucherFingerprint = securityService.voucherHash(
-            securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase()
-        );
+        const voucher = securityService.encrypt(encriptionString).slice(0, 32).toUpperCase();
+        const encryptedVoucher = securityService.encrypt(voucher);
 
         const currency = await cryptoService.getPair(crypto + "USD");
 
         return await voucherRepository.generateVoucher({
             amount: parseFloat(amount),
-            codeenc: securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase(),
-            fingerprint: encryptedVoucherFingerprint,
+            codeenc: encryptedVoucher,
             currencyid: currency.id,
             userid: user.userid
         });
@@ -65,8 +65,8 @@ export const redeemVoucher = async (voucher: string, userid: string) => {
             return { status: -1 }; 
         }
 
-        const voucherHashed = securityService.voucherHash(voucher)
-        const checkVoucher = await voucherRepository.getVoucherByFingerprint(voucherHashed);
+        const encryptedVoucher = securityService.encrypt(voucher)
+        const checkVoucher = await voucherRepository.getVoucher(encryptedVoucher);
         if (!checkVoucher) {
             logger.warn(`There is no such voucher: ${voucher}`);
             return { status: -1 };

@@ -1,8 +1,8 @@
 const knex = require("../src/db/knex.js");
 import { IVoucher } from "../interfaces/voucher.interface";
 
-export const getVoucherByFingerprint = async (fingerprint: string) => {
-    return await knex("vouchers").where("fingerprint", fingerprint).first()
+export const getVoucher = async (codeenc: string) => {
+    return await knex("vouchers").where("codeenc", codeenc).first()
 };
 
 export const getVouchersByClientId = async (userid: string) => {
