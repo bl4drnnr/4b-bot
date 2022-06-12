@@ -37,7 +37,8 @@ export const getAllPendingWithdrawals = async (req: Request, res: Response) => {
 export const updateWallets = async (req: Request, res: Response) => {
     try {
         logger.info("Updating wallets...");
-        return await balancesService.updateBalances(req.body.wallets);
+        const updatedWallets = await balancesService.updateBalances(req.body.wallets);
+        return res.json(updatedWallets);
     } catch (e) {
         logger.error(`Error while updating wallets => ${e}`);
         return res.json({ status: -1 });

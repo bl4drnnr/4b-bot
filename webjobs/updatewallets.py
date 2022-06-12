@@ -1,7 +1,7 @@
 import requests
 
 from decouple import config
-from blockcypherapi import getWalletAmount
+from blockcypherapi import getWalletAmountBtc
 
 URL = config("DEV_API") if config("NODE_ENV") == "development" else config("PROD_API")
 BASIC_USERNAME = config("BASIC_USERNAME")
@@ -14,7 +14,8 @@ def getAllBalances():
 
 
 def updateWallets(wallets):
-    return requests.put(url=URL + "/balances/update", json=wallets, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    r = requests.put(url=URL + "/balances/update", json=wallets, auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
 
 
 def updateBalances():
@@ -22,13 +23,16 @@ def updateBalances():
     updatedBalances = []
 
     for balance in allBalances:
-        updatedBalance = getWalletAmount(balance["wallet"])
+
+        if balance["symbol"] == "BTCUSD":
+            updatedBalance = getWalletAmountBtc(balance["wallet"])
+            
         updatedBalances.append({
             "id": balance["id"],
             "amount": updatedBalance["balance"]
         })
         
-    updateWallets({'wallets': updatedBalances})
+    return updateWallets({'wallets': updatedBalances})
 
 
 updateBalances()
