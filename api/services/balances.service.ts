@@ -1,6 +1,5 @@
 import * as balanceRepository from "../repositories/balances.repository";
-import * as cryptoRepository from "../repositories/crypto.repository";
-import * as securityService from "./security.service";
+import * as cryptoService from "./crypto.service";
 import * as userService from "./user.service";
 
 import loggerConfig from "../common/logger";
@@ -27,7 +26,7 @@ export const createBtcWallet = async (userid: string) => {
         
         logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
 
-        const btc = await cryptoRepository.getPair("BTCUSD");
+        const btc = await cryptoService.getPair("BTCUSD");
         
         return await balanceRepository.createBalance({ wallet: address, currencyid: btc.id, userid });
     } catch (error: any) {
