@@ -19,10 +19,10 @@ export const getVouchersByClientId = async (userid: string) => {
         }
         
         logger.info(`Getting vouchers for user: ${user.userid}`);
-        const encryptedVouchers = await voucherRepository.getVouchersByClientId(user.userid);
-        encryptedVouchers.forEach((voucher: IVoucher) => { voucher.codeenc = securityService.decrypt(voucher.codeenc) })
+        const vouchers = await voucherRepository.getVouchersByClientId(user.userid);
+        vouchers.forEach((voucher: IVoucher) => { voucher.codeenc = securityService.decrypt(voucher.codeenc) })
 
-        return encryptedVouchers;
+        return vouchers;
     } catch (error: any) {
         logger.error(`error-while-getting-clients-vouchers => ${error}`);
         throw Error("error-while-getting-clients-vouchers");
