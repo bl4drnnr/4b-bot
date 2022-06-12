@@ -252,8 +252,8 @@ def manualhandlermessage(message):
     elif userMessage[0:4] == "\GV ":
         generateVoucher({
             "userid": str(message.chat.id),
-            "crypto": userMessage.split()[0],
-            "amount": userMessage.split()[1]
+            "crypto": userMessage.split()[1],
+            "amount": userMessage.split()[2]
         })
     elif userMessage[0:4] == "\RV ":
         redeemVoucher({

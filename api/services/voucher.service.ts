@@ -30,7 +30,9 @@ export const generateVoucher = async (userid: string, crypto: string, amount: st
         logger.info(`Generating voucher by user ${encryptedId} for ${amount} and ${crypto}`);
 
         const encryptedVoucher = securityService.encrypt(encriptionString);
-        const encryptedVoucherFingerprint = securityService.voucherHash(securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase());
+        const encryptedVoucherFingerprint = securityService.voucherHash(
+            securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase()
+        );
 
         const currency = await cryptoService.getPair(crypto + "USD");
 
