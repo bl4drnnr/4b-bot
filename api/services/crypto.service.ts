@@ -1,5 +1,4 @@
 import * as cryptoRepository from "../repositories/crypto.repository";
-import * as balancesRepository from "../repositories/balances.repository";
 import loggerConfig from "../common/logger";
 import { ICryptoPair } from "../interfaces/crypto.interface";
 

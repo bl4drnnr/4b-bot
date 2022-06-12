@@ -10,7 +10,7 @@ exports.up = function(knex) {
         t.string("fingerprint")
         t.string("userid").references("users.userid")
         t.uuid("currencyid").references("crypto.id")
-        t.string("redeemedby").references("users.userid")
+        t.string("redeemedby").references("users.userid").nullable()
         t.timestamp("createdat").defaultTo(knex.fn.now())
         t.timestamp("updatedat").defaultTo(knex.fn.now())
     })

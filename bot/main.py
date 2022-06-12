@@ -101,7 +101,9 @@ def exchangecryptocmd(message):
 
 @bot.message_handler(commands=["generatevoucher"])
 def generatevouchercmd(message):
-    generateVoucherMessage = ""
+    generateVoucherMessage = "To generate voucher please provide command in this format:\n\n" \
+                             "\gv Crypto Amount\n" \
+                             "<b>Example:</b> \gv BTC 0.0001"
     
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
@@ -123,7 +125,7 @@ def redeemvouchercmd(message):
 
 @bot.message_handler(commands=["myvouchers"])
 def myvoucherscmd(message):
-    myVouchersMessage = "<b>IT'S HIGHLY RECOMENDED TO DELETE THIS MESSAGE AFTER READ</b>\n\nList of your vouchers:\n\n"
+    myVouchersMessage = "List of your vouchers:\n\n"
     vouchers = getVouchers(message.chat.id)
 
     for voucher in vouchers:
@@ -245,6 +247,12 @@ def manualhandlermessage(message):
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
     elif userMessage[0:3] == "\w ":
         withdrawalCrypto({})
+    elif userMessage[0:4] == "\GV ":
+        generateVoucher({
+            "userid": message.chat.id,
+            "crypto": userMessage.split()[0],
+            "amount": userMessage.split()[1]
+        })
     else:
         # Looking for pair
         pair = getPair(str(userMessage) + str("USDT"))

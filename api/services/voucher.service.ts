@@ -1,7 +1,7 @@
 import * as voucherRepository from "../repositories/voucher.repository";
 import * as securityService from "./security.service";
 import * as userService from "./user.service";
-import { IVoucher } from "../interfaces/voucher.interface";
+import * as cryptoService from "./crypto.service";
 
 import moment from "moment";
 
@@ -13,12 +13,7 @@ export const getVouchersByClientId = async (userid: string) => {
     try {
         const encryptedId = securityService.encrypt(userid);
         logger.info(`Getting vouchers for user: ${encryptedId}`);
-        const encryptedVouchers = await voucherRepository.getVouchersByClientId(encryptedId)
-
-        // logger.info(`Decrypting vouchers for user: ${encryptedId}`);
-        // encryptedVouchers.forEach((voucher: IVoucher) => {
-        //     voucher.codeenc = securityService.decryptVoucher(voucher.codeenc, voucher.userid)
-        // });
+        const encryptedVouchers = await voucherRepository.getVouchersByClientId(encryptedId);
 
         return encryptedVouchers;
     } catch (error: any) {
@@ -29,19 +24,22 @@ export const getVouchersByClientId = async (userid: string) => {
 
 export const generateVoucher = async (userid: string, crypto: string, amount: string) => {
     try {
-        const pureVoucher = moment().unix().toString() + userid + crypto + amount;
+        const encryptedId = securityService.encrypt(userid.toString());
+        const encriptionString = moment().unix().toString() + encryptedId + crypto + amount;
 
-        logger.info(`Generating voucher by ${userid} for ${amount} ${crypto}`);
+        logger.info(`Generating voucher by user ${encryptedId} for ${amount} and ${crypto}`);
 
-        const encryptedVoucher = securityService.encrypt(pureVoucher);
+        const encryptedVoucher = securityService.encrypt(encriptionString);
         const encryptedVoucherFingerprint = securityService.voucherHash(encryptedVoucher);
+
+        const currency = await cryptoService.getPair(crypto + "USD");
 
         return await voucherRepository.generateVoucher({
             amount: parseFloat(amount),
-            codeenc: encryptedVoucher,
+            codeenc: securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase(),
             fingerprint: encryptedVoucherFingerprint,
-            symbol: crypto,
-            userid
+            currencyid: currency.id,
+            userid: encryptedId
         });
     } catch (error: any) {
         logger.error(`error-while-generating-voucher => ${error}`);
