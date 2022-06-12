@@ -4,6 +4,16 @@ import loggerConfig from "../common/logger";
 
 const logger = loggerConfig({ label: "voucher-controller", path: "voucher" });
 
+export const getVouchersByClientId = async (req: Request, res: Response) => {
+    try {
+        const vouchers = await voucherService.getVouchersByClientId(req.params.id);
+        return res.json(vouchers);
+    } catch (e) {
+        logger.error(`Error while getting vouchers => ${e}`);
+        return res.json({ status: -1 });
+    }
+};
+
 export const generateVoucher = async (req: Request, res: Response) => {
     try {
 
