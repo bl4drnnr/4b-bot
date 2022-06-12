@@ -123,8 +123,11 @@ def redeemvouchercmd(message):
 
 @bot.message_handler(commands=["myvouchers"])
 def myvoucherscmd(message):
-    myVouchersMessage = ""
+    myVouchersMessage = "<b>IT'S HIGHLY RECOMENDED TO DELETE THIS MESSAGE AFTER READ</b>\n\nList of your vouchers:\n\n"
     vouchers = getVouchers(message.chat.id)
+
+    for voucher in vouchers:
+        myVouchersMessage += f""
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
