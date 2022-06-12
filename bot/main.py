@@ -142,18 +142,18 @@ def myvoucherscmd(message):
 
 @bot.message_handler(commands=["mywallets"])
 def mywalletscmd(message):
-    myWalletsMessage = "<b>List of your wallets:</b>\n\n"
+    myWalletsMessage = "*List of your wallets:*\n\n"
     wallets = getWallets(message.chat.id)
 
     for wallet in wallets:
-        myWalletsMessage += f"----------------\nCrypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: <b>{wallet['wallet']}</b>\n"
+        myWalletsMessage += f"----------------\nCrypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: `{wallet['wallet']}`\n"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/deposit"))
     markup.add(types.InlineKeyboardButton("/withdrawal"))
     markup.add(types.InlineKeyboardButton("/history"))
-    return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="html")
+    return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="markdown")
 
 
 @bot.message_handler(commands=["deposit"])
