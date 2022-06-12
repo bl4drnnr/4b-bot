@@ -48,7 +48,11 @@ def menucmd(message):
                   f"<a>/withdrawal</a> - withdrawal crypto\n" \
                   f"<a>/history</a> - get history of your wallet\n " \
 
-    return bot.send_message(message.chat.id, menuMessage, parse_mode="html")
+    markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/contact"))
+    markup.add(types.InlineKeyboardButton("/getpair"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
+    return bot.send_message(message.chat.id, menuMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.message_handler(commands=["getpair"])
@@ -187,6 +191,17 @@ def historycmd(message):
     markup.add(types.InlineKeyboardButton("/deposit"))
     markup.add(types.InlineKeyboardButton("/withdrawal"))
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
+
+
+@bot.message_handler(commands=["contact"])
+def contactcmd(message):
+    contactMessage = "In case if you have any questions, please text here:\n\nContact email: bl4drnnr@protonmail.com\nPGP: 8773E25F4E5B06F60AD9A04151E343BA669AD317"
+
+    markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/getpair"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
+    return bot.send_message(message.chat.id, contactMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.callback_query_handler(func=lambda call: True)

@@ -1,5 +1,6 @@
 import blockcypher
+from decouple import config
 
 
-def getWalletAmount(wallet):
-    return blockcypher.get_address_overview(wallet)
+def getWalletAmountBtc(wallet):
+    return blockcypher.get_address_details(wallet, coin_symbol="btc-testnet" if config("NODE_ENV") == "development" else "btc")
