@@ -18,6 +18,7 @@ router.post("/crypto/buy", basicauth, cryptoController.buyCrypto);
 router.post("/crypto/sell", basicauth, cryptoController.sellCrypto);
 router.post("/crypto/exchange", basicauth, cryptoController.exchangeCrypto);
 
+router.get("/voucher/list/:id", basicauth, voucherController.getVouchersByClientId);
 router.post("/voucher/generate", basicauth, voucherController.generateVoucher);
 router.post("/voucher/redeem", basicauth, voucherController.redeemVoucher);
 

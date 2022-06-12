@@ -37,6 +37,11 @@ def exchangeCrypto(data):
     return r.json()
 
 
+def getVouchers(id):
+    r = requests.get(url=URL + "/voucher/list/{}".format(id), auth=(BASIC_USERNAME, BASIC_PASSWORD))
+    return r.json()
+
+
 def generateVoucher(data):
     r = requests.post(url=URL + "/voucher/generate", json=data, auth=(BASIC_USERNAME, BASIC_PASSWORD))
     return r.json()

@@ -4,7 +4,7 @@ from telebot import types
 from decouple import config
 
 from common import getMostPopularPairs, printPairResult, getAvailableCommands
-from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals, withdrawalCrypto, getHistory
+from routes import getUserById, createUser, getPair, buyCrypto, sellCrypto, exchangeCrypto, generateVoucher, redeemVoucher, getWallets, getPendingWithdrawals, withdrawalCrypto, getHistory, getVouchers
 
 bot = telebot.TeleBot(config("BOT_API_KEY"))
 bot.set_my_commands([
@@ -104,6 +104,9 @@ def generatevouchercmd(message):
     generateVoucherMessage = ""
     
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/redeemvoucher"))
+    markup.add(types.InlineKeyboardButton("/myvouchers"))
     return bot.send_message(message.chat.id, generateVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -112,14 +115,24 @@ def redeemvouchercmd(message):
     redeemVoucherMessage = ""
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/generatevoucher"))
+    markup.add(types.InlineKeyboardButton("/myvouchers"))
     return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
 @bot.message_handler(commands=["myvouchers"])
 def myvoucherscmd(message):
-    myVouchersMessage = ""
+    myVouchersMessage = "<b>IT'S HIGHLY RECOMENDED TO DELETE THIS MESSAGE AFTER READ</b>\n\nList of your vouchers:\n\n"
+    vouchers = getVouchers(message.chat.id)
+
+    for voucher in vouchers:
+        myVouchersMessage += f""
 
     markup = types.ReplyKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("/menu"))
+    markup.add(types.InlineKeyboardButton("/generatevoucher"))
+    markup.add(types.InlineKeyboardButton("/redeemvoucher"))
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="html")
 
 

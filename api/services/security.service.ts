@@ -27,3 +27,22 @@ export const decrypt = (text: string) => {
     return result;
 };
 
+export const encryptVoucher = (voucher: string, creatingDate: string, userid: string) => {
+    const textBeforeEncryption = voucher + creatingDate + userid
+    
+    const textAfterEncryption = crypto.createCipheriv("aes-256-cbc", key, iv);
+    let result = textAfterEncryption.update(textBeforeEncryption, "utf8", "hex");
+    result += textAfterEncryption.final("hex");
+
+    return result;
+};
+
+export const decryptVoucher = (voucher: string, creatingDate: string, userid: string) => {
+    const textBeforeDecryption = voucher + creatingDate + userid
+
+    const textAfterDecryption = crypto.createDecipheriv("aes-256-cbc", key, iv);
+    let result = textAfterDecryption.update(textBeforeDecryption, "hex", "utf8");
+    result += textAfterDecryption.final("utf8");
+
+    return result;
+};
