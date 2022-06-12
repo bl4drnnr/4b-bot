@@ -1,6 +1,6 @@
 import * as balanceRepository from "../repositories/balances.repository";
-import * as cryptoRepository from "../repositories/crypto.repository";
-import * as securityService from "./security.service";
+import * as cryptoService from "./crypto.service";
+import * as userService from "./user.service";
 
 import loggerConfig from "../common/logger";
 import dotenv from "dotenv";
@@ -26,7 +26,7 @@ export const createBtcWallet = async (userid: string) => {
         
         logger.info(`Creating BTC wallet: ${address} for user with id: ${userid}`);
 
-        const btc = await cryptoRepository.getPair("BTCUSD");
+        const btc = await cryptoService.getPair("BTCUSD");
         
         return await balanceRepository.createBalance({ wallet: address, currencyid: btc.id, userid });
     } catch (error: any) {
@@ -35,11 +35,15 @@ export const createBtcWallet = async (userid: string) => {
     }
 };
 
-export const getClientBalancesById = async (id: string) => {
+export const getClientBalancesById = async (userid: string) => {
     try {
-        const encryptedId = securityService.encrypt(id);
-        logger.info(`Getting balances for user: ${encryptedId}`);
-        return await balanceRepository.getClientBalancesById(encryptedId);
+        const user = await userService.getUserById(userid);
+        if (!user) {
+            logger.warn(`There is no such user: ${userid}`)
+            return { status: -1 }
+        }
+        logger.info(`Getting balances for user: ${user.userid}`);
+        return await balanceRepository.getClientBalancesById(user.userid);
     } catch (error: any) {
         logger.error(`error-while-getting-clients-balances => ${error}`);
         throw Error("error-while-getting-clients-balances");
@@ -70,9 +74,13 @@ export const updateBalances = async (wallets: object[]) => {
 
 export const getAllPendingWithdrawals = async (userid: string) => {
     try {
-        const encryptedId = securityService.encrypt(userid);
-        logger.info(`Getting all pending withdrawals for user: ${encryptedId}`);
-        return await balanceRepository.getAllPendingWithdrawals(userid);
+        const user = await userService.getUserById(userid);
+        if (!user) {
+            logger.warn(`There is no such user: ${userid}`)
+            return { status: -1 }
+        }
+        logger.info(`Getting all pending withdrawals for user: ${user.userid}`);
+        return await balanceRepository.getAllPendingWithdrawals(user.userid);
     } catch (error: any) {
         logger.error(`error-while-getting-all-pending-withdrawals => ${error}`);
         throw Error("error-while-getting-all-pending-withdrawals");
@@ -90,9 +98,12 @@ export const withdrawalCrypto = async (data: object) => {
 
 export const getHistory = async (userid: string) => {
     try {
-        const encryptedId = securityService.encrypt(userid);
-        logger.info(`Getting history for user: ${encryptedId}`);
-        return await balanceRepository.getHistory(encryptedId);
+        const user = await userService.getUserById(userid);
+        if (!user) {
+            logger.warn(`There is no such user: ${userid}`)
+            return { status: -1 }
+        }
+        return await balanceRepository.getHistory(user.userid);
     } catch (error: any) {
         logger.error(`error-while-getting-history => ${error}`);
         throw Error("error-while-getting-history");

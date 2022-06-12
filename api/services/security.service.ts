@@ -26,10 +26,3 @@ export const decrypt = (text: string) => {
 
     return result;
 };
-
-export const voucherHash = (voucher: string) => {
-    const hash = crypto.createHash("sha512");
-    let result = hash.update(voucher, "utf8");
-    const finalHash = result.digest("hex");
-    return finalHash;
-};

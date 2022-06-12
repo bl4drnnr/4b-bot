@@ -3,5 +3,4 @@ export interface IVoucher {
     codeenc: string
     currencyid: string
     userid: string
-    fingerprint: string
 }
