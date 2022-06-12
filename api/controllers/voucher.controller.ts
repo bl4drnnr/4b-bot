@@ -25,7 +25,8 @@ export const generateVoucher = async (req: Request, res: Response) => {
 
 export const redeemVoucher = async (req: Request, res: Response) => {
     try {
-         
+        const result = await voucherService.redeemVoucher(req.body.voucher, req.body.userid);
+        return res.json(result);
     } catch (e) {
         logger.error(`Error while redeeming voucher => ${e}`);
         return res.json({ status: -1 });
