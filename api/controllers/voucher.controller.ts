@@ -16,7 +16,9 @@ export const getVouchersByClientId = async (req: Request, res: Response) => {
 
 export const generateVoucher = async (req: Request, res: Response) => {
     try {
-
+        const { userid, crypto, amount } = req.body;
+        const generatedVoucher = await voucherService.generateVoucher(userid, crypto, amount);
+        return res.json(generatedVoucher);
     } catch (e) {
         logger.error(`Error while generating voucher => ${e}`);
         return res.json({ status: -1 });
