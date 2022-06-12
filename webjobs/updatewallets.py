@@ -26,11 +26,10 @@ def updateBalances():
 
         if balance["symbol"] == "BTCUSD":
             updatedBalance = getWalletAmountBtc(balance["wallet"])
-            
-        updatedBalances.append({
-            "id": balance["id"],
-            "amount": updatedBalance["balance"]
-        })
+            updatedBalances.append({
+                "id": balance["id"],
+                "amount": updatedBalance["balance"] / 1e8
+            })
         
     return updateWallets({'wallets': updatedBalances})
 
