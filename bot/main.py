@@ -49,8 +49,9 @@ def menucmd(message):
                   f"<a>/history</a> - get history of your wallet\n " \
 
     markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/contact"))
+    markup.add(types.InlineKeyboardButton("/getpair"))
+    markup.add(types.InlineKeyboardButton("/mywallets"))
     return bot.send_message(message.chat.id, menuMessage, reply_markup=markup, parse_mode="html")
 
 

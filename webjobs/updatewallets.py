@@ -29,3 +29,6 @@ def updateBalances():
         })
         
     updateWallets({'wallets': updatedBalances})
+
+
+updateBalances()
