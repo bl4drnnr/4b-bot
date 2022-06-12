@@ -18,6 +18,7 @@ export const getUserById = async (userid: string) => {
     }
 };
 
+// @TODO Here is error, encription of id twice
 export const createUser = async (user: IUser) => {
     try {
         const encryptedId = securityService.encrypt(user.userid);

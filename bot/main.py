@@ -101,7 +101,7 @@ def exchangecryptocmd(message):
 
 @bot.message_handler(commands=["generatevoucher"])
 def generatevouchercmd(message):
-    generateVoucherMessage = "To generate voucher please provide command in this format:\n\n" \
+    generateVoucherMessage = "To generate voucher provide command in this format:\n\n" \
                              "\gv Crypto Amount\n" \
                              "<b>Example:</b> \gv BTC 0.0001"
     
@@ -114,7 +114,9 @@ def generatevouchercmd(message):
 
 @bot.message_handler(commands=["redeemvoucher"])
 def redeemvouchercmd(message):
-    redeemVoucherMessage = ""
+    redeemVoucherMessage = "To redeem voucher provide command in this format:\n\n" \
+                           "\\rv Voucher\n" \
+                           "<b>Example:</b> \\rv 5CAE73AB2667FA99B5077EDA4353E85A"
 
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
@@ -245,13 +247,18 @@ def manualhandlermessage(message):
         if userMessage not in commands:
             userMessage = "/menu"
             return bot.send_message(message.chat.id, "Are you sure about this command?\n\nSee menu to get all possible commands", reply_markup=markup)
-    elif userMessage[0:3] == "\w ":
+    elif userMessage[0:3] == "\W ":
         withdrawalCrypto({})
     elif userMessage[0:4] == "\GV ":
         generateVoucher({
-            "userid": message.chat.id,
+            "userid": str(message.chat.id),
             "crypto": userMessage.split()[0],
             "amount": userMessage.split()[1]
+        })
+    elif userMessage[0:4] == "\RV ":
+        redeemVoucher({
+            "userid": str(message.chat.id),
+            "voucher": userMessage.split()[1]
         })
     else:
         # Looking for pair
