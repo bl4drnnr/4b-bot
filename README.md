@@ -31,3 +31,7 @@ Those functionalities have been implemented with 2 API's:
 - `blockchair` API - for updating wallets' amounts
 
 Bot is absolutely anonymous. Unique telegram user ID is hashed with SHA512 and salt.
+
+#### Future plans
+
+- Use self-created crypto nodes instead of `blockchair` API.
