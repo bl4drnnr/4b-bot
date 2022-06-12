@@ -8,7 +8,7 @@ export const getVouchersByClientId = async (userid: string) => {
     return await knex("vouchers")
         .where("userid", userid)
         .leftJoin("crypto", "crypto.id", "vouchers.currencyid")
-        .select("vouchers.amount", "vouchers.codeenc", "crypto.symbol")
+        .select("vouchers.amount", "vouchers.userid", "vouchers.codeenc", "vouchers.createdat", "crypto.symbol")
 };
 
 export const generateVoucher = async () => {

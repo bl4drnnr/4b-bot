@@ -1,6 +1,7 @@
 import * as voucherRepository from "../repositories/voucher.repository";
 import * as securityService from "./security.service";
 import * as userService from "./user.service";
+import { IVoucher } from "../interfaces/voucher.interface";
 
 import loggerConfig from "../common/logger";
 
@@ -22,8 +23,8 @@ export const getVouchersByClientId = async (userid: string) => {
         const encryptedVouchers = await voucherRepository.getVouchersByClientId(encryptedId)
 
         logger.info(`Decrypting vouchers for user: ${encryptedId}`);
-        encryptedVouchers.forEach((voucher: object) => {
-            // voucher.codeenc = securityService.decrypt(codeenc)
+        encryptedVouchers.forEach((voucher: IVoucher) => {
+            voucher.codeenc = securityService.decryptVoucher(voucher.codeenc, voucher.createdat.toString(), voucher.userid)
         });
     } catch (error: any) {
         logger.error(`error-while-getting-clients-vouchers => ${error}`);
