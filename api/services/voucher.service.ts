@@ -11,9 +11,13 @@ const logger = loggerConfig({ label: "voucher-service", path: "vouchers" });
 
 export const getVouchersByClientId = async (userid: string) => {
     try {
-        const encryptedId = securityService.encrypt(userid);
-        logger.info(`Getting vouchers for user: ${encryptedId}`);
-        const encryptedVouchers = await voucherRepository.getVouchersByClientId(encryptedId);
+        const user = await userService.getUserById(userid);
+        if (!user) {
+            logger.warn(`There is no such user...`)
+            return { status: -1 }
+        }
+        logger.info(`Getting vouchers for user: ${user.userid}`);
+        const encryptedVouchers = await voucherRepository.getVouchersByClientId(user.userid);
 
         return encryptedVouchers;
     } catch (error: any) {
@@ -24,10 +28,14 @@ export const getVouchersByClientId = async (userid: string) => {
 
 export const generateVoucher = async (userid: string, crypto: string, amount: string) => {
     try {
-        const encryptedId = securityService.encrypt(userid.toString());
-        const encriptionString = moment().unix().toString() + encryptedId + crypto + amount;
+        const user = await userService.getUserById(userid);
+        if (!user) {
+            logger.warn(`There is no such user: ${userid}`)
+            return { status: -1 }
+        }
+        const encriptionString = moment().unix().toString() + user.userid + crypto + amount;
 
-        logger.info(`Generating voucher by user ${encryptedId} for ${amount} and ${crypto}`);
+        logger.info(`Generating voucher by user ${user.userid} for ${amount} and ${crypto}`);
 
         const encryptedVoucher = securityService.encrypt(encriptionString);
         const encryptedVoucherFingerprint = securityService.voucherHash(
@@ -41,7 +49,7 @@ export const generateVoucher = async (userid: string, crypto: string, amount: st
             codeenc: securityService.encrypt(encryptedVoucher).slice(0, 32).toUpperCase(),
             fingerprint: encryptedVoucherFingerprint,
             currencyid: currency.id,
-            userid: encryptedId
+            userid: user.userid
         });
     } catch (error: any) {
         logger.error(`error-while-generating-voucher => ${error}`);

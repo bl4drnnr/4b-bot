@@ -1,9 +1,9 @@
 const knex = require("../src/db/knex.js");
 import { IBalance } from "../interfaces/balance.interface";
 
-export const getClientBalancesById = async (id: string) => {
+export const getClientBalancesById = async (userid: string) => {
     return await knex("balances")
-        .where("userid", id)
+        .where("userid", userid)
         .leftJoin("crypto", "crypto.id", "balances.currencyid")
         .select("balances.wallet", "balances.amount", "crypto.symbol");
 };
@@ -22,13 +22,13 @@ export const updateBalance = async (balance: IBalance) => {
     return await knex("balances").update(balance).where("id", balance.id);
 };
 
-export const getAllPendingWithdrawals = async (id: string) => {
+export const getAllPendingWithdrawals = async (userid: string) => {
     return await knex("withdrawalqueue")
-        .where("userid", id)
+        .where("userid", userid)
         .andWhere("status", "pending")
         .select("*").orderBy("createdat", "desc");
 };
 
-export const getHistory = async (id: string) => {
-    return await knex("withdrawalqueue").where("userid", id).select("*").orderBy("createdat", "desc");
+export const getHistory = async (userid: string) => {
+    return await knex("withdrawalqueue").where("userid", userid).select("*").orderBy("createdat", "desc");
 };
