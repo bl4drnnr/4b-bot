@@ -19,7 +19,15 @@ Telegram bot that has been created using telegram API with Python `pyTelegramBot
 
 ### Functional description
 
-There are a couple of functionalities that have been implemented and that allow user to own and manage his own crypto wallets. Bot is using 2 API's:
+There are a couple of functionalities that have been implemented and that allow user to own and manage his own crypto wallets:
 
+- Deposit - user can just deposit crypto on generated wallets
+- Withdrawal - user can make withdrawal from his internal wallet to external
+- Swap (Exchange) - user can exchange crypto by current rates
+- Voucher - user can generate voucher on provided amount with provided crypto and sent it to some other user, then, this voucher can be reedemed and receiver can get crypto on his internal wallet
+
+Those functionalities have been implemented with 2 API's:
 - `bybit` API - for getting crypto rates
 - `blockchair` API - for updating wallets' amounts
+
+Bot is absolutely anonymous. Unique telegram user ID is hashed with SHA512 and salt.
