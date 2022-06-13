@@ -133,7 +133,7 @@ def myvoucherscmd(message):
     for voucher in vouchers:
         myVouchersMessage += f"----------------\nCrypto: {voucher['symbol']}\nAmount: {voucher['amount']}\nVoucher: `{voucher['codeenc']}`\n"
 
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     markup.add(types.InlineKeyboardButton("/generatevoucher"))
     markup.add(types.InlineKeyboardButton("/redeemvoucher"))

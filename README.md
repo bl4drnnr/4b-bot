@@ -15,7 +15,7 @@
 
 ### Technical description
 
-Telegram bot that has been created using telegram API with Python `pyTelegramBotAPI`. The communication beteen telegram bot and API has been implemented with `requests` package on bot side and `Express.js` HTTP server by server side (REST API). As database was used `postgresql` and `knex.js` as query builder (communication with database functionality was implemented with `JavaScript`, not `TypeScript`, as the rest of the project). 
+Telegram bot that has been created using telegram API with Python - `pyTelegramBotAPI`. The communication beteen telegram bot and API has been implemented with `requests` package on bot side and `Express.js` HTTP server by server side (REST API). As database was used `postgresql` and `knex.js` as query builder (communication with database functionality was implemented with `JavaScript`, not `TypeScript`, as the rest of the project). 
 
 ### Functional description
 
