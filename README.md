@@ -15,7 +15,7 @@
 
 ### Technical description
 
-Telegram bot that has been created using telegram API with Python `pyTelegramBotAPI`. The communication beteen telegram bot and API has been implemented with `requests` package on bot side and `Express.js` HTTP server by server side. As database was used `postgresql` and `knex.js` as query builder (communication with database functionality was implemented with `JavaScript`, not `TypeScript`, as the rest of the project). 
+Telegram bot that has been created using telegram API with Python `pyTelegramBotAPI`. The communication beteen telegram bot and API has been implemented with `requests` package on bot side and `Express.js` HTTP server by server side (REST API). As database was used `postgresql` and `knex.js` as query builder (communication with database functionality was implemented with `JavaScript`, not `TypeScript`, as the rest of the project). 
 
 ### Functional description
 
@@ -30,7 +30,7 @@ Those functionalities have been implemented with 2 API's:
 - `bybit` API - for getting crypto rates
 - `blockchair` API - for updating wallets' amounts
 
-Bot is absolutely anonymous. Unique telegram user ID is hashed with SHA512 and salt.
+Bot is absolutely anonymous. Unique telegram user ID is crypted with AES256CBC.
 
 #### Future plans
 
