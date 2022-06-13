@@ -133,10 +133,8 @@ def myvoucherscmd(message):
     for voucher in vouchers:
         myVouchersMessage += f"----------------\nCrypto: {voucher['symbol']}\nAmount: {voucher['amount']}\nVoucher: `{voucher['codeenc']}`\n"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/generatevoucher"))
-    markup.add(types.InlineKeyboardButton("/redeemvoucher"))
+    keyboard = [[types.InlineKeyboardButton("< Go back", callback_data='hide_vouchers')]]
+    markup = types.InlineKeyboardMarkup(keyboard)
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="markdown")
 
 
@@ -233,6 +231,9 @@ def commandshandlebtn(call):
             return menucmd(call.message)
         else:
             return defaulterrormessage(call.message)
+    elif userMessage == "hide_vouchers":
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text='подкатегория')
 
 
 @bot.message_handler(content_types=["text"])
