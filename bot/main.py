@@ -232,8 +232,7 @@ def commandshandlebtn(call):
         else:
             return defaulterrormessage(call.message)
     elif userMessage == "hide_vouchers":
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                              text='подкатегория')
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Some text, for example')
 
 
 @bot.message_handler(content_types=["text"])
