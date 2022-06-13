@@ -117,7 +117,7 @@ def myvoucherscmd(message):
     for voucher in vouchers:
         myVouchersMessage += f"----------------\nCrypto: {voucher['symbol']}\nAmount: {voucher['amount']}\nVoucher: `{voucher['codeenc']}`\n"
 
-    keyboard = [[types.InlineKeyboardButton("< Go back", callback_data='hide_vouchers')]]
+    keyboard = [[types.InlineKeyboardButton("Hide vouchers", callback_data='hide_vouchers')]]
     markup = types.InlineKeyboardMarkup(keyboard)
     return bot.send_message(message.chat.id, myVouchersMessage, reply_markup=markup, parse_mode="markdown")
 
@@ -281,7 +281,7 @@ def defaulterrormessage(chatid):
 
 
 def getmenumarkup(username):
-    menuMessage = f"Welcome, <u>{username}</u>, let's start!\n\n" \
+    return f"Welcome, <u>{username}</u>, let's start!\n\n" \
                   f"What are we gonna do?\n\n" \
                   f"<b><i>Crypto</i></b>\n\n" \
                   f"<a>/getpair</a> - get crypto pair rate (<i>to USDT only, for now</i>)\n" \
@@ -289,7 +289,7 @@ def getmenumarkup(username):
                   f"<a>/sellcrypto</a> - sell crypto for USDT\n" \
                   f"<a>/exchangecrypto</a> - Crypto-To-Crypto exchange\n\n" \
                   f"<b><i>Vouchers</i></b>\n\n" \
-                  f"<a>/myvouchers</a> - show all your vouchers <b>!DELETE MESSAGE AFTER!</b>\n" \
+                  f"<a>/myvouchers</a> - show all your vouchers\n" \
                   f"<a>/generatevoucher</a> - generate voucher and send it to someone\n" \
                   f"<a>/redeemvoucher</a> - redeem voucher and get crypto on your wallet\n\n" \
                   f"<b><i>Wallets</i></b>\n\n" \
@@ -297,8 +297,6 @@ def getmenumarkup(username):
                   f"<a>/deposit</a> - deposit crypto\n" \
                   f"<a>/withdrawal</a> - withdrawal crypto\n" \
                   f"<a>/history</a> - get history of your wallet\n " \
-
-    return menuMessage
 
 
 if __name__ == "__main__":
