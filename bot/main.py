@@ -32,10 +32,7 @@ def menucmd(message):
         return startcmd(message)
 
     menuMessage = getmenumarkup(message.chat.first_name)
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/contact"))
-    markup.add(types.InlineKeyboardButton("/getpair"))
-    markup.add(types.InlineKeyboardButton("/mywallets"))
+    markup = getkeyboardmarkup(["/contact", "/getpair", "/mywallets"])
     return bot.send_message(message.chat.id, menuMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -102,10 +99,7 @@ def redeemvouchercmd(message):
                            "\\rv Voucher\n" \
                            "<b>Example:</b> \\rv 5CAE73AB2667FA99B5077EDA4353E85A"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/generatevoucher"))
-    markup.add(types.InlineKeyboardButton("/myvouchers"))
+    markup = getkeyboardmarkup(["/menu", "/generatevoucher", "/myvouchers"])
     return bot.send_message(message.chat.id, redeemVoucherMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -130,11 +124,7 @@ def mywalletscmd(message):
     for wallet in wallets:
         myWalletsMessage += f"----------------\nCrypto: {wallet['symbol'][:-3]}\nAmount: {wallet['amount']}\nWallet: `{wallet['wallet']}`\n"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/deposit"))
-    markup.add(types.InlineKeyboardButton("/withdrawal"))
-    markup.add(types.InlineKeyboardButton("/history"))
+    markup = getkeyboardmarkup(["/menu", "/deposit", "/withdrawal", "/history"])
     return bot.send_message(message.chat.id, myWalletsMessage, reply_markup=markup, parse_mode="markdown")
 
 
@@ -146,10 +136,7 @@ def depositcmd(message):
     for wallet in wallets:
         depositMessage += f"----------------\nCrypto: <b>{wallet['symbol'][:-3]}</b>\nWallet: <u>{wallet['wallet']}</u>\n"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/withdrawal"))
-    markup.add(types.InlineKeyboardButton("/mywallets"))
+    markup = getkeyboardmarkup(["/menu", "/withdrawal", "/mywallets"])
     return bot.send_message(message.chat.id, depositMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -168,10 +155,7 @@ def withdrawalcmd(message):
         "Or provide message in this format: <b>\w Crypto Amount Destination</b>\n" \
         "Example: \w BTC 0.00008 mwR1LkQVXJ6fWYcTKmtQRPfV6a8o6883XE"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/deposit"))
-    markup.add(types.InlineKeyboardButton("/mywallets"))
+    markup = getkeyboardmarkup(["/menu", "/deposit", "/mywallets"])
     return bot.send_message(message.chat.id, withdrawalMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -185,10 +169,7 @@ def historycmd(message):
     else:
         historyMessage += ""
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/deposit"))
-    markup.add(types.InlineKeyboardButton("/withdrawal"))
+    markup = getkeyboardmarkup(["/menu", "/deposit", "/withdrawal"])
     return bot.send_message(message.chat.id, historyMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -196,10 +177,7 @@ def historycmd(message):
 def contactcmd(message):
     contactMessage = "In case if you have any questions, please text here:\n\nContact email: bl4drnnr@protonmail.com\nPGP: 8773E25F4E5B06F60AD9A04151E343BA669AD317"
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("/menu"))
-    markup.add(types.InlineKeyboardButton("/getpair"))
-    markup.add(types.InlineKeyboardButton("/mywallets"))
+    markup = getkeyboardmarkup(["/menu", "/getpair", "/mywallets"])
     return bot.send_message(message.chat.id, contactMessage, reply_markup=markup, parse_mode="html")
 
 
@@ -278,6 +256,15 @@ def defaulterrormessage(chatid):
     markup = types.ReplyKeyboardMarkup()
     markup.add(types.InlineKeyboardButton("/menu"))
     return bot.send_message(chatid, errorMessage, parse_mode="html") 
+
+
+def getkeyboardmarkup(items):
+    markup = types.ReplyKeyboardMarkup()
+
+    for item in items:
+        markup.add(types.InlineKeyboardButton(item))
+
+    return markup
 
 
 def getmenumarkup(username):
