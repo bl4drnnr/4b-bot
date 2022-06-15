@@ -34,7 +34,7 @@ Those functionalities have been implemented with 2 API's:
 - `bybit` API - for getting crypto rates
 - `blockchair` API - for updating wallets' amounts
 
-Bot is absolutely anonymous. Unique telegram user ID is crypted with AES256CBC.
+Bot is absolutely anonymous. Unique Telegram user ID is crypted with AES256CBC.
 
 #### Future plans
 
