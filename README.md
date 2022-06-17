@@ -34,4 +34,4 @@ Those functionalities have been implemented with 2 API's:
 - `bybit` API - for getting crypto rates
 - `blockchair` API - for updating wallets' amounts
 
-Bot is absolutely anonymous. Unique telegram user ID is crypted with AES256CBC.
+Bot is absolutely anonymous. Unique telegram user ID is crypted with AES256CBC. This function will be replaced with hash later if there is no use for it. In plans was to create alarms for prices, and after price hits trigger, user could receive notification, and for notifing user it was using telegram user ID (or chat ID).
